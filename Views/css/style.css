@@ -1,0 +1,156 @@
+.resultado_login{
+    display: none;
+    float: right;
+    padding: 20px 20px;
+    margin-bottom: 30px;
+    background-color: red;
+    color: #fff;
+    font-size: 1.4em;
+    border-radius: 10px;
+}
+.fundo-login{
+    background-color: #404040;
+    border-color: #404040;
+    align-self: center;
+    width: 40%;
+    border-radius: 10px;
+    color: white;
+}
+
+.rodape-login{
+    color: black;
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    height: 200px;
+}
+
+.pf_load{
+    display: none;
+    padding-left: 200px;
+}
+
+.btn-success{
+    width: 150px;
+}
+
+.btn-danger{
+    width: 150px;
+}
+
+.btn-warning{
+    width: 150px;
+}
+
+.btn-primary{
+    width: 150px;
+}
+
+.btn-default{
+    width: 150px;
+}
+
+.alert-success{
+    display: none;
+}
+
+.alert-warning{
+    display: none;
+}
+
+.alert-danger{
+    display: none;
+}
+.alert-info{
+    display: none;
+}
+
+.obrigatorios{
+    color: red;
+}
+
+ /*Estilos dos botões*/
+.open-modal-create{
+    
+}
+
+.close-modal-create{
+    
+}
+
+.open-modal-update{
+    width: 50px;
+}
+
+.open-delete{
+    width: 50px;
+}
+
+.open-imprimir{
+    width: 50px;
+}
+
+.relatorio-geral{
+    
+}
+
+.comprovante-mensalidade{
+    display: none;
+}
+
+.close-modal-create{
+    display: none;
+ /* border-radius: 50%; */
+    width: 40px;
+}
+
+.close-modal-update{
+    display: none;
+ /* border-radius: 50%; */
+    width: 40px;
+}
+
+.close-modal-agenda{
+    display: none;
+    width: 40px;
+}
+
+.close-modal-pagamento{
+    display: none;
+    width: 40px;
+}
+/* Estilos das modals de Create e Update */
+.modal-create{
+    display: none;
+    background-color: #f2f2f2;
+}
+
+.modal-update{
+    display: none;
+    background-color: #f2f2f2;
+}
+
+.modal-agenda{
+    display: none;
+    background-color: #f2f2f2;
+}
+
+.pagar-mensalidade{
+    display: none;
+    background-color: #f2f2f2;
+}
+
+.login{
+    background-color: white;
+    color: black;
+}
+
+.modals{
+    margin-left: 210px;
+}
+
+.modals{
+    margin-left: 210px;
+}
+
+

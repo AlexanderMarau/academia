@@ -1,0 +1,30 @@
+
+
+.menu{
+    position: fixed;
+    margin-left: -18px;
+    height: 100%;
+}
+
+.home-menu{
+    background-color: #ff4d4d;
+    font-size: 20px;
+    margin-top: -200px;
+    width: 180px;
+}
+
+.itens-menu{
+
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.link-menu{
+    margin-left: 50px;
+}
+.sair-menu{
+    position: fixed;
+    font-size: 16px;
+    margin-top: 300px;
+    width: 168px;
+}
