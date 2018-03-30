@@ -11,7 +11,7 @@ endif;
 <!-- Wrapper for slides -->
 <div class="col-md-10 modals">
     <br>
-    <h2>Academia Performance Fit</h2>
+    <h2 style="color: red;">Academia Performance Fit</h2>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
