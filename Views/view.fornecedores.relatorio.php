@@ -13,79 +13,70 @@ require 'Relatorios/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
-$html = "        <head>    
-                <meta charset='UTF-8'>
-                <title>Relátorio de Fornecedores</title>
-                <style>
-                 table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;
-}          </style>
-            </head>
-
-            <h1>Performance Academia</h1>
-
-            <h2>Relátorio de Fornecedores</h2>
-            
-            <table  style='width:100%'>";
+$html = "<link rel='stylesheet' type='text/css' href='../_cdn/bootstrap/css/bootstrap.min.css'>
+	<table class='table' style='background-color: #99ccff;'>
+		<tr>
+			<th>
+				<img style='width: 220px; height: 200px;' src='img/logoAcademia.png'>
+			</th>
+			<th style='width: 100%; background-color: #99ccff;'>
+				<div style='color: white;'>
+					<p>Academia Performance Fit</p>
+					<p>Endereço:Rua Dr. Soares QD. 05, LT. 48</p>
+					<p>Bairro: Colina Azul</p>
+					<p>Municipio: Aparecida de Goiânia GO CEP 00000-000</p>
+				</div>	
+				<div style='margin-top: 20px; font-size: 30px; color: black;'> 
+					<label>Relatório de Fornecedores</label>
+				</div>			
+			</th>
+		</tr>
+	</table>
+        <table style=' font-size: 10px;' class='table table-striped'>
+		<thead style='background-color: black; font-size: 12px;'>
+			<tr style='color: white;'>
+				<th>ID</th>
+				<th>Nome</th>
+				<th>CNPJ/CPF</th>
+				<th>Nome fantasia</th>
+				<th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Estado</th>
+                                <th>Cidade</th>
+                                <th>Complemento do endereço</th>
+			</tr>
+		</thead>
+";
 
 foreach ($RelatorioFornecedores->getResult() as $e):
 
     extract($e);
-    $html .= "<tr>"
-            . "<th>ID</th>"
-            . "<td>{$idfornecedores}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Nome</th>"
-            . "<td>{$nome_forn}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>CNPJ/CPF</th>"
-            . "<td>{$cnpj_cpf_forn}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Nome fantasia</th>"
-            . "<td>{$nome_fantasia_forn}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>E-mail</th>"
-            . "<td>{$email_forn}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Telefone</th>"
-            . "<td>{$telefone_forn}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Estado</th>"
-            . "<td>{$desc_estado}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Cidade</th>"
-            . "<td>{$desc_cidade}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Complemento do Endereço</th>"
-            . "<td>{$complementos_forn}</td>"
-            . "</tr>"
-            . "<tr style='background-color: red;'>"
-            . "<th></th>"
-            . "<td></td>"
-            . "</tr>";
+    $html .= "<tbody>
+			<tr>
+				<td>{$idfornecedores}</td>
+				<td>{$nome_forn}</td>
+				<td>{$cnpj_cpf_forn}</td>
+				<td>{$nome_fantasia_forn}</td>
+				<td>{$email_forn}</td>
+                                <td>{$telefone_forn}</td>
+                                <td>{$desc_estado}</td>
+                                <td>{$desc_cidade}</td>
+                                <td>{$complementos_forn}</td>
+			</tr>
+	</tbody>
+";
 endforeach;
 
-$html .= "</table>";
+$html .= "</table>
+        <script type='text/javascript' src='../_cdn/bootstrap/js/bootstrap.min.css'></script>
+";
 
 
 $dompdf = new Dompdf();
 
 $dompdf->loadHtml($html);
 
-$dompdf->set_paper('a4');
+$dompdf->set_paper('a4', 'landscape');
 
 $dompdf->render();
 

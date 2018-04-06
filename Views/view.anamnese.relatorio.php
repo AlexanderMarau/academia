@@ -17,120 +17,132 @@ require 'Relatorios/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
-$html = "        <head>    
-                <meta charset='UTF-8'>
-                <title>Relátorio de Anamnese</title>
-                <style>
-                 table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;
-}          </style>
-            </head>
-
-            <h1>Performance Academia</h1>
-
-            <h2>Relátorio de Anamnese do Aluno</h2>
-            
-<table  style='width:100%'>";
+$html = "
+    <link rel='stylesheet' type='text/css' href='../_cdn/bootstrap/css/bootstrap.min.css'>
+    <style>
+        .relatorio th{
+            color: black;
+            font-size: 12px;
+            width: 200px;
+            background-color: #99ccff;
+        }
+        .relatorio td{
+            color: black;
+            width: 450px;
+        }
+    </style>
+    <table class='table' style='background-color: #99ccff;'>
+        <tr class='relatorio'>
+            <th>
+                <img style='width: 200px; height: 200px;' src='img/logoAcademia.png'>
+            </th>
+            <th style='width: 400px; background-color: #99ccff;'>
+                <div style='color: white;'>
+                    <p>Academia Performance Fit</p>
+                    <p>Endereço: Rua Dr Soares QD 05, LT 48</p>
+                    <p>Bairro: Colina Azul</p>
+                    <p>Municipio: Aparecida de Goiânia GO CEP 00000-000</p>
+                </div>	
+                <div style='margin-top: 15px; font-size: 30px; color: black;'> 
+                    <label>Relatório de Anamnese</label>
+                </div>			
+            </th>
+        </tr>
+    </table>
+    <table style='background-color: whitesmoke; font-size: 12px;' class='table'>
+";
 
 foreach ($RelatorioAnamnese->getResult() as $e):
     extract($e);
-
-    $html .= "<tr>"
+    $html .= "<tr class='relatorio'>"
             . "<th>ID</th>"
             . "<td>{$idanamneses}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Matricula do Aluno</th>"
             . "<td>{$nome_aluno}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Peso</th>"
             . "<td>{$peso_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Altura</th>"
             . "<td>{$altura_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>IMC</th>"
             . "<td>{$imc_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Medida do Pescoço</th>"
             . "<td>{$pescoco_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Largura dos Ombros</th>"
             . "<td>{$ombro_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Largura do Torax</th>"
             . "<td>{$torax_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Largura do Addome</th>"
             . "<td>{$abdome_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Largura da Cintura</th>"
             . "<td>{$cintura_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Largura do Quadril</th>"
             . "<td>{$quadril_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Braço direito</th>"
             . "<td>{$bd_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Braço esquerdo</th>"
             . "<td>{$be_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Braço direito contraido</th>"
             . "<td>{$bdc_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Braço esquerdo contraido</th>"
             . "<td>{$bec_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Antebraço esquerdo contraido</th>"
             . "<td>{$aec_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Antebraço direito contraido</th>"
             . "<td>{$adc_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Coxa esquerda</th>"
             . "<td>{$ce_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Coxa direita</th>"
             . "<td>{$cd_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Panturilha esquerda</th>"
             . "<td>{$pe_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Panturilha direita</th>"
             . "<td>{$pd_anamnese}</td>"
             . "</tr>"
-            . "<tr>"
+            . "<tr class='relatorio'>"
             . "<th>Observações</th>"
             . "<td>{$obs_anamnese}</td>"
             . "</tr>";
 endforeach;
-
-$html .= "</table>";
 
 $dompdf = new Dompdf();
 
