@@ -1,9 +1,9 @@
 <?php
 session_start();
 ?>
-<link rel="stylesheet" href="../_cdn/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="../_cdn/jquery.min.js">
-<link rel="stylesheet" href="../_cdn/bootstrap/js/bootstrap.min.js">
+<!-- <link rel="stylesheet" href="../_cdn/bootstrap/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="../_cdn/jquery.min.js"> -->
+<!-- <link rel="stylesheet" href="../_cdn/bootstrap/js/bootstrap.min.js"> -->
 <!--INÍCIO DAS MENSAGENS:-->
 <div class="resultado_login animated zoomInRight">
     Resultado
