@@ -1,15 +1,11 @@
 <?php
 session_start();
 ?>
-<<<<<<< HEAD
+
 <!-- <link rel="stylesheet" href="../_cdn/bootstrap/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="../_cdn/jquery.min.js"> -->
 <!-- <link rel="stylesheet" href="../_cdn/bootstrap/js/bootstrap.min.js"> -->
-=======
-<link rel="stylesheet" href="../_cdn/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="../_cdn/jquery.min.js">
-<link rel="stylesheet" href="../_cdn/bootstrap/js/bootstrap.min.js">
->>>>>>> f53da4e9b60a9df44ef04175879b018df0d0b12a
+
 <!--INÍCIO DAS MENSAGENS:-->
 <div class="resultado_login animated zoomInRight">
     Resultado
