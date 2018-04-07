@@ -1,0 +1,43 @@
+.inicio{
+	display: table-header-group;
+
+}
+
+.fim{
+	display: table-footer-group;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+.table-itens{
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.table-itens th{
+    background-color: #bfbfbf;
+}
+
+.table-valor{
+    background-color: #bfbfbf;
+}
+
+.table-nota{
+    background-color: #bfbfbf;
+}
+
+p{
+    font-family: Arial;
+    font-size: 10px;
+}
+
+th{
+    font-family: Arial;
+    font-size: 10px;
+}
