@@ -32,7 +32,6 @@
         <script src="_cdn/jquery.js"></script>
         <script src="_cdn/jquery.min.js"></script>
         <script src="_cdn/jquery.mask.min.js"></script>
-        <!--<script src="_cdn/bootstrap-4.0/js/bootstrap.min.js"></script>-->
         <script src="_cdn/bootstrap/js/bootstrap.min.js"></script>
         <script src="_cdn/mascara.js"></script>
         <script src="_cdn/console.geral.js"></script>
