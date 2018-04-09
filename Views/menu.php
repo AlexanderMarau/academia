@@ -19,6 +19,7 @@
             <li style="margin-top: 10px; width: 100%;">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-align-justify"></i> Mensalidades</a>
                 <ul  style="background-color: white;" class="dropdown-menu">
+                    <li><a href="view.historico.mens">Histórico do Aluno</a></li>
                     <li><a href="view.mensalidade">Mensalidades</a></li>
                     <li><a href="view.planos">Planos</a></li>
                 </ul>
@@ -26,7 +27,6 @@
             <li style="margin-top: 10px; width: 100%;">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-align-justify"></i> Treinamentos</a>
                 <ul  style="background-color: white;" class="dropdown-menu">
-                    <li><a href="#">Agenda de treinos</a></li>
                     <li><a href="view.exercicios">Exercicios</a></li>
                     <li><a href="view.treino">Treinos</a></li>
                 </ul>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Nov-2017 às 17:14
--- Versão do servidor: 10.1.25-MariaDB
--- PHP Version: 5.6.31
+-- Generation Time: 09-Abr-2018 às 02:40
+-- Versão do servidor: 10.1.28-MariaDB
+-- PHP Version: 5.6.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -94,10 +94,9 @@ CREATE TABLE `anamneses` (
 --
 
 INSERT INTO `anamneses` (`idanamneses`, `idalunos_cliente`, `peso_anamnese`, `altura_anamnese`, `imc_anamnese`, `pescoco_anamnese`, `ombro_anamnese`, `torax_anamnese`, `abdome_anamnese`, `cintura_anamnese`, `quadril_anamnese`, `bd_anamnese`, `be_anamnese`, `bec_anamnese`, `bdc_anamnese`, `aec_anamnese`, `adc_anamnese`, `ce_anamnese`, `cd_anamnese`, `pe_anamnese`, `pd_anamnese`, `obs_anamnese`) VALUES
-(1, 1, 90, 1.7, 31, 12, 12, 12, 12, 12, 12, 12, 12, 12, 22, 22, 22, 22, 22, 22, 22, '0'),
+(1, 1, 90, 1.7, 31, 12, 12, 12, 12, 12, 12, 12, 12, 12, 22, 22, 22, 22, 22, 22, 22, 'teste teste testes teste test teste teste testes testes testes teste teste testes teste test teste teste testes testes testes'),
 (2, 2, 90, 1, 26, 20, 20, 20, 20, 20, 20, 20, 20, 89, 20, 20, 20, 20, 20, 20, 20, '90'),
-(3, 3, 120, 12, 12, 12, 21, 22, 22, 12, 12, 12, 21, 21, 12, 12, 12, 21, 12, 12, 21, '0'),
-(5, 4, 79, 1.8, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, '0');
+(3, 3, 120, 12, 12, 12, 21, 22, 22, 12, 12, 12, 21, 21, 12, 12, 12, 21, 12, 12, 21, '0');
 
 -- --------------------------------------------------------
 
@@ -5899,14 +5898,14 @@ CREATE TABLE `estoq_prod` (
 --
 
 INSERT INTO `estoq_prod` (`idestoques`, `idprodutos`, `quant_entrada`, `quant_saida`, `quant_estoque`) VALUES
-(1, 1, 0, 0, 448),
-(2, 2, 0, 0, 100),
-(3, 4, 0, 0, 100),
-(4, 5, 0, 0, 295),
-(5, 6, 0, 0, 90),
-(6, 7, 0, 0, 1000),
-(7, 8, 0, 0, 90),
-(8, 9, 0, 0, NULL);
+(1, 1, 0, 0, 86),
+(2, 2, 0, 0, 94),
+(3, 4, 0, 0, 95),
+(4, 5, 0, 0, 95),
+(5, 6, 0, 0, 99),
+(6, 7, 0, 0, 99),
+(7, 8, 0, 0, 100),
+(8, 9, 0, 0, 100);
 
 -- --------------------------------------------------------
 
@@ -6053,6 +6052,20 @@ INSERT INTO `funcionarios` (`idfuncionarios`, `idendereco_func`, `nome_func`, `n
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `historicos_mensalidades`
+--
+
+CREATE TABLE `historicos_mensalidades` (
+  `idhist_pag` int(11) NOT NULL,
+  `idalunos_cliente` int(11) NOT NULL,
+  `idplano` int(11) NOT NULL,
+  `data_mens_pag` date NOT NULL,
+  `valor_pag` decimal(8,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `itens_vendas`
 --
 
@@ -6060,9 +6073,25 @@ CREATE TABLE `itens_vendas` (
   `iditensvendas` int(11) NOT NULL,
   `idvendas` int(11) NOT NULL,
   `idprodutos` int(11) NOT NULL,
-  `qtd_itens` int(11) NOT NULL,
-  `valor_vendido` decimal(8,2) NOT NULL
+  `idestoques` int(11) NOT NULL,
+  `valor_prod` decimal(8,2) NOT NULL,
+  `qt_vendas` int(11) NOT NULL,
+  `valor_vendas` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `itens_vendas`
+--
+
+INSERT INTO `itens_vendas` (`iditensvendas`, `idvendas`, `idprodutos`, `idestoques`, `valor_prod`, `qt_vendas`, `valor_vendas`) VALUES
+(1, 1, 1, 1, '6.00', 2, '12.00'),
+(2, 1, 6, 5, '10.00', 1, '10.00'),
+(3, 2, 2, 2, '20.00', 3, '60.00'),
+(4, 2, 4, 3, '35.00', 5, '175.00'),
+(5, 3, 1, 1, '6.00', 12, '72.00'),
+(6, 4, 2, 2, '20.00', 3, '60.00'),
+(7, 5, 5, 4, '6.00', 5, '30.00'),
+(8, 5, 7, 6, '49.00', 1, '49.00');
 
 -- --------------------------------------------------------
 
@@ -6071,33 +6100,42 @@ CREATE TABLE `itens_vendas` (
 --
 
 CREATE TABLE `mensalidades` (
-  `idmensalidades` int(11) NOT NULL,
+  `idmensalidade` int(11) NOT NULL,
   `idalunos_cliente` int(11) NOT NULL,
+  `idplano` int(11) NOT NULL,
   `data_mens_pag` date NOT NULL,
-  `valor_mensalidades` decimal(8,2) NOT NULL,
-  `status_mensalidades` varchar(45) NOT NULL,
-  `obs_mensalidades` varchar(500) DEFAULT NULL
+  `status_mens` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `mensalidades`
 --
 
-INSERT INTO `mensalidades` (`idmensalidades`, `idalunos_cliente`, `data_mens_pag`, `valor_mensalidades`, `status_mensalidades`, `obs_mensalidades`) VALUES
-(1, 1, '2017-11-25', '50.00', 'Em dia', 'Não disponível'),
-(2, 2, '2017-11-05', '50.00', 'Pendente', 'Não Disponíveis'),
-(3, 3, '2017-11-11', '50.00', 'Em dia', 'Não há observações.'),
-(4, 4, '2017-11-11', '50.00', 'Pendente', 'Jose Pereira está com a mensalidade Pendente na academia.'),
-(5, 5, '2017-11-11', '45.00', 'Pendente', 'Nayara está com a mensalidade Pendente na academia.'),
-(6, 6, '2017-11-11', '45.00', 'Em dia', 'Meiriely esta em dia na academia.'),
-(7, 7, '2017-11-11', '55.00', 'Pendente', 'Caral está com a mensalidade Pendente na academia.'),
-(9, 5, '2017-11-19', '70.00', 'Em dia', 'Mensalidade de Novembro em dia.'),
-(10, 8, '2017-11-22', '33.00', 'Pendente', 'teste'),
-(11, 1, '2017-11-10', '70.00', 'Pendente', 'Mensalidade pendente do mês de novembro a 14 dias.'),
-(16, 2, '2017-11-24', '50.00', 'Em dia', 'Mensalidade do mês de novembro paga em dia.'),
-(17, 1, '2017-12-10', '50.00', 'Pendente', 'Mensalidade do mês de Dezembro pendente.'),
-(18, 3, '2017-12-16', '50.00', 'Pendente', 'mensalidade do mês de dezembro pendente.'),
-(19, 4, '2017-11-16', '45.00', 'Em dia', 'Pagamento já feito do dia 16/11/2017');
+INSERT INTO `mensalidades` (`idmensalidade`, `idalunos_cliente`, `idplano`, `data_mens_pag`, `status_mens`) VALUES
+(1, 1, 1, '2018-03-10', 'Em aberto');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `planos`
+--
+
+CREATE TABLE `planos` (
+  `idplano` int(11) NOT NULL,
+  `nome_plano` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo_plano` int(50) NOT NULL,
+  `valor_plano` decimal(8,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `planos`
+--
+
+INSERT INTO `planos` (`idplano`, `nome_plano`, `tipo_plano`, `valor_plano`) VALUES
+(1, 'Semanal', 7, '15.00'),
+(2, 'Mensal', 30, '60.00'),
+(3, 'Bimestral', 60, '120.00'),
+(4, 'Trimestral', 90, '180.00');
 
 -- --------------------------------------------------------
 
@@ -6136,6 +6174,19 @@ INSERT INTO `produtos` (`idprodutos`, `idcate_produto`, `idfornecedores`, `nome_
 (7, 2, 4, 'Bermuda Luta', 2, 'Branco', 'M', 38, 'Não possui', '2017-11-18', 'Bad Boy', 'Bad Boy Brasil', NULL, '49.00', 'Bermuda Luta Bad Boy.'),
 (8, 1, 4, 'TESTE', 20, 'azul', 'PP', 0, '0', '2017-11-23', 'TESTE', 'TESTe', '2017-11-23', '7.00', 'TESTE'),
 (9, 2, 6, 'TESTE 2', 80, 'vermelho', 'P', 0, '0', '2017-11-23', 'TESTE', 'TESTE', '2017-11-24', '50.00', 'TESTE');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `registros_catraca`
+--
+
+CREATE TABLE `registros_catraca` (
+  `idregistros_catraca` int(11) NOT NULL,
+  `idaluno_clientes` int(11) NOT NULL,
+  `hr_entrada_catraca` time NOT NULL,
+  `hr_saida_catraca` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -6202,9 +6253,20 @@ CREATE TABLE `vendas` (
   `idalunos_cliente` int(11) NOT NULL,
   `idusuario` int(11) NOT NULL,
   `data_venda` datetime NOT NULL,
-  `valor_total` int(11) NOT NULL,
+  `valor_total` decimal(8,2) NOT NULL,
   `itens_total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `vendas`
+--
+
+INSERT INTO `vendas` (`idvendas`, `idalunos_cliente`, `idusuario`, `data_venda`, `valor_total`, `itens_total`) VALUES
+(1, 7, 1, '2017-11-30 14:03:16', '22.00', 3),
+(2, 3, 1, '2017-11-30 14:57:23', '235.00', 8),
+(3, 1, 1, '2018-03-04 00:43:04', '72.00', 12),
+(4, 1, 1, '2018-04-07 14:47:36', '60.00', 3),
+(5, 4, 1, '2018-04-07 14:49:34', '79.00', 6);
 
 --
 -- Indexes for dumped tables
@@ -6302,19 +6364,35 @@ ALTER TABLE `funcionarios`
   ADD KEY `endereco_func_idx` (`idendereco_func`);
 
 --
+-- Indexes for table `historicos_mensalidades`
+--
+ALTER TABLE `historicos_mensalidades`
+  ADD PRIMARY KEY (`idhist_pag`),
+  ADD KEY `idalunos_idx` (`idalunos_cliente`),
+  ADD KEY `idplano_idx` (`idplano`);
+
+--
 -- Indexes for table `itens_vendas`
 --
 ALTER TABLE `itens_vendas`
   ADD PRIMARY KEY (`iditensvendas`),
   ADD KEY `vendas_idx` (`idvendas`),
-  ADD KEY `produto_idx` (`idprodutos`);
+  ADD KEY `produto_idx` (`idprodutos`),
+  ADD KEY `estoq_prod_fk` (`idestoques`);
 
 --
 -- Indexes for table `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  ADD PRIMARY KEY (`idmensalidades`),
-  ADD KEY `fk_mensalidades_alunos_cliente1_idx` (`idalunos_cliente`);
+  ADD PRIMARY KEY (`idmensalidade`),
+  ADD KEY `fk_mensalidades_alunos_cliente1_idx` (`idalunos_cliente`),
+  ADD KEY `plano_mensalidade_idx` (`idplano`);
+
+--
+-- Indexes for table `planos`
+--
+ALTER TABLE `planos`
+  ADD PRIMARY KEY (`idplano`);
 
 --
 -- Indexes for table `produtos`
@@ -6323,6 +6401,13 @@ ALTER TABLE `produtos`
   ADD PRIMARY KEY (`idprodutos`),
   ADD KEY `fk_produtos_cat_produto1_idx` (`idcate_produto`),
   ADD KEY `fk_produtos_fornecedores2_idx` (`idfornecedores`);
+
+--
+-- Indexes for table `registros_catraca`
+--
+ALTER TABLE `registros_catraca`
+  ADD PRIMARY KEY (`idregistros_catraca`),
+  ADD KEY `registro_de_alunos_idx` (`idaluno_clientes`);
 
 --
 -- Indexes for table `treinos`
@@ -6356,96 +6441,121 @@ ALTER TABLE `vendas`
 --
 ALTER TABLE `alunos_cliente`
   MODIFY `idalunos_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `anamneses`
 --
 ALTER TABLE `anamneses`
   MODIFY `idanamneses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `cat_produto`
 --
 ALTER TABLE `cat_produto`
   MODIFY `idcate_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `cidade`
 --
 ALTER TABLE `cidade`
   MODIFY `idcidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5566;
+
 --
 -- AUTO_INCREMENT for table `endereco_aluno`
 --
 ALTER TABLE `endereco_aluno`
   MODIFY `idendereco_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `endereco_fornecedor`
 --
 ALTER TABLE `endereco_fornecedor`
   MODIFY `idendereco_forn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `endereco_fun`
 --
 ALTER TABLE `endereco_fun`
   MODIFY `idendereco_fun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 --
 -- AUTO_INCREMENT for table `equipamentos`
 --
 ALTER TABLE `equipamentos`
   MODIFY `idequipamentos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `estado`
 --
 ALTER TABLE `estado`
   MODIFY `idestado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
 -- AUTO_INCREMENT for table `estoq_prod`
 --
 ALTER TABLE `estoq_prod`
   MODIFY `idestoques` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `exercicios`
 --
 ALTER TABLE `exercicios`
   MODIFY `idexercicios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
 --
 -- AUTO_INCREMENT for table `fornecedores`
 --
 ALTER TABLE `fornecedores`
   MODIFY `idfornecedores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `funcionarios`
 --
 ALTER TABLE `funcionarios`
   MODIFY `idfuncionarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `itens_vendas`
 --
 ALTER TABLE `itens_vendas`
-  MODIFY `iditensvendas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `iditensvendas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
--- AUTO_INCREMENT for table `mensalidades`
+-- AUTO_INCREMENT for table `planos`
 --
-ALTER TABLE `mensalidades`
-  MODIFY `idmensalidades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+ALTER TABLE `planos`
+  MODIFY `idplano` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `produtos`
 --
 ALTER TABLE `produtos`
   MODIFY `idprodutos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `registros_catraca`
+--
+ALTER TABLE `registros_catraca`
+  MODIFY `idregistros_catraca` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `treinos`
 --
 ALTER TABLE `treinos`
   MODIFY `idtreino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `idvendas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idvendas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- Constraints for dumped tables
 --
@@ -6514,9 +6624,17 @@ ALTER TABLE `funcionarios`
   ADD CONSTRAINT `endereco_func` FOREIGN KEY (`idendereco_func`) REFERENCES `endereco_fun` (`idendereco_fun`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Limitadores para a tabela `historicos_mensalidades`
+--
+ALTER TABLE `historicos_mensalidades`
+  ADD CONSTRAINT `idalunos` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `idplano` FOREIGN KEY (`idplano`) REFERENCES `planos` (`idplano`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Limitadores para a tabela `itens_vendas`
 --
 ALTER TABLE `itens_vendas`
+  ADD CONSTRAINT `estoq_prod_fk` FOREIGN KEY (`idestoques`) REFERENCES `estoq_prod` (`idestoques`),
   ADD CONSTRAINT `produto` FOREIGN KEY (`idprodutos`) REFERENCES `produtos` (`idprodutos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `vendas` FOREIGN KEY (`idvendas`) REFERENCES `vendas` (`idvendas`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
@@ -6524,7 +6642,8 @@ ALTER TABLE `itens_vendas`
 -- Limitadores para a tabela `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  ADD CONSTRAINT `fk_mensalidades_alunos_cliente1` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_mensalidades_alunos_cliente1` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `plano_mensalidade` FOREIGN KEY (`idplano`) REFERENCES `planos` (`idplano`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `produtos`
@@ -6532,6 +6651,12 @@ ALTER TABLE `mensalidades`
 ALTER TABLE `produtos`
   ADD CONSTRAINT `fk_produtos_cat_produto1` FOREIGN KEY (`idcate_produto`) REFERENCES `cat_produto` (`idcate_produto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_produtos_fornecedores2` FOREIGN KEY (`idfornecedores`) REFERENCES `fornecedores` (`idfornecedores`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `registros_catraca`
+--
+ALTER TABLE `registros_catraca`
+  ADD CONSTRAINT `registro_de_alunos` FOREIGN KEY (`idaluno_clientes`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `treinos`

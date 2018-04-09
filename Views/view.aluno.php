@@ -3,8 +3,12 @@
 <?php
 $ReadEstado = new Read;
 $ReadEstado->ExeRead("estado");
+
 $ReadCidade = new Read;
 $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
+
+$ReadPlanos = new Read;
+$ReadPlanos->ExeRead("planos");
 ?>
 <!--FIM MENU-->
 
@@ -113,7 +117,21 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     <label>Complemento</label>
                     <input type="text" name="complementos_aluno" class="form-control">
                 </div>
-
+                <div class="form-group col-md-3">
+                    <label>Plano de Mensalidade</label>
+                    <select name="idplano" class="form-control">
+                        <?php
+                        foreach ($ReadPlanos->getResult() as $i):
+                            extract($i);
+                            echo "<option value='{$idplano}'>{$nome_plano}</option>";
+                        endforeach;
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Data de Vencimento</label>
+                    <input type="date" name="data_mens_pag" class="form-control">
+                </div>
                 <div class="form-group col-md-12">
                     <label>Obs.</label>
                     <textarea type="text" name="obs_aluno" class="form-control"></textarea>
@@ -123,7 +141,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
             </form>
         </div>
-        
+
         <!--Modal update Aluno-->
         <div class="col-md-12 modal-update">
             <div class="container">
@@ -207,7 +225,6 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     <label>Complemento</label>
                     <input type="text" name="complementos_aluno" class="form-control">
                 </div>
-
                 <div class="form-group col-md-12">
                     <label>Obs.</label>
                     <textarea type="text" name="obs_aluno" class="form-control"></textarea>
@@ -217,7 +234,7 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                 </div>
             </form>
         </div>
-        
+
         <!--Tabela com os registros de Alunos no banco de dados-->
         <table class="table table-striped modal-table">
             <thead>
@@ -238,9 +255,9 @@ $ReadCidade->ExeRead("cidade", "WHERE idestado = :iestado", "iestado=9");
                     "<td>{$idalunos_cliente}</td>" .
                     "<td>{$nome_aluno}</td>" .
                     " <td>{$status_aluno}</td>" .
-                    "<td align='right'>".
-                        "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-aluno' idalunos_cliente='{$idalunos_cliente}' idendereco_aluno='{$idendereco_aluno}'><i class='glyphicon glyphicon-edit'></i></button> ".
-                        "<a href='http://localhost/academia/Views/view.aluno.relatorio.php?idalunos_cliente={$idalunos_cliente}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir relatorio-aluno'><i class='glyphicon glyphicon-print'></i></button></a> ".
+                    "<td align='right'>" .
+                    "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-aluno' idalunos_cliente='{$idalunos_cliente}' idendereco_aluno='{$idendereco_aluno}'><i class='glyphicon glyphicon-edit'></i></button> " .
+                    "<a href='http://localhost/academia/Views/view.aluno.relatorio.php?idalunos_cliente={$idalunos_cliente}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir relatorio-aluno'><i class='glyphicon glyphicon-print'></i></button></a> " .
                     "</td>" .
                     "</tr>";
                 endforeach;
