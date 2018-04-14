@@ -48,6 +48,7 @@
         <script src="Controllers/controller.mensalidade.js"></script>
         <script src="Controllers/controller.produto.js"></script>
         <script src="Controllers/controller.venda.js"></script>
+        <script src="Controllers/controller.historico_mens.js"></script>
         <!--FIM DE SCRIPTS:-->
     </body>
 </html>
