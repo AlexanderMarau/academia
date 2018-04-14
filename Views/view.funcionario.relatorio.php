@@ -22,137 +22,156 @@ require 'Relatorios/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
-$html = "        <head>    
-                <meta charset='UTF-8'>
-                <title>Relátorio do Funcionário</title>
-                <style>
-                 table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;
-}          </style>
-            </head>
-
-            <h1>Performance Academia</h1>
-
-            <h2>Relátorio do Funcionário</h2>
-            
-            <table  style='width:100%'>";
+$html = "
+    <link rel='stylesheet' type='text/css' href='../_cdn/bootstrap/css/bootstrap.min.css'>
+    <style>
+        .relatorio th{
+            color: black;
+            font-size: 14px;
+            width: 200px;
+            background-color: #99ccff;
+        }
+        .relatorio td{
+            color: black;
+            width: 450px;
+        }
+    </style>
+    <table class='table' style='background-color: #99ccff;'>
+        <tr class='relatorio'>
+            <th>
+                <img style='width: 200px; height: 200px;' src='img/logoAcademia.png'>
+            </th>
+            <th style='width: 400px; background-color: #99ccff;'>
+                <div style='color: white;'>
+                    <p>Academia Performance Fit</p>
+                    <p>Endereço: Rua Dr Soares QD 05, LT 48</p>
+                    <p>Bairro: Colina Azul</p>
+                    <p>Municipio: Aparecida de Goiânia GO CEP 00000-000</p>
+                </div>	
+                <div style='margin-top: 15px; font-size: 20px; color: black;'> 
+                    <label>Relatório do Funcionário</label>
+                </div>			
+            </th>
+        </tr>
+    </table>
+    <table style='background-color: whitesmoke; font-size: 12px;' class='table'>
+";
 
 foreach ($RelatorioFuncionario->getResult() as $e):
 
     extract($e);
-    $html .= "<tr>"
-            . "<th>ID</th>"
-            . "<td>{$idfuncionarios}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Nome</th>"
-            . "<td>{$nome_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Nome do Pai</th>"
-            . "<td>{$nome_pai_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Nome da Mãe</th>"
-            . "<td>{$nome_mae_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Data de Nascimento</th>"
-            . "<td>{$dt_nasc_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Tipo de Sangue</th>"
-            . "<td>{$tipo_san_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>RG</th>"
-            . "<td>{$rg_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>CPF</th>"
-            . "<td>{$cpf_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>CPTS</th>"
-            . "<td>{$cpts_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>PIS</th>"
-            . "<td>{$pis_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Estado Civil</th>"
-            . "<td>{$estado_civil_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Nacionalidade</th>"
-            . "<td>{$nacionalidade_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Naturalidade</th>"
-            . "<td>{$naturalidade_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Cargo</th>"
-            . "<td>{$cargo_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Função</th>"
-            . "<td>{$funcao_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Salario</th>"
-            . "<td>{$salario_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Hora de entrada</th>"
-            . "<td>{$entrada_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Hora de saída</th>"
-            . "<td>{$saida_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>E-mail</th>"
-            . "<td>{$email_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Telefone Celular</th>"
-            . "<td>{$celular_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Telefone Residencial</th>"
-            . "<td>{$residencial_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Status</th>"
-            . "<td>{$status_func}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Estado</th>"
-            . "<td>{$desc_estado}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Cidade</th>"
-            . "<td>{$desc_cidade}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Complemento do Endereço</th>"
-            . "<td>{$complementos_fun}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Observações</th>"
-            . "<td>{$obs_func}</td>"
-            . "</tr>";
+    $html .= "
+        <tr class='relatorio'>
+            <th>Matricula</th>
+            <td>{$idfuncionarios}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Nome</th>
+            <td>{$nome_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Pai</th>
+            <td>{$nome_pai_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Mãe</th>
+            <td>{$nome_mae_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Dt. de nascimento</th>
+            <td>{$dt_nasc_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Tipo de Sangue</th>
+            <td>{$tipo_san_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>RG</th>
+            <td>{$rg_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>CPF</th>
+            <td>{$cpf_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>CPTS</th>
+            <td>{$cpts_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>PIS</th>
+            <td>{$pis_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Estado Civil</th>
+            <td>{$estado_civil_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Nacionalidade</th>
+            <td>{$nacionalidade_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Naturalidade</th>
+            <td>{$naturalidade_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Cargo</th>
+            <td>{$cargo_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Função</th>
+            <td>{$funcao_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Salario</th>
+            <td>{$salario_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Hr. de entrada</th>
+            <td>{$entrada_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Hr. Saida</th>
+            <td>{$saida_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>E-mail</th>
+            <td>{$email_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Tel. Celular</th>
+            <td>{$celular_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Tel. Residencial</th>
+            <td>{$residencial_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Status</th>
+            <td>{$status_func}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Estado</th>
+            <td>{$desc_estado}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Cidade</th>
+            <td>{$desc_cidade}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Complemento do Endereço</th>
+            <td>{$complementos_fun}</td>
+        </tr>
+        <tr class='relatorio'>
+            <th>Observações</th>
+            <td>{$obs_func}</td>
+        </tr>";
 
 endforeach;
 
-$html .= "</table>";
+$html .= "
+    </table>
+    <script type='text/javascript' src='../_cdn/bootstrap/js/bootstrap.min.css'></script>
+";
 
 $dompdf = new Dompdf();
 

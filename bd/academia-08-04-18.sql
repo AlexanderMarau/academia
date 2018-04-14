@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: 25-Nov-2017 às 14:24
--- Versão do servidor: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Host: 127.0.0.1
+-- Generation Time: 09-Abr-2018 às 02:40
+-- Versão do servidor: 10.1.28-MariaDB
+-- PHP Version: 5.6.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,33 +30,33 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alunos_cliente` (
   `idalunos_cliente` int(11) NOT NULL,
-  `idendereco_aluno` int(11) DEFAULT NULL,
-  `nome_aluno` varchar(85) NOT NULL,
-  `cpf_aluno` varchar(45) DEFAULT NULL,
-  `rg_aluno` varchar(45) DEFAULT NULL,
-  `nome_mae` varchar(95) DEFAULT NULL,
-  `nome_pai` varchar(65) DEFAULT NULL,
-  `email_aluno` varchar(100) DEFAULT NULL,
-  `celular_aluno` varchar(50) DEFAULT NULL,
-  `residencial_aluno` varchar(50) DEFAULT NULL,
+  `idendereco_aluno` int(11) NOT NULL,
+  `nome_aluno` varchar(100) NOT NULL,
+  `cpf_aluno` varchar(14) NOT NULL,
+  `rg_aluno` varchar(7) NOT NULL,
+  `nome_mae` varchar(100) DEFAULT NULL,
+  `nome_pai` varchar(100) DEFAULT NULL,
+  `email_aluno` varchar(50) NOT NULL,
+  `celular_aluno` varchar(16) DEFAULT NULL,
+  `residencial_aluno` varchar(15) DEFAULT NULL,
   `data_nascimento_aluno` date NOT NULL,
-  `obs_aluno` varchar(500) NOT NULL,
-  `status_aluno` varchar(50) NOT NULL
+  `status_aluno` varchar(50) NOT NULL,
+  `obs_aluno` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `alunos_cliente`
 --
 
-INSERT INTO `alunos_cliente` (`idalunos_cliente`, `idendereco_aluno`, `nome_aluno`, `cpf_aluno`, `rg_aluno`, `nome_mae`, `nome_pai`, `email_aluno`, `celular_aluno`, `residencial_aluno`, `data_nascimento_aluno`, `obs_aluno`, `status_aluno`) VALUES
-(1, 1, 'Diego Humberto da Costa Oliveira', '00000000000', '0000000', 'Suelene da Costa', 'Jamir Sebastião', 'diego@email.com', '(00)00000-0000', '(00)0000-0000', '1998-06-13', 'não disponíveis', 'Ativo'),
-(2, 2, 'Matheus Lima', '00000000000', '0000000', 'Maria Julia', 'João da Silva', 'matheuslima@email.com', '(00)00000-0000', '(00)0000-0000', '1993-03-12', 'Não Disponíveis', 'Inativo'),
-(3, 3, 'Renato Almeida dos Santos', '999.999.999-99', '9999999', 'Vânia Perreira Almeida', 'Manoel da Silva', 'renato@email.com', '(99) 9 9999-9000', '(99) 9999-9900', '1980-09-12', 'Nenhuma Obs...', 'Ativo'),
-(4, 7, 'Jose Perreira', '321.313.123-13', '2324324', 'Adriana Silva', 'Pablo Escobar', 'jose@email.com', '(83) 2 1938-1093', '(98) 3908-1239', '1990-10-29', 'TESTE', 'Inativo'),
-(5, 8, 'Juliana Martins', '098.708.708-70', '8970987', 'Flávia Gonçalves', 'Alfredo Gonçalves', 'juju@mail.com', '(09) 8 7087-0870', '(08) 7087-0878', '1993-01-01', 'A Aluna já pratica natação.', 'Ativo'),
-(6, 9, 'luiz Regis ', '098.707.087-08', '0870870', 'julia f', 'roberto nogueira', 'nogueira@mail.com', '(09) 8 7089-7087', '(70) 8970-8708', '7087-09-08', 'nenhuma obs by matheus', 'Ativo'),
-(7, 10, 'Marcela Afonso', '970.987.070-70', '0870870', 'Sirlene Afonso', 'Afonso Afonso', 'mar_cl@hotmail.com', '(09) 8 7097-9870', '(70) 7070-8787', '1993-11-04', 'gosta de malhar.', 'Ativo'),
-(8, 11, 'joana', '777.777.777-77', '6666666', 'teste', 'pai', 'ggg@jksadjfksaf', '(62) 6 2626-2626', '(', '0000-00-00', 'fjahkdfkjlsadhfjksadf', 'Ativo');
+INSERT INTO `alunos_cliente` (`idalunos_cliente`, `idendereco_aluno`, `nome_aluno`, `cpf_aluno`, `rg_aluno`, `nome_mae`, `nome_pai`, `email_aluno`, `celular_aluno`, `residencial_aluno`, `data_nascimento_aluno`, `status_aluno`, `obs_aluno`) VALUES
+(1, 1, 'Diego Humberto da Costa Oliveira', '00000000000', '0000000', 'Suelene da Costa', 'Jamir Sebastião', 'diego@email.com', '(00)00000-0000', '(00)0000-0000', '1998-06-13', 'Ativo', 'não disponíveis'),
+(2, 2, 'Matheus Lima 1', '00000000000', '0000000', 'Maria Julia', 'João da Silva', 'matheuslima@email.com', '(00)00000-0000', '(00)0000-0000', '1993-03-12', 'Ativo', 'Não Disponíveis'),
+(3, 3, 'Renato Almeida dos Santos', '999.999.999-99', '9999999', 'Vânia Perreira Almeida', 'Manoel da Silva', 'renato@email.com', '(99) 9 9999-9000', '(99) 9999-9900', '1980-09-12', 'Ativo', 'Nenhuma Obs...'),
+(4, 7, 'Jose Perreira', '321.313.123-13', '2324324', 'Adriana Silva', 'Pablo Escobar', 'jose@email.com', '(83) 2 1938-1093', '(98) 3908-1239', '1990-10-29', 'Inativo', 'TESTE'),
+(5, 8, 'Nayara Lima de Souza', '443.412.342-34', '4234576', 'Mariana de Souza', 'Fernando de Lima', 'nayara@lima.com.br', '(98) 9 8983-4324', '(09) 0434-3248', '1998-03-12', 'Ativo', 'Não possui.'),
+(6, 9, 'Meiriely Christina da Silva', '404.048.204-80', '4040340', 'Fabiana da Silva', 'Cristiano Ronaldo Silva', 'meiriely@email.com', '(84) 8 7486-2578', '(98) 4927-5957', '2000-02-12', 'Ativo', 'Não possui.'),
+(7, 10, 'Carla Maria Costa', '348.409.284-02', '9809809', 'Carla Maria Silva Costa', 'Carlos Henrique Costa', 'carla@email.com', '(22) 3 2323-4234', '(32) 3242-3423', '1990-06-12', 'Inativo', 'Não possui'),
+(8, 12, 'teste', '333.333.333-33', '3333333', 'teste', 'teste', 'teste@email.com', '(33) 3 3333-3333', '(33) 3333-3333', '3333-03-31', 'Ativo', 'teste');
 
 -- --------------------------------------------------------
 
@@ -84,7 +86,7 @@ CREATE TABLE `anamneses` (
   `cd_anamnese` float DEFAULT NULL,
   `pe_anamnese` float DEFAULT NULL,
   `pd_anamnese` float DEFAULT NULL,
-  `obs_anamnese` float DEFAULT NULL
+  `obs_anamnese` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -92,9 +94,9 @@ CREATE TABLE `anamneses` (
 --
 
 INSERT INTO `anamneses` (`idanamneses`, `idalunos_cliente`, `peso_anamnese`, `altura_anamnese`, `imc_anamnese`, `pescoco_anamnese`, `ombro_anamnese`, `torax_anamnese`, `abdome_anamnese`, `cintura_anamnese`, `quadril_anamnese`, `bd_anamnese`, `be_anamnese`, `bec_anamnese`, `bdc_anamnese`, `aec_anamnese`, `adc_anamnese`, `ce_anamnese`, `cd_anamnese`, `pe_anamnese`, `pd_anamnese`, `obs_anamnese`) VALUES
-(1, 1, 65, 1.79, 20, 12, 12, 12, 12, 12, 12, 12, 12, 12, 22, 22, 22, 22, 22, 22, 22, 0),
-(2, 2, 90, 1.88, 25, 20, 20, 20, 20, 20, 20, 20, 20, 89, 88.99, 20, 20, 20, 20, 20, 20, 90),
-(11, 4, 90, 1.46, 42, 98.9, 98.09, 67.86, 58.67, 58.75, 58.65, 58.65, 87.65, 58.75, 58.75, 57.65, 78.65, 58.75, 65.85, 57.85, 58.75, 0);
+(1, 1, 90, 1.7, 31, 12, 12, 12, 12, 12, 12, 12, 12, 12, 22, 22, 22, 22, 22, 22, 22, 'teste teste testes teste test teste teste testes testes testes teste teste testes teste test teste teste testes testes testes'),
+(2, 2, 90, 1, 26, 20, 20, 20, 20, 20, 20, 20, 20, 89, 20, 20, 20, 20, 20, 20, 20, '90'),
+(3, 3, 120, 12, 12, 12, 21, 22, 22, 12, 12, 12, 21, 21, 12, 12, 12, 21, 12, 12, 21, '0');
 
 -- --------------------------------------------------------
 
@@ -264,7 +266,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (129, 21, 'Alpestre', 'RS'),
 (130, 13, 'Alpinópolis', 'MG'),
 (131, 11, 'Alta Floresta', 'MT'),
-(132, 22, 'Alta Floresta D''Oeste', 'RO'),
+(132, 22, 'Alta Floresta D\'Oeste', 'RO'),
 (133, 25, 'Altair', 'SP'),
 (134, 14, 'Altamira', 'PA'),
 (135, 10, 'Altamira do Maranhão', 'MA'),
@@ -316,7 +318,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (181, 18, 'Alvorada do Gurguéia', 'PI'),
 (182, 9, 'Alvorada do Norte', 'GO'),
 (183, 16, 'Alvorada do Sul', 'PR'),
-(184, 22, 'Alvorada D''Oeste', 'RO'),
+(184, 22, 'Alvorada D\'Oeste', 'RO'),
 (185, 23, 'Amajari', 'RR'),
 (186, 12, 'Amambai', 'MS'),
 (187, 3, 'Amapá', 'AP'),
@@ -407,7 +409,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (272, 9, 'Aparecida do Rio Doce', 'GO'),
 (273, 27, 'Aparecida do Rio Negro', 'TO'),
 (274, 12, 'Aparecida do Taboado', 'MS'),
-(275, 25, 'Aparecida d''Oeste', 'SP'),
+(275, 25, 'Aparecida d\'Oeste', 'SP'),
 (276, 19, 'Aperibé', 'RJ'),
 (277, 8, 'Apiacá', 'ES'),
 (278, 11, 'Apiacás', 'MT'),
@@ -641,7 +643,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (506, 24, 'Barra Bonita', 'SC'),
 (507, 25, 'Barra Bonita', 'SP'),
 (508, 5, 'Barra da Estiva', 'BA'),
-(509, 18, 'Barra D''Alcântara', 'PI'),
+(509, 18, 'Barra D\'Alcântara', 'PI'),
 (510, 17, 'Barra de Guabiraba', 'PE'),
 (511, 15, 'Barra de Santa Rosa', 'PB'),
 (512, 15, 'Barra de Santana', 'PB'),
@@ -1496,7 +1498,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (1361, 13, 'Congonhas do Norte', 'MG'),
 (1362, 16, 'Congonhinhas', 'PR'),
 (1363, 13, 'Conquista', 'MG'),
-(1364, 11, 'Conquista D''Oeste', 'MT'),
+(1364, 11, 'Conquista D\'Oeste', 'MT'),
 (1365, 13, 'Conselheiro Lafaiete', 'MG'),
 (1366, 16, 'Conselheiro Mairinck', 'PR'),
 (1367, 13, 'Conselheiro Pena', 'MG'),
@@ -1687,11 +1689,11 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (1552, 15, 'Diamante', 'PB'),
 (1553, 16, 'Diamante do Norte', 'PR'),
 (1554, 16, 'Diamante do Sul', 'PR'),
-(1555, 16, 'Diamante D''Oeste', 'PR'),
+(1555, 16, 'Diamante D\'Oeste', 'PR'),
 (1556, 13, 'Diamantina', 'MG'),
 (1557, 11, 'Diamantino', 'MT'),
 (1558, 27, 'Dianópolis', 'TO'),
-(1559, 5, 'Dias d''Ávila', 'BA'),
+(1559, 5, 'Dias d\'Ávila', 'BA'),
 (1560, 21, 'Dilermando de Aguiar', 'RS'),
 (1561, 13, 'Diogo de Vasconcelos', 'MG'),
 (1562, 13, 'Dionísio', 'MG'),
@@ -1834,7 +1836,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (1698, 27, 'Esperantina', 'TO'),
 (1699, 10, 'Esperantinópolis', 'MA'),
 (1700, 16, 'Espigão Alto do Iguaçu', 'PR'),
-(1701, 22, 'Espigão d''Oeste', 'RO'),
+(1701, 22, 'Espigão d\'Oeste', 'RO'),
 (1702, 13, 'Espinosa', 'MG'),
 (1703, 20, 'Espírito Santo', 'RN'),
 (1704, 13, 'Espírito Santo do Dourado', 'MG'),
@@ -1856,7 +1858,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (1720, 9, 'Estrela do Norte', 'GO'),
 (1721, 25, 'Estrela do Norte', 'SP'),
 (1722, 13, 'Estrela do Sul', 'MG'),
-(1723, 25, 'Estrela d''Oeste', 'SP'),
+(1723, 25, 'Estrela d\'Oeste', 'SP'),
 (1724, 21, 'Estrela Velha', 'RS'),
 (1725, 5, 'Euclides da Cunha', 'BA'),
 (1726, 25, 'Euclides da Cunha Paulista', 'SP'),
@@ -1920,7 +1922,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (1784, 16, 'Figueira', 'PR'),
 (1785, 12, 'Figueirão', 'MS'),
 (1786, 27, 'Figueirópolis', 'TO'),
-(1787, 11, 'Figueirópolis D''Oeste', 'MT'),
+(1787, 11, 'Figueirópolis D\'Oeste', 'MT'),
 (1788, 5, 'Filadélfia', 'BA'),
 (1789, 27, 'Filadélfia', 'TO'),
 (1790, 5, 'Firmino Alves', 'BA'),
@@ -2049,7 +2051,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (1913, 5, 'Glória', 'BA'),
 (1914, 12, 'Glória de Dourados', 'MS'),
 (1915, 17, 'Glória do Goitá', 'PE'),
-(1916, 11, 'Glória D''Oeste', 'MT'),
+(1916, 11, 'Glória D\'Oeste', 'MT'),
 (1917, 21, 'Glorinha', 'RS'),
 (1918, 10, 'Godofredo Viana', 'MA'),
 (1919, 16, 'Godoy Moreira', 'PR'),
@@ -2149,7 +2151,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (2013, 13, 'Guarani', 'MG'),
 (2014, 21, 'Guarani das Missões', 'RS'),
 (2015, 9, 'Guarani de Goiás', 'GO'),
-(2016, 25, 'Guarani d''Oeste', 'SP'),
+(2016, 25, 'Guarani d\'Oeste', 'SP'),
 (2017, 16, 'Guaraniaçu', 'PR'),
 (2018, 25, 'Guarantã', 'SP'),
 (2019, 11, 'Guarantã do Norte', 'MT'),
@@ -2191,7 +2193,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (2055, 5, 'Heliópolis', 'BA'),
 (2056, 25, 'Herculândia', 'SP'),
 (2057, 21, 'Herval', 'RS'),
-(2058, 24, 'Herval d''Oeste', 'SC'),
+(2058, 24, 'Herval d\'Oeste', 'SC'),
 (2059, 21, 'Herveiras', 'RS'),
 (2060, 6, 'Hidrolândia', 'CE'),
 (2061, 9, 'Hidrolândia', 'GO'),
@@ -2498,7 +2500,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (2362, 13, 'Itapecerica', 'MG'),
 (2363, 25, 'Itapecerica da Serra', 'SP'),
 (2364, 10, 'Itapecuru Mirim', 'MA'),
-(2365, 16, 'Itapejara d''Oeste', 'PR'),
+(2365, 16, 'Itapejara d\'Oeste', 'PR'),
 (2366, 24, 'Itapema', 'SC'),
 (2367, 8, 'Itapemirim', 'ES'),
 (2368, 16, 'Itaperuçu', 'PR'),
@@ -2526,7 +2528,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (2390, 27, 'Itaporã do Tocantins', 'TO'),
 (2391, 15, 'Itaporanga', 'PB'),
 (2392, 25, 'Itaporanga', 'SP'),
-(2393, 26, 'Itaporanga d''Ajuda', 'SE'),
+(2393, 26, 'Itaporanga d\'Ajuda', 'SE'),
 (2394, 15, 'Itapororoca', 'PB'),
 (2395, 22, 'Itapuã do Oeste', 'RO'),
 (2396, 21, 'Itapuca', 'RS'),
@@ -2819,7 +2821,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (2683, 2, 'Lagoa da Canoa', 'AL'),
 (2684, 27, 'Lagoa da Confusão', 'TO'),
 (2685, 13, 'Lagoa da Prata', 'MG'),
-(2686, 20, 'Lagoa d''Anta', 'RN'),
+(2686, 20, 'Lagoa d\'Anta', 'RN'),
 (2687, 15, 'Lagoa de Dentro', 'PB'),
 (2688, 17, 'Lagoa de Itaenga', 'PE'),
 (2689, 20, 'Lagoa de Pedras', 'RN'),
@@ -2868,7 +2870,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (2732, 13, 'Lajinha', 'MG'),
 (2733, 5, 'Lamarão', 'BA'),
 (2734, 13, 'Lambari', 'MG'),
-(2735, 11, 'Lambari D''Oeste', 'MT'),
+(2735, 11, 'Lambari D\'Oeste', 'MT'),
 (2736, 13, 'Lamim', 'MG'),
 (2737, 18, 'Landri Sales', 'PI'),
 (2738, 16, 'Lapa', 'PR'),
@@ -2975,7 +2977,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (2839, 2, 'Maceió', 'AL'),
 (2840, 13, 'Machacalis', 'MG'),
 (2841, 21, 'Machadinho', 'RS'),
-(2842, 22, 'Machadinho D''Oeste', 'RO'),
+(2842, 22, 'Machadinho D\'Oeste', 'RO'),
 (2843, 13, 'Machado', 'MG'),
 (2844, 17, 'Machados', 'PE'),
 (2845, 24, 'Macieira', 'SC'),
@@ -2985,7 +2987,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (2849, 18, 'Madeiro', 'PI'),
 (2850, 5, 'Madre de Deus', 'BA'),
 (2851, 13, 'Madre de Deus de Minas', 'MG'),
-(2852, 15, 'Mãe d''Água', 'PB'),
+(2852, 15, 'Mãe d\'Água', 'PB'),
 (2853, 14, 'Mãe do Rio', 'PA'),
 (2854, 5, 'Maetinga', 'BA'),
 (2855, 24, 'Mafra', 'SC'),
@@ -3229,7 +3231,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (3093, 25, 'Mirante do Paranapanema', 'SP'),
 (3094, 16, 'Miraselva', 'PR'),
 (3095, 25, 'Mirassol', 'SP'),
-(3096, 11, 'Mirassol d''Oeste', 'MT'),
+(3096, 11, 'Mirassol d\'Oeste', 'MT'),
 (3097, 25, 'Mirassolândia', 'SP'),
 (3098, 13, 'Miravânia', 'MG'),
 (3099, 24, 'Mirim Doce', 'SC'),
@@ -3434,7 +3436,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (3298, 13, 'Nova Belém', 'MG'),
 (3299, 21, 'Nova Boa Vista', 'RS'),
 (3300, 11, 'Nova Brasilândia', 'MT'),
-(3301, 22, 'Nova Brasilândia D''Oeste', 'RO'),
+(3301, 22, 'Nova Brasilândia D\'Oeste', 'RO'),
 (3302, 21, 'Nova Bréscia', 'RS'),
 (3303, 25, 'Nova Campina', 'SP');
 INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
@@ -3568,14 +3570,14 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (3431, 3, 'Oiapoque', 'AP'),
 (3432, 13, 'Olaria', 'MG'),
 (3433, 25, 'Óleo', 'SP'),
-(3434, 15, 'Olho d''Água', 'PB'),
-(3435, 10, 'Olho d''Água das Cunhãs', 'MA'),
-(3436, 2, 'Olho d''Água das Flores', 'AL'),
-(3437, 2, 'Olho d''Água do Casado', 'AL'),
-(3438, 18, 'Olho D''Água do Piauí', 'PI'),
-(3439, 2, 'Olho d''Água Grande', 'AL'),
-(3440, 20, 'Olho-d''Água do Borges', 'RN'),
-(3441, 13, 'Olhos-d''Água', 'MG'),
+(3434, 15, 'Olho d\'Água', 'PB'),
+(3435, 10, 'Olho d\'Água das Cunhãs', 'MA'),
+(3436, 2, 'Olho d\'Água das Flores', 'AL'),
+(3437, 2, 'Olho d\'Água do Casado', 'AL'),
+(3438, 18, 'Olho D\'Água do Piauí', 'PI'),
+(3439, 2, 'Olho d\'Água Grande', 'AL'),
+(3440, 20, 'Olho-d\'Água do Borges', 'RN'),
+(3441, 13, 'Olhos-d\'Água', 'MG'),
 (3442, 25, 'Olímpia', 'SP'),
 (3443, 13, 'Olímpio Noronha', 'MG'),
 (3444, 17, 'Olinda', 'PE'),
@@ -3670,7 +3672,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (3533, 24, 'Palmeira', 'SC'),
 (3534, 21, 'Palmeira das Missões', 'RS'),
 (3535, 18, 'Palmeira do Piauí', 'PI'),
-(3536, 25, 'Palmeira d''Oeste', 'SP'),
+(3536, 25, 'Palmeira d\'Oeste', 'SP'),
 (3537, 2, 'Palmeira dos Índios', 'AL'),
 (3538, 18, 'Palmeirais', 'PI'),
 (3539, 10, 'Palmeirândia', 'MA'),
@@ -3788,9 +3790,9 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (3651, 20, 'Patu', 'RN'),
 (3652, 19, 'Paty do Alferes', 'RJ'),
 (3653, 5, 'Pau Brasil', 'BA'),
-(3654, 14, 'Pau D''Arco', 'PA'),
-(3655, 27, 'Pau D''Arco', 'TO'),
-(3656, 18, 'Pau D''Arco do Piauí', 'PI'),
+(3654, 14, 'Pau D\'Arco', 'PA'),
+(3655, 27, 'Pau D\'Arco', 'TO'),
+(3656, 18, 'Pau D\'Arco do Piauí', 'PI'),
 (3657, 20, 'Pau dos Ferros', 'RN'),
 (3658, 17, 'Paudalho', 'PE'),
 (3659, 4, 'Pauini', 'AM'),
@@ -3887,7 +3889,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (3750, 10, 'Peritoró', 'MA'),
 (3751, 16, 'Perobal', 'PR'),
 (3752, 16, 'Pérola', 'PR'),
-(3753, 16, 'Pérola d''Oeste', 'PR'),
+(3753, 16, 'Pérola d\'Oeste', 'PR'),
 (3754, 9, 'Perolândia', 'GO'),
 (3755, 25, 'Peruíbe', 'SP'),
 (3756, 13, 'Pescador', 'MG'),
@@ -3932,7 +3934,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (3795, 25, 'Pindorama', 'SP'),
 (3796, 27, 'Pindorama do Tocantins', 'TO'),
 (3797, 6, 'Pindoretama', 'CE'),
-(3798, 13, 'Pingo-d''Água', 'MG'),
+(3798, 13, 'Pingo-d\'Água', 'MG'),
 (3799, 16, 'Pinhais', 'PR'),
 (3800, 21, 'Pinhal', 'RS'),
 (3801, 21, 'Pinhal da Serra', 'RS'),
@@ -4234,7 +4236,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4097, 16, 'Ramilândia', 'PR'),
 (4098, 25, 'Rancharia', 'SP'),
 (4099, 16, 'Rancho Alegre', 'PR'),
-(4100, 16, 'Rancho Alegre D''Oeste', 'PR'),
+(4100, 16, 'Rancho Alegre D\'Oeste', 'PR'),
 (4101, 24, 'Rancho Queimado', 'SC'),
 (4102, 10, 'Raposa', 'MA'),
 (4103, 13, 'Raposos', 'MG'),
@@ -4486,7 +4488,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4349, 14, 'Santa Bárbara do Pará', 'PA'),
 (4350, 21, 'Santa Bárbara do Sul', 'RS'),
 (4351, 13, 'Santa Bárbara do Tugúrio', 'MG'),
-(4352, 25, 'Santa Bárbara d''Oeste', 'SP'),
+(4352, 25, 'Santa Bárbara d\'Oeste', 'SP'),
 (4353, 25, 'Santa Branca', 'SP'),
 (4354, 5, 'Santa Brígida', 'BA'),
 (4355, 11, 'Santa Carmem', 'MT'),
@@ -4495,7 +4497,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4358, 16, 'Santa Cecília do Pavão', 'PR'),
 (4359, 21, 'Santa Cecília do Sul', 'RS'),
 (4360, 21, 'Santa Clara do Sul', 'RS'),
-(4361, 25, 'Santa Clara d''Oeste', 'SP'),
+(4361, 25, 'Santa Clara d\'Oeste', 'SP'),
 (4362, 15, 'Santa Cruz', 'PB'),
 (4363, 17, 'Santa Cruz', 'PE'),
 (4364, 20, 'Santa Cruz', 'RN'),
@@ -4557,7 +4559,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4420, 2, 'Santa Luzia do Norte', 'AL'),
 (4421, 14, 'Santa Luzia do Pará', 'PA'),
 (4422, 10, 'Santa Luzia do Paruá', 'MA'),
-(4423, 22, 'Santa Luzia D''Oeste', 'RO'),
+(4423, 22, 'Santa Luzia D\'Oeste', 'RO'),
 (4424, 13, 'Santa Margarida', 'MG'),
 (4425, 21, 'Santa Margarida do Sul', 'RS'),
 (4426, 20, 'Santa Maria', 'RN'),
@@ -4596,7 +4598,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4459, 13, 'Santa Rita do Sapucaí', 'MG'),
 (4460, 27, 'Santa Rita do Tocantins', 'TO'),
 (4461, 11, 'Santa Rita do Trivelato', 'MT'),
-(4462, 25, 'Santa Rita d''Oeste', 'SP'),
+(4462, 25, 'Santa Rita d\'Oeste', 'SP'),
 (4463, 21, 'Santa Rosa', 'RS'),
 (4464, 13, 'Santa Rosa da Serra', 'MG'),
 (4465, 9, 'Santa Rosa de Goiás', 'GO'),
@@ -4642,7 +4644,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4505, 2, 'Santana do Ipanema', 'AL'),
 (4506, 16, 'Santana do Itararé', 'PR'),
 (4507, 13, 'Santana do Jacaré', 'MG'),
-(4508, 21, 'Sant''Ana do Livramento', 'RS'),
+(4508, 21, 'Sant\'Ana do Livramento', 'RS'),
 (4509, 13, 'Santana do Manhuaçu', 'MG'),
 (4510, 10, 'Santana do Maranhão', 'MA'),
 (4511, 20, 'Santana do Matos', 'RN'),
@@ -4758,7 +4760,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4621, 13, 'São Domingos do Prata', 'MG'),
 (4622, 21, 'São Domingos do Sul', 'RS'),
 (4623, 5, 'São Felipe', 'BA'),
-(4624, 22, 'São Felipe D''Oeste', 'RO'),
+(4624, 22, 'São Felipe D\'Oeste', 'RO'),
 (4625, 5, 'São Félix', 'BA'),
 (4626, 10, 'São Félix de Balsas', 'MA'),
 (4627, 13, 'São Félix de Minas', 'MG'),
@@ -4830,7 +4832,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4693, 18, 'São João da Serra', 'PI'),
 (4694, 21, 'São João da Urtiga', 'RS'),
 (4695, 18, 'São João da Varjota', 'PI'),
-(4696, 9, 'São João d''Aliança', 'GO'),
+(4696, 9, 'São João d\'Aliança', 'GO'),
 (4697, 25, 'São João das Duas Pontes', 'SP'),
 (4698, 13, 'São João das Missões', 'MG'),
 (4699, 25, 'São João de Iracema', 'SP'),
@@ -4852,7 +4854,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4715, 13, 'São João do Pacuí', 'MG'),
 (4716, 10, 'São João do Paraíso', 'MA'),
 (4717, 13, 'São João do Paraíso', 'MG'),
-(4718, 25, 'São João do Pau d''Alho', 'SP'),
+(4718, 25, 'São João do Pau d\'Alho', 'SP'),
 (4719, 18, 'São João do Piauí', 'PI'),
 (4720, 21, 'São João do Polêsine', 'RS'),
 (4721, 15, 'São João do Rio do Peixe', 'PB'),
@@ -4871,7 +4873,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (4734, 21, 'São Jorge', 'RS'),
 (4735, 16, 'São Jorge do Ivaí', 'PR'),
 (4736, 16, 'São Jorge do Patrocínio', 'PR'),
-(4737, 16, 'São Jorge d''Oeste', 'PR'),
+(4737, 16, 'São Jorge d\'Oeste', 'PR'),
 (4738, 24, 'São José', 'SC'),
 (4739, 13, 'São José da Barra', 'MG'),
 (4740, 25, 'São José da Bela Vista', 'SP'),
@@ -5197,7 +5199,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (5059, 16, 'Siqueira Campos', 'PR'),
 (5060, 17, 'Sirinhaém', 'PE'),
 (5061, 26, 'Siriri', 'SE'),
-(5062, 9, 'Sítio d''Abadia', 'GO'),
+(5062, 9, 'Sítio d\'Abadia', 'GO'),
 (5063, 5, 'Sítio do Mato', 'BA'),
 (5064, 5, 'Sítio do Quinto', 'BA'),
 (5065, 10, 'Sítio Novo', 'MA'),
@@ -5276,7 +5278,7 @@ INSERT INTO `cidade` (`idcidade`, `idestado`, `desc_cidade`, `cidade_uf`) VALUES
 (5138, 11, 'Tangará da Serra', 'MT'),
 (5139, 19, 'Tanguá', 'RJ'),
 (5140, 5, 'Tanhaçu', 'BA'),
-(5141, 2, 'Tanque d''Arca', 'AL'),
+(5141, 2, 'Tanque d\'Arca', 'AL'),
 (5142, 18, 'Tanque do Piauí', 'PI'),
 (5143, 5, 'Tanque Novo', 'BA'),
 (5144, 5, 'Tanquinho', 'BA'),
@@ -5721,16 +5723,17 @@ CREATE TABLE `endereco_aluno` (
 
 INSERT INTO `endereco_aluno` (`idendereco_aluno`, `idcidade`, `idestado`, `complementos_aluno`) VALUES
 (1, 1, 1, 'não disponíveis'),
-(2, 1642, 9, 'Não Disponíveis'),
+(2, 1, 1, 'Não Disponíveis'),
 (3, 465, 9, 'Avenida São Miguel nº20'),
 (4, 1526, 9, 'Teste...'),
 (5, 1641, 9, '...'),
 (6, 1737, 9, 'teste'),
 (7, 272, 9, 'TESTE'),
-(8, 1927, 9, 'rua 89, n7'),
-(9, 1925, 9, 'rua 8, n3'),
-(10, 1, 9, 'r2, n6'),
-(11, 1, 1, 'jkdfshfjkasdlfh');
+(8, 1526, 9, 'Condômino Águas vivas, Santa Rita, Damianópolis '),
+(9, 1927, 9, 'Parque dos Buritis '),
+(10, 5423, 9, 'Não possui'),
+(11, 271, 9, 'Baitola'),
+(12, 59, 9, 'teste');
 
 -- --------------------------------------------------------
 
@@ -5750,11 +5753,20 @@ CREATE TABLE `endereco_fornecedor` (
 --
 
 INSERT INTO `endereco_fornecedor` (`idendereco_forn`, `idcidade`, `idestado`, `complementos_forn`) VALUES
-(1, 271, 9, 'não disponíveis'),
+(1, 28, 9, 'não disponíveis'),
 (2, 1, 9, 'Não disponíveis'),
 (3, 1526, 9, 'Pepsi rede de refrigerantes internacionais.'),
 (4, 271, 9, 'TESTE.'),
-(5, 1880, 9, 'TESTE');
+(5, 1880, 9, 'TESTE'),
+(6, 1737, 9, 'TESTE'),
+(7, 1526, 9, 'TESTE3'),
+(8, 1, 9, 'TESTE 04'),
+(9, 1880, 9, 'TESTE'),
+(10, 1737, 3, 'TESTE 2'),
+(11, 1880, 2, 'TESTE 3'),
+(12, 5163, 6, 'TESTE 4'),
+(13, 1880, 1, 'TESTE 5'),
+(14, 2053, 1, 'TESTE 6');
 
 -- --------------------------------------------------------
 
@@ -5775,7 +5787,14 @@ CREATE TABLE `endereco_fun` (
 
 INSERT INTO `endereco_fun` (`idendereco_fun`, `idcidade`, `idestado`, `complementos_fun`) VALUES
 (1, 271, 9, 'dados não disponíveis '),
-(2, 1927, 9, 'Não Disponíveis');
+(2, 1927, 9, 'Não Disponíveis'),
+(3, 271, 9, 'Rua Dr Juarez Qd-30 Lt-3, Terra Prometida'),
+(13, 1, 9, 'TESTE'),
+(15, 1, 9, 'Não possui'),
+(16, 271, 9, 'TESTE'),
+(17, 1737, 9, 'TESTE'),
+(18, 1880, 9, 'TESTE'),
+(19, 1, 9, 'teste');
 
 -- --------------------------------------------------------
 
@@ -5787,12 +5806,12 @@ CREATE TABLE `equipamentos` (
   `idequipamentos` int(11) NOT NULL,
   `idfornecedores` int(11) NOT NULL,
   `nome_equip` varchar(45) DEFAULT NULL,
-  `data_equip_entr` datetime DEFAULT NULL,
-  `data_equip_saida` datetime DEFAULT NULL,
+  `data_equip_entr` date DEFAULT NULL,
+  `data_equip_saida` date DEFAULT NULL,
   `preco_equip_entr` decimal(8,2) DEFAULT NULL,
   `marca_equip` varchar(45) DEFAULT NULL,
   `funcionalidade_equip` varchar(145) DEFAULT NULL,
-  `data_manutencao_equip` datetime DEFAULT NULL
+  `data_manutencao_equip` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -5800,8 +5819,20 @@ CREATE TABLE `equipamentos` (
 --
 
 INSERT INTO `equipamentos` (`idequipamentos`, `idfornecedores`, `nome_equip`, `data_equip_entr`, `data_equip_saida`, `preco_equip_entr`, `marca_equip`, `funcionalidade_equip`, `data_manutencao_equip`) VALUES
-(1, 2, 'Barra 2m', '2017-11-02 00:00:00', NULL, '20.00', 'Companhia Fitnes', 'Não disponíveis', '2018-11-02 00:00:00'),
-(2, 2, 'Banco de Supino', '2017-11-04 00:00:00', NULL, '50.00', 'IFITNES', 'Não Disponível', '2018-11-04 00:00:00');
+(1, 3, 'Barra 2m teste teste', '2017-11-02', NULL, '20.00', 'Companhia Fitnes', 'Não disponíveis', '2018-11-02'),
+(2, 2, 'Banco de Supino', '2017-11-04', NULL, '50.00', 'IFITNES', 'Não Disponível', '2018-11-04'),
+(3, 4, 'Banco de Supino Reto', '2017-11-11', '0000-00-00', '50.00', 'IFTNES', 'TESTE', '2018-11-11'),
+(4, 4, 'Esteira de 50', '2017-11-11', NULL, '279.00', 'Casa FITNES', 'Aquecimento.', '2018-11-11'),
+(5, 4, 'Bicicleta eletrica', '2017-11-11', NULL, '100.00', 'Não especificada 1', 'Aquecimento.', '2018-11-11'),
+(6, 7, 'Supino Reto', '2017-11-11', '0000-00-00', '30.00', 'TESTE3', 'TESTE3', '2019-11-11'),
+(7, 5, 'Peso 20kg', '2017-11-11', '0000-00-00', '15.00', 'Não possui', 'Levantamento de peso.', '2017-11-11'),
+(8, 6, 'Peso 40kg', '2017-11-11', '2018-11-18', '50.00', 'Não Possui', 'Levantamento de peso', '2018-11-11'),
+(9, 2, 'Peso 30kg', '2017-11-11', '2017-11-11', '34.00', 'Não possui', 'Levantamento de peso', '2018-11-11'),
+(10, 2, 'Peso 10kg', '2017-11-11', '0000-00-00', '23.00', 'Não possui', 'Levantamento de peso.', '2018-11-11'),
+(11, 2, 'Bicicleta Eletrica', '2017-11-19', '0000-00-00', '350.00', 'FITNES', 'Aquecimento do corpo. e perda de gorduras.', '2018-11-19'),
+(12, 5, 'teste', '2017-11-22', '2017-11-23', '777.00', 'teste', 'teste', '2017-11-22'),
+(13, 6, 'teste 2', '2017-11-23', '2017-11-24', '10.00', 'teste', 'teste', '2017-11-24'),
+(14, 2, 'Halter teste 2', '2017-11-24', NULL, '25.00', 'Companhia Fitnes', 'levantamento de peso.', '2019-11-24');
 
 -- --------------------------------------------------------
 
@@ -5857,6 +5888,8 @@ INSERT INTO `estado` (`idestado`, `desc_estado`, `uf`) VALUES
 CREATE TABLE `estoq_prod` (
   `idestoques` int(11) NOT NULL,
   `idprodutos` int(11) NOT NULL,
+  `quant_entrada` int(11) NOT NULL,
+  `quant_saida` int(11) NOT NULL,
   `quant_estoque` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -5864,16 +5897,80 @@ CREATE TABLE `estoq_prod` (
 -- Extraindo dados da tabela `estoq_prod`
 --
 
-INSERT INTO `estoq_prod` (`idestoques`, `idprodutos`, `quant_estoque`) VALUES
-(1, 1, 76),
-(2, 2, 66),
-(3, 3, 40),
-(4, 4, 59),
-(5, 5, 30),
-(6, 6, 40),
-(7, 7, 38),
-(8, 8, 32),
-(9, 9, 200);
+INSERT INTO `estoq_prod` (`idestoques`, `idprodutos`, `quant_entrada`, `quant_saida`, `quant_estoque`) VALUES
+(1, 1, 0, 0, 86),
+(2, 2, 0, 0, 94),
+(3, 4, 0, 0, 95),
+(4, 5, 0, 0, 95),
+(5, 6, 0, 0, 99),
+(6, 7, 0, 0, 99),
+(7, 8, 0, 0, 100),
+(8, 9, 0, 0, 100);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `exercicios`
+--
+
+CREATE TABLE `exercicios` (
+  `idexercicios` int(11) NOT NULL,
+  `descricao_exe` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `grupo_muscular_exe` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `exercicios`
+--
+
+INSERT INTO `exercicios` (`idexercicios`, `descricao_exe`, `grupo_muscular_exe`) VALUES
+(1, 'TESTE', 'TESTE'),
+(2, 'Supino com Halteres', 'Peito - Costas - Abs'),
+(3, 'Agachamento com Halteres', 'Pernas - Zona lombar'),
+(4, 'Press militar com halteres', 'Ombros - Braços'),
+(5, 'Aberturas/crucifixo com halteres', 'Peito - Costas - Abs'),
+(6, 'Afundo com halteres', 'Pernas - Zona lombar'),
+(7, 'Remada vertical com halteres', 'Ombros - Braços'),
+(8, 'Pullover com halter', 'Peito - Costas - Abs'),
+(9, 'Agachamento pés afastados com halter', 'Pernas - Zona lombar'),
+(10, 'Elevações laterais com halteres', 'Ombros - Braços'),
+(11, 'Remada a 1 halter', 'Peito - Costas - Abs'),
+(12, 'Peso morto a pernas retas c/halteres', 'Pernas - Zona lombar'),
+(13, 'Elevações frontais com halteres', 'Ombros - Braços'),
+(14, 'Voos com halteres', 'Peito - Costas - Abs'),
+(15, 'Elevações de gêmeos em pé c/halteres', 'Pernas - Zona lombar'),
+(16, 'Extensões de trícepis deitado c/halter', 'Ombros - Braços'),
+(17, 'Encolhimentos com halteres', 'Peito - Costas - Abs'),
+(18, 'Elevações de gêmeos sentado c/halter', 'Pernas - Zona lombar'),
+(19, 'Extensões de trícepis sentado c/halter', 'Ombros - Braços'),
+(20, 'Flexão do quadril no chão', 'Peito - Costas - Abs'),
+(21, 'Super Homem', 'Pernas - Zona lombar'),
+(22, 'Curl com halteres', 'Ombros - Braços'),
+(23, 'Crunch em banco', 'Peito - Costas - Abs'),
+(24, 'Curl martelo com halteres', 'Ombros - Braços'),
+(25, 'Prancha', 'Ombros - Braços'),
+(26, 'Agachamento com Barra', 'Quadrícepes'),
+(27, 'Agachamento Hack', 'Quadrícepes'),
+(28, 'Leg Press', 'Quadrícepes'),
+(29, 'Cadeira Extensora', 'Quadrícepes'),
+(30, 'Tração na barra fixa', 'Costas'),
+(31, 'Puxador fechado', 'Costas'),
+(32, 'Remada curvada com Barra', 'Costas'),
+(33, 'Encolhimento com Barra', 'Costas'),
+(34, 'Desenvolvimento Arnold', 'Ombros'),
+(35, 'Remada alta com Barra', 'Ombros'),
+(36, 'Elevação frontal com Barra', 'Ombros'),
+(37, 'Crucifixo inverso com halteres', 'Ombros'),
+(38, 'Leg Press 45\"', 'Pernas - Coxas'),
+(39, 'Heckmachine', 'Pernas - Coxas'),
+(40, 'Avanço', 'Pernas - Coxas'),
+(41, 'Agachamento', 'Pernas - Coxas'),
+(42, 'Cadeira Extensora', 'Pernas - Coxas'),
+(43, 'Mesa Flexora', 'Pernas - Coxas'),
+(44, 'Cadeira Abdutora', 'Pernas - Coxas'),
+(45, 'Cadeira Adutora', 'Pernas - Coxas'),
+(46, 'Agachamento sumô', 'Pernas - Coxas'),
+(47, 'Stiff', 'Pernas - Coxas');
 
 -- --------------------------------------------------------
 
@@ -5884,11 +5981,11 @@ INSERT INTO `estoq_prod` (`idestoques`, `idprodutos`, `quant_estoque`) VALUES
 CREATE TABLE `fornecedores` (
   `idfornecedores` int(11) NOT NULL,
   `idendereco_forn` int(11) DEFAULT NULL,
-  `nome_forn` varchar(45) DEFAULT NULL,
-  `cnpj_cpf_forn` varchar(45) DEFAULT NULL,
+  `nome_forn` varchar(45) NOT NULL,
+  `cnpj_cpf_forn` varchar(15) NOT NULL,
   `nome_fantasia_forn` varchar(45) DEFAULT NULL,
   `email_forn` varchar(100) NOT NULL,
-  `telefone_forn` varchar(50) NOT NULL
+  `telefone_forn` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -5898,9 +5995,12 @@ CREATE TABLE `fornecedores` (
 INSERT INTO `fornecedores` (`idfornecedores`, `idendereco_forn`, `nome_forn`, `cnpj_cpf_forn`, `nome_fantasia_forn`, `email_forn`, `telefone_forn`) VALUES
 (1, 1, 'Coca Cola LTDA', '000000000000000', 'Coca-Cola', 'cocacola@email.com', '(00)0000-0000'),
 (2, 2, 'Companhia Fitnes LTDA', '00000000000000', 'Companhia Fitnes', 'companhiafitnes@email.com', '(00)0000-0000'),
-(3, 3, 'Pepsi refrigerantes LTDA', '45345453453445', 'Pepsi', 'pepsi@email.com', '(99) 9 9999-9999'),
+(3, 3, 'Pepsi refrigerantes LTDA', '45345453453445', 'Pepsi Cola', 'pepsi@email.com', '(99) 9 9999-9999'),
 (4, 4, 'Casa Fitnes LTDA', '23424234324234', 'Casa Fitnes', 'casa@fitnes.com.br', '(62) 3 3333-8888'),
-(5, 5, 'TESTE', '4242342424333', 'TESTE', 'teste01@email.com', '(42) 4 2344-2344');
+(5, 5, 'Guaraná Antártica LTDA', '4242342424333', 'Guaraná', 'guarana@email.com', '(42) 4 2344-2344'),
+(6, 6, 'Aço academia Fitnes empresas', '32312323231323', 'Aço academia', 'teste2@email.com', '(33) 3 3333-3333'),
+(7, 7, 'Gatorade industrias LTDA', '42424343432432', 'Gatorade', 'gatoradeoficial@email.com', '(23) 2 3321-3233'),
+(8, 8, 'Irmão Soares S/A', '99999999999999', 'Irmão Soares', 'teste04@email.com', '(99) 9 9999-9999');
 
 -- --------------------------------------------------------
 
@@ -5910,29 +6010,29 @@ INSERT INTO `fornecedores` (`idfornecedores`, `idendereco_forn`, `nome_forn`, `c
 
 CREATE TABLE `funcionarios` (
   `idfuncionarios` int(11) NOT NULL,
-  `idendereco_func` int(11) DEFAULT NULL,
-  `nome_func` varchar(45) DEFAULT NULL,
+  `idendereco_func` int(11) NOT NULL,
+  `nome_func` varchar(100) NOT NULL,
   `nome_pai_func` varchar(100) DEFAULT NULL,
   `nome_mae_func` varchar(100) DEFAULT NULL,
   `dt_nasc_func` date NOT NULL,
   `tipo_san_func` varchar(6) DEFAULT NULL,
-  `rg_func` varchar(45) DEFAULT NULL,
-  `cpf_func` varchar(45) DEFAULT NULL,
-  `cpts_func` varchar(45) DEFAULT NULL,
-  `pis_func` varchar(45) DEFAULT NULL,
+  `rg_func` varchar(7) NOT NULL,
+  `cpf_func` varchar(14) NOT NULL,
+  `cpts_func` varchar(7) DEFAULT NULL,
+  `pis_func` varchar(11) DEFAULT NULL,
   `estado_civil_func` varchar(45) DEFAULT NULL,
   `nacionalidade_func` varchar(45) DEFAULT NULL,
   `naturalidade_func` varchar(45) DEFAULT NULL,
-  `cargo_func` varchar(45) DEFAULT NULL,
+  `cargo_func` varchar(45) NOT NULL,
   `funcao_func` varchar(145) DEFAULT NULL,
-  `salario_func` decimal(8,2) DEFAULT NULL,
+  `salario_func` decimal(8,2) NOT NULL,
   `entrada_func` time DEFAULT NULL,
   `saida_func` time DEFAULT NULL,
-  `email_func` varchar(50) DEFAULT NULL,
-  `celular_func` varchar(45) DEFAULT NULL,
-  `residencial_func` varchar(45) DEFAULT NULL,
+  `email_func` varchar(50) NOT NULL,
+  `celular_func` varchar(16) DEFAULT NULL,
+  `residencial_func` varchar(15) DEFAULT NULL,
   `status_func` varchar(50) NOT NULL,
-  `obs_func` varchar(145) DEFAULT NULL
+  `obs_func` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -5941,7 +6041,57 @@ CREATE TABLE `funcionarios` (
 
 INSERT INTO `funcionarios` (`idfuncionarios`, `idendereco_func`, `nome_func`, `nome_pai_func`, `nome_mae_func`, `dt_nasc_func`, `tipo_san_func`, `rg_func`, `cpf_func`, `cpts_func`, `pis_func`, `estado_civil_func`, `nacionalidade_func`, `naturalidade_func`, `cargo_func`, `funcao_func`, `salario_func`, `entrada_func`, `saida_func`, `email_func`, `celular_func`, `residencial_func`, `status_func`, `obs_func`) VALUES
 (1, 1, 'Administrador', 'Admin Pai', 'Admin Mãe', '2017-11-02', 'A', '0000000', '00000000000', '0000000', '0000000', 'não disponíveis', 'não disponíveis', 'não disponíveis', 'não disponíveis', 'não disponíveis', '0.00', '01:00:00', '23:00:00', 'admin@email.com', '000000000', '00000000', 'Ativo', 'não disponíveis'),
-(2, 2, 'João da Silva de Oliveira', 'Diego Humberto', 'Mariana da Silva', '1990-02-01', 'A', '9999999', '99999999999', '9999999', '9999999', 'solteiro', 'brasileiro', 'goiânia', 'Professor', 'Orientado físico dos alunos', '1.30', '10:00:00', '16:00:00', 'joao@email.com', '999999999', '99999999', 'Ativo', 'Não Disponíveis');
+(2, 2, 'João da Silva de Oliveira', 'Diego Humberto', 'Mariana da Silva', '1990-02-01', 'A', '9999999', '99999999999', '9999999', '9999999', 'solteiro', 'brasileiro', 'goiânia', 'Professor', 'Orientado físico dos alunos', '1.30', '10:00:00', '16:00:00', 'joao@email.com', '999999999', '99999999', 'Ativo', 'Não Disponíveis'),
+(3, 13, 'TESTE', 'TESTE', 'TESTE', '1212-12-12', 'T', '3333333', '33333333333333', '3333333', '33333333333', 'Solteiro', 'Brasileiro', 'Goiânia', 'Professor', 'TESTE', '3.33', '10:00:00', '16:00:00', 'TESTE@email.com', '(33) 3 3333-3333', '(33) 3333-3333', 'Ativo', 'TESTE'),
+(5, 15, 'Pedro da Silva Junior', 'Pedro Primeiro Silva', 'Julieta da Silva', '1989-03-12', 'E', '4234231', '23223434343', '4343434', '23333333333', 'Casado', 'Brasileiro', 'Goiânia', 'Gerente', 'Gerência', '4.00', '10:00:00', '14:00:00', 'pedro@email.com', '(99) 9 9999-9999', '(99) 9999-9999', 'Ativo', 'Não possui'),
+(6, 16, 'Gabriel Cardoso', 'Gabriel Cardoso Silva', 'Gabriele da Silva', '1988-03-12', 'D', '3333333', '333333333333', '3333333', '33333333333', 'Casado', 'Brasileiro', 'Goiânia', 'Gerente', 'Gerenciar', '3.00', '10:00:00', '16:00:00', 'gabriel@cardoso.com', '(99) 9 9999-9999', '(99) 9999-9999', 'Inativo', 'TESTE'),
+(7, 17, 'Matheus Lima', 'Matheus Pai', 'Maria de Lima', '1996-11-11', 'B', '4444444', '4444444444444', '4444444', '44444444444', 'Solteiro', 'Brasileiro', 'Goiânia', 'Gerente', 'Gerência', '1.40', '10:00:00', '17:00:00', 'matheus@email.com', '(99) 9 9999-9999', '(99) 9999-9999', 'Ativo', 'TESTE'),
+(8, 18, 'Renato da Silva', 'Renato pai', 'Renata mãe', '2000-11-07', 'A', '9987578', '789.798.790-79', '9890809', '98908098908', 'Casado', 'Brasileiro', 'Goiânia', 'Gerente', 'Gerênciar', '4.00', '10:00:00', '17:00:00', 'renato@email.com', '(97) 7 7777-7778', '(98) 9787-8979', 'Ativo', 'TESTE'),
+(9, 19, 'teste', 'teste', 'teste', '1212-12-12', 'a', '2222222', '222.222.222-22', '2222222', '22222222222', 'Casado', 'teste', 'teste', 'Administrador', 'teste', '4.22', '11:11:00', '22:22:00', 'teste@email.com.br', '(22) 2 2222-2222', '(22) 2222-2222', 'Ativo', 'teste');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `historicos_mensalidades`
+--
+
+CREATE TABLE `historicos_mensalidades` (
+  `idhist_pag` int(11) NOT NULL,
+  `idalunos_cliente` int(11) NOT NULL,
+  `idplano` int(11) NOT NULL,
+  `data_mens_pag` date NOT NULL,
+  `valor_pag` decimal(8,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `itens_vendas`
+--
+
+CREATE TABLE `itens_vendas` (
+  `iditensvendas` int(11) NOT NULL,
+  `idvendas` int(11) NOT NULL,
+  `idprodutos` int(11) NOT NULL,
+  `idestoques` int(11) NOT NULL,
+  `valor_prod` decimal(8,2) NOT NULL,
+  `qt_vendas` int(11) NOT NULL,
+  `valor_vendas` decimal(8,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `itens_vendas`
+--
+
+INSERT INTO `itens_vendas` (`iditensvendas`, `idvendas`, `idprodutos`, `idestoques`, `valor_prod`, `qt_vendas`, `valor_vendas`) VALUES
+(1, 1, 1, 1, '6.00', 2, '12.00'),
+(2, 1, 6, 5, '10.00', 1, '10.00'),
+(3, 2, 2, 2, '20.00', 3, '60.00'),
+(4, 2, 4, 3, '35.00', 5, '175.00'),
+(5, 3, 1, 1, '6.00', 12, '72.00'),
+(6, 4, 2, 2, '20.00', 3, '60.00'),
+(7, 5, 5, 4, '6.00', 5, '30.00'),
+(8, 5, 7, 6, '49.00', 1, '49.00');
 
 -- --------------------------------------------------------
 
@@ -5950,21 +6100,42 @@ INSERT INTO `funcionarios` (`idfuncionarios`, `idendereco_func`, `nome_func`, `n
 --
 
 CREATE TABLE `mensalidades` (
-  `idmensalidades` int(11) NOT NULL,
+  `idmensalidade` int(11) NOT NULL,
   `idalunos_cliente` int(11) NOT NULL,
-  `data_mens_pag` date DEFAULT NULL,
-  `valor_mensalidades` decimal(8,2) DEFAULT NULL,
-  `obs_mensalidades` varchar(500) DEFAULT NULL,
-  `status_mensalidades` varchar(45) NOT NULL
+  `idplano` int(11) NOT NULL,
+  `data_mens_pag` date NOT NULL,
+  `status_mens` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `mensalidades`
 --
 
-INSERT INTO `mensalidades` (`idmensalidades`, `idalunos_cliente`, `data_mens_pag`, `valor_mensalidades`, `obs_mensalidades`, `status_mensalidades`) VALUES
-(1, 1, '2017-11-02', '50.00', 'Não disponível', 'Em dia'),
-(2, 2, '2017-11-05', '50.00', 'Não Disponíveis....', 'Pendente');
+INSERT INTO `mensalidades` (`idmensalidade`, `idalunos_cliente`, `idplano`, `data_mens_pag`, `status_mens`) VALUES
+(1, 1, 1, '2018-03-10', 'Em aberto');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `planos`
+--
+
+CREATE TABLE `planos` (
+  `idplano` int(11) NOT NULL,
+  `nome_plano` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo_plano` int(50) NOT NULL,
+  `valor_plano` decimal(8,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `planos`
+--
+
+INSERT INTO `planos` (`idplano`, `nome_plano`, `tipo_plano`, `valor_plano`) VALUES
+(1, 'Semanal', 7, '15.00'),
+(2, 'Mensal', 30, '60.00'),
+(3, 'Bimestral', 60, '120.00'),
+(4, 'Trimestral', 90, '180.00');
 
 -- --------------------------------------------------------
 
@@ -5976,34 +6147,46 @@ CREATE TABLE `produtos` (
   `idprodutos` int(11) NOT NULL,
   `idcate_produto` int(11) NOT NULL,
   `idfornecedores` int(11) NOT NULL,
-  `nome_prod` varchar(45) DEFAULT NULL,
+  `nome_prod` varchar(100) NOT NULL,
   `peso_prod` float DEFAULT NULL,
   `cor_prod` varchar(45) DEFAULT NULL,
-  `tamanho_prod` varchar(45) DEFAULT NULL,
-  `numero_prod` int(11) DEFAULT NULL,
-  `con_indicacao_prod` varchar(45) DEFAULT NULL,
-  `obs_prod` varchar(500) DEFAULT NULL,
+  `tamanho_prod` varchar(2) DEFAULT NULL,
+  `numero_prod` int(3) DEFAULT NULL,
+  `con_indicacao_prod` varchar(100) DEFAULT NULL,
   `dt_entr_prod` date DEFAULT NULL,
-  `marca_prod` varchar(45) DEFAULT NULL,
+  `marca_prod` varchar(45) NOT NULL,
   `fabricante_prod` varchar(45) DEFAULT NULL,
   `validade_prod` date DEFAULT NULL,
-  `valor_prod` decimal(8,2) NOT NULL
+  `valor_prod` decimal(8,2) NOT NULL,
+  `obs_prod` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `produtos`
 --
 
-INSERT INTO `produtos` (`idprodutos`, `idcate_produto`, `idfornecedores`, `nome_prod`, `peso_prod`, `cor_prod`, `tamanho_prod`, `numero_prod`, `con_indicacao_prod`, `obs_prod`, `dt_entr_prod`, `marca_prod`, `fabricante_prod`, `validade_prod`, `valor_prod`) VALUES
-(1, 1, 1, 'Coca Cola 500 ml', 0, 'red', 'não disponível', 0, 'não disponível', 'não disponível', '2017-11-02', 'Coca Cola', 'Coca Cola Goiânia LTDA', '2018-11-02', '6.00'),
-(2, 1, 2, 'Luvas de luta', 0, 'azul', 'M', 0, 'Não Disponíveis', 'Não Disponíveis', '2017-11-05', 'IFTNES', 'IFTNES', NULL, '20.00'),
-(3, 1, 2, 'Paçoca de Açaí', 1, 'sem cor', NULL, 444, 'nenhuma contra indicação', 'nenhuma obss', '2017-11-11', 'integral medica', 'integral forn', '2018-02-16', '1.00'),
-(4, 1, 2, 'Creatina Universal', 100, 'preto', NULL, 499, 'não recomendável para iniciantes', 'produto importado.', '2017-11-11', 'Universal', 'Universal', '2018-05-16', '70.00'),
-(5, 1, 5, 'Coca-Cola Zero', 250, 'vermelha', 'PP', 983, 'nenhuma contra indicação', 'nenhuma obs desse produto. by matheus!', '2017-11-11', 'Coca Cola', 'Coca Cola', '2018-05-17', '2.00'),
-(6, 2, 4, 'Camiseta Ney', 100, 'azul', 'M', 289, 'nenhuma contra-indicação', 'Camiseta masculina, justa.', '2017-11-11', 'Nike', 'Nike', '2018-04-19', '89.00'),
-(7, 1, 4, 'BCAA Pack', 13, NULL, NULL, 0, 'pessoa que já teve ataque cardíaco', 'nenhuma obs... BCAA', '2017-11-17', 'Universal', 'Universal LTDA', '2018-08-22', '67.00'),
-(8, 1, 2, 'Adidas Runy', 80, 'verde', 'M', 0, 'nenhum', 'camiseta de fibra.', '2017-11-17', 'Adidas', 'Adidas Inc', '2019-02-08', '70.00'),
-(9, 2, 4, 'Squeeze Thor', 90, 'Transparente', NULL, 89, 'nenhuma...', 'Garrafinha muito boa.', '2017-11-23', 'Squarel', 'Squarel Ltda', '2021-10-22', '17.00');
+INSERT INTO `produtos` (`idprodutos`, `idcate_produto`, `idfornecedores`, `nome_prod`, `peso_prod`, `cor_prod`, `tamanho_prod`, `numero_prod`, `con_indicacao_prod`, `dt_entr_prod`, `marca_prod`, `fabricante_prod`, `validade_prod`, `valor_prod`, `obs_prod`) VALUES
+(1, 1, 1, 'Coca Cola 600ml', 0, 'preto', 'nã', 0, 'não disponível', '2017-11-02', 'Coca Cola 2', 'Coca Cola Goiânia LTDA', '2018-11-02', '6.00', 'não disponível'),
+(2, 2, 2, 'Luvas de luta', 0, 'azul', 'M', 0, 'Não Disponíveis', '2017-11-05', 'IFTNES', 'IFTNES', NULL, '20.00', 'Não Disponíveis'),
+(4, 2, 2, 'Camiseta Regata', 0, 'Verde', 'G', 0, 'Não possui', '2017-11-11', 'Oklay', 'Oklay', '2017-11-11', '35.00', 'Camiseta Regata Oklay G'),
+(5, 1, 3, 'PEPSI lata 600ml', 0, 'Azul', '', 0, 'Não possui', '2017-11-11', 'PEPSI', 'PEPSI', '2018-11-11', '6.00', 'PEPSI lata 600ml'),
+(6, 1, 1, 'Gatorade de laranja 500ml', 0, 'Laranja', '', 0, 'Não possui', '2017-11-11', 'Gatorade', 'Coca Cola GO', '2018-11-11', '10.00', 'Gatorade de laranja 500ml'),
+(7, 2, 4, 'Bermuda Luta', 2, 'Branco', 'M', 38, 'Não possui', '2017-11-18', 'Bad Boy', 'Bad Boy Brasil', NULL, '49.00', 'Bermuda Luta Bad Boy.'),
+(8, 1, 4, 'TESTE', 20, 'azul', 'PP', 0, '0', '2017-11-23', 'TESTE', 'TESTe', '2017-11-23', '7.00', 'TESTE'),
+(9, 2, 6, 'TESTE 2', 80, 'vermelho', 'P', 0, '0', '2017-11-23', 'TESTE', 'TESTE', '2017-11-24', '50.00', 'TESTE');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `registros_catraca`
+--
+
+CREATE TABLE `registros_catraca` (
+  `idregistros_catraca` int(11) NOT NULL,
+  `idaluno_clientes` int(11) NOT NULL,
+  `hr_entrada_catraca` time NOT NULL,
+  `hr_saida_catraca` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -6012,32 +6195,24 @@ INSERT INTO `produtos` (`idprodutos`, `idcate_produto`, `idfornecedores`, `nome_
 --
 
 CREATE TABLE `treinos` (
-  `idtreinos` int(11) NOT NULL,
-  `idalunos_cliente` int(11) NOT NULL,
-  `idfuncionarios` int(11) NOT NULL,
-  `idequipamento` int(11) NOT NULL,
-  `nome_treino` varchar(45) DEFAULT NULL,
-  `nome_exercicio_treino` varchar(45) DEFAULT NULL,
-  `grp_musc_treino` varchar(45) DEFAULT NULL,
-  `num_series_treino` int(11) DEFAULT NULL,
-  `turno_treino` varchar(45) DEFAULT NULL,
-  `domingo_treino` int(11) NOT NULL,
-  `segunda_treino` int(11) NOT NULL,
-  `terca_treino` int(11) NOT NULL,
-  `quarta_treino` int(11) NOT NULL,
-  `quinta_treino` int(11) NOT NULL,
-  `sexta_treino` int(11) NOT NULL,
-  `sabado_treino` int(11) NOT NULL,
-  `obs_treino` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idtreino` int(11) NOT NULL,
+  `idexercicio` int(11) NOT NULL,
+  `idequipamentos` int(11) NOT NULL,
+  `nome_treino` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `sigla_treino` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `grupos_muscular_treino` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `series_treino` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `obs_treino` varchar(500) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `treinos`
 --
 
-INSERT INTO `treinos` (`idtreinos`, `idalunos_cliente`, `idfuncionarios`, `idequipamento`, `nome_treino`, `nome_exercicio_treino`, `grp_musc_treino`, `num_series_treino`, `turno_treino`, `domingo_treino`, `segunda_treino`, `terca_treino`, `quarta_treino`, `quinta_treino`, `sexta_treino`, `sabado_treino`, `obs_treino`) VALUES
-(1, 1, 1, 1, 'Triceps', 'Triceps', NULL, 100, 'matutino', 0, 0, 1, 0, 1, 0, 1, 'Não Disponível'),
-(2, 2, 2, 1, 'Levantamento de peso', 'Levantamento de peso', 'Braços', 1000, 'Noturno', 0, 1, 0, 1, 0, 1, 0, 'Não Disponíveis...');
+INSERT INTO `treinos` (`idtreino`, `idexercicio`, `idequipamentos`, `nome_treino`, `sigla_treino`, `grupos_muscular_treino`, `series_treino`, `obs_treino`) VALUES
+(1, 1, 1, 'TESTE', 'TESTE', 'TESTE', 'TESTE', 'TESTE'),
+(6, 1, 2, 'teste 2', 'teste', 'teste 2', '222 X 2222', 'teste 2'),
+(9, 46, 12, 'Agachamento', 'AC', 'Pernas - Coxas', '012 X 100', 'TESTE');
 
 -- --------------------------------------------------------
 
@@ -6059,7 +6234,13 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `nome_usuario`, `senha_usuario`, `email_usuario`, `perfil_usuario`, `idfuncionarios`) VALUES
-(1, 'Administrador', 'admin', 'admin@email.com', 'administrador', 1);
+(1, 'Administrador', 'admin', 'admin@email.com', 'administrador', 1),
+(2, 'João da Silva de Oliveira', '12345', 'joao@email.com', 'basico', 2),
+(3, 'Pedro da Silva Junior', '123456', 'junior@email.com', 'admin', 5),
+(4, 'Gabriel Cardoso', '123456', 'gabriel@email.com', 'professor', 6),
+(5, 'Matheus Lima', '123456', 'matheus@email.com', 'professor', 7),
+(6, 'TESTE', '123', 'teste@email.com', 'admin', 3),
+(8, 'joão da Silva', '23456', 'joaosilva@email.com', 'admin', 3);
 
 -- --------------------------------------------------------
 
@@ -6069,22 +6250,23 @@ INSERT INTO `usuario` (`idusuario`, `nome_usuario`, `senha_usuario`, `email_usua
 
 CREATE TABLE `vendas` (
   `idvendas` int(11) NOT NULL,
-  `idprodutos` int(11) NOT NULL,
-  `idestoques` int(11) NOT NULL,
   `idalunos_cliente` int(11) NOT NULL,
-  `data_venda` datetime DEFAULT NULL,
-  `valor_vendas` decimal(8,2) DEFAULT NULL,
-  `qt_vendas` int(45) DEFAULT NULL
+  `idusuario` int(11) NOT NULL,
+  `data_venda` datetime NOT NULL,
+  `valor_total` decimal(8,2) NOT NULL,
+  `itens_total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `vendas`
 --
 
-INSERT INTO `vendas` (`idvendas`, `idprodutos`, `idestoques`, `idalunos_cliente`, `data_venda`, `valor_vendas`, `qt_vendas`) VALUES
-(1, 1, 1, 1, '2017-11-24 00:46:00', '12.00', 2),
-(2, 2, 2, 8, '2017-11-25 03:07:46', '40.00', 2),
-(3, 8, 8, 2, '2017-11-25 03:07:46', '70.00', 1);
+INSERT INTO `vendas` (`idvendas`, `idalunos_cliente`, `idusuario`, `data_venda`, `valor_total`, `itens_total`) VALUES
+(1, 7, 1, '2017-11-30 14:03:16', '22.00', 3),
+(2, 3, 1, '2017-11-30 14:57:23', '235.00', 8),
+(3, 1, 1, '2018-03-04 00:43:04', '72.00', 12),
+(4, 1, 1, '2018-04-07 14:47:36', '60.00', 3),
+(5, 4, 1, '2018-04-07 14:49:34', '79.00', 6);
 
 --
 -- Indexes for dumped tables
@@ -6162,6 +6344,12 @@ ALTER TABLE `estoq_prod`
   ADD KEY `fk_estoques_produtos1_idx` (`idprodutos`);
 
 --
+-- Indexes for table `exercicios`
+--
+ALTER TABLE `exercicios`
+  ADD PRIMARY KEY (`idexercicios`);
+
+--
 -- Indexes for table `fornecedores`
 --
 ALTER TABLE `fornecedores`
@@ -6176,11 +6364,35 @@ ALTER TABLE `funcionarios`
   ADD KEY `endereco_func_idx` (`idendereco_func`);
 
 --
+-- Indexes for table `historicos_mensalidades`
+--
+ALTER TABLE `historicos_mensalidades`
+  ADD PRIMARY KEY (`idhist_pag`),
+  ADD KEY `idalunos_idx` (`idalunos_cliente`),
+  ADD KEY `idplano_idx` (`idplano`);
+
+--
+-- Indexes for table `itens_vendas`
+--
+ALTER TABLE `itens_vendas`
+  ADD PRIMARY KEY (`iditensvendas`),
+  ADD KEY `vendas_idx` (`idvendas`),
+  ADD KEY `produto_idx` (`idprodutos`),
+  ADD KEY `estoq_prod_fk` (`idestoques`);
+
+--
 -- Indexes for table `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  ADD PRIMARY KEY (`idmensalidades`),
-  ADD KEY `fk_mensalidades_alunos_cliente1_idx` (`idalunos_cliente`);
+  ADD PRIMARY KEY (`idmensalidade`),
+  ADD KEY `fk_mensalidades_alunos_cliente1_idx` (`idalunos_cliente`),
+  ADD KEY `plano_mensalidade_idx` (`idplano`);
+
+--
+-- Indexes for table `planos`
+--
+ALTER TABLE `planos`
+  ADD PRIMARY KEY (`idplano`);
 
 --
 -- Indexes for table `produtos`
@@ -6191,14 +6403,19 @@ ALTER TABLE `produtos`
   ADD KEY `fk_produtos_fornecedores2_idx` (`idfornecedores`);
 
 --
+-- Indexes for table `registros_catraca`
+--
+ALTER TABLE `registros_catraca`
+  ADD PRIMARY KEY (`idregistros_catraca`),
+  ADD KEY `registro_de_alunos_idx` (`idaluno_clientes`);
+
+--
 -- Indexes for table `treinos`
 --
 ALTER TABLE `treinos`
-  ADD PRIMARY KEY (`idtreinos`),
-  ADD KEY `fk_treinos_alunos_cliente1_idx` (`idalunos_cliente`),
-  ADD KEY `fk_treinos_funcionarios1_idx` (`idfuncionarios`),
-  ADD KEY `id_equipamento_idx` (`idequipamento`),
-  ADD KEY `fk_equipamento_idx` (`idequipamento`);
+  ADD PRIMARY KEY (`idtreino`),
+  ADD KEY `exercicios_idx` (`idexercicio`),
+  ADD KEY `equipamentos_idx` (`idequipamentos`);
 
 --
 -- Indexes for table `usuario`
@@ -6212,9 +6429,8 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `vendas`
   ADD PRIMARY KEY (`idvendas`),
-  ADD KEY `fk_vendas_produtos1_idx` (`idprodutos`),
-  ADD KEY `fk_vendas_alunos_cliente1_idx` (`idalunos_cliente`),
-  ADD KEY `venda_estoque_idx` (`idestoques`);
+  ADD KEY `aluno_idx` (`idalunos_cliente`),
+  ADD KEY `usuario_idx` (`idusuario`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -6225,86 +6441,121 @@ ALTER TABLE `vendas`
 --
 ALTER TABLE `alunos_cliente`
   MODIFY `idalunos_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `anamneses`
 --
 ALTER TABLE `anamneses`
-  MODIFY `idanamneses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idanamneses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `cat_produto`
 --
 ALTER TABLE `cat_produto`
   MODIFY `idcate_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `cidade`
 --
 ALTER TABLE `cidade`
   MODIFY `idcidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5566;
+
 --
 -- AUTO_INCREMENT for table `endereco_aluno`
 --
 ALTER TABLE `endereco_aluno`
-  MODIFY `idendereco_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idendereco_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `endereco_fornecedor`
 --
 ALTER TABLE `endereco_fornecedor`
-  MODIFY `idendereco_forn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idendereco_forn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `endereco_fun`
 --
 ALTER TABLE `endereco_fun`
-  MODIFY `idendereco_fun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idendereco_fun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 --
 -- AUTO_INCREMENT for table `equipamentos`
 --
 ALTER TABLE `equipamentos`
-  MODIFY `idequipamentos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idequipamentos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `estado`
 --
 ALTER TABLE `estado`
   MODIFY `idestado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
 -- AUTO_INCREMENT for table `estoq_prod`
 --
 ALTER TABLE `estoq_prod`
-  MODIFY `idestoques` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idestoques` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `exercicios`
+--
+ALTER TABLE `exercicios`
+  MODIFY `idexercicios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
 --
 -- AUTO_INCREMENT for table `fornecedores`
 --
 ALTER TABLE `fornecedores`
-  MODIFY `idfornecedores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idfornecedores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `funcionarios`
 --
 ALTER TABLE `funcionarios`
-  MODIFY `idfuncionarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idfuncionarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
--- AUTO_INCREMENT for table `mensalidades`
+-- AUTO_INCREMENT for table `itens_vendas`
 --
-ALTER TABLE `mensalidades`
-  MODIFY `idmensalidades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `itens_vendas`
+  MODIFY `iditensvendas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `planos`
+--
+ALTER TABLE `planos`
+  MODIFY `idplano` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `produtos`
 --
 ALTER TABLE `produtos`
   MODIFY `idprodutos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `registros_catraca`
+--
+ALTER TABLE `registros_catraca`
+  MODIFY `idregistros_catraca` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `treinos`
 --
 ALTER TABLE `treinos`
-  MODIFY `idtreinos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idtreino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `idvendas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idvendas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- Constraints for dumped tables
 --
@@ -6373,10 +6624,26 @@ ALTER TABLE `funcionarios`
   ADD CONSTRAINT `endereco_func` FOREIGN KEY (`idendereco_func`) REFERENCES `endereco_fun` (`idendereco_fun`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Limitadores para a tabela `historicos_mensalidades`
+--
+ALTER TABLE `historicos_mensalidades`
+  ADD CONSTRAINT `idalunos` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `idplano` FOREIGN KEY (`idplano`) REFERENCES `planos` (`idplano`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `itens_vendas`
+--
+ALTER TABLE `itens_vendas`
+  ADD CONSTRAINT `estoq_prod_fk` FOREIGN KEY (`idestoques`) REFERENCES `estoq_prod` (`idestoques`),
+  ADD CONSTRAINT `produto` FOREIGN KEY (`idprodutos`) REFERENCES `produtos` (`idprodutos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `vendas` FOREIGN KEY (`idvendas`) REFERENCES `vendas` (`idvendas`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Limitadores para a tabela `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  ADD CONSTRAINT `fk_mensalidades_alunos_cliente1` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_mensalidades_alunos_cliente1` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `plano_mensalidade` FOREIGN KEY (`idplano`) REFERENCES `planos` (`idplano`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `produtos`
@@ -6386,12 +6653,17 @@ ALTER TABLE `produtos`
   ADD CONSTRAINT `fk_produtos_fornecedores2` FOREIGN KEY (`idfornecedores`) REFERENCES `fornecedores` (`idfornecedores`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Limitadores para a tabela `registros_catraca`
+--
+ALTER TABLE `registros_catraca`
+  ADD CONSTRAINT `registro_de_alunos` FOREIGN KEY (`idaluno_clientes`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Limitadores para a tabela `treinos`
 --
 ALTER TABLE `treinos`
-  ADD CONSTRAINT `fk_treinos_alunos_cliente1` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_treinos_equipamento` FOREIGN KEY (`idequipamento`) REFERENCES `equipamentos` (`idequipamentos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_treinos_funcionarios1` FOREIGN KEY (`idfuncionarios`) REFERENCES `funcionarios` (`idfuncionarios`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `equipamentos` FOREIGN KEY (`idequipamentos`) REFERENCES `equipamentos` (`idequipamentos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `exercicios` FOREIGN KEY (`idexercicio`) REFERENCES `exercicios` (`idexercicios`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `usuario`
@@ -6403,9 +6675,9 @@ ALTER TABLE `usuario`
 -- Limitadores para a tabela `vendas`
 --
 ALTER TABLE `vendas`
-  ADD CONSTRAINT `fk_vendas_alunos_cliente1` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_vendas_produtos1` FOREIGN KEY (`idprodutos`) REFERENCES `produtos` (`idprodutos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `venda_estoque` FOREIGN KEY (`idestoques`) REFERENCES `estoq_prod` (`idestoques`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `aluno` FOREIGN KEY (`idalunos_cliente`) REFERENCES `alunos_cliente` (`idalunos_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `usuario` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

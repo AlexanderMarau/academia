@@ -14,103 +14,80 @@ require 'Relatorios/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
-$html = "        <head>    
-                <meta charset='UTF-8'>
-                <title>Relátorio de Produtos</title>
-                <style>
-                 table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;
-}          </style>
-            </head>
-
-            <h1>Performance Academia</h1>
-
-            <h2>Relátorio de Produtos</h2>
-            
-            <table  style='width:100%'>";
-
+$html = "<link rel='stylesheet' type='text/css' href='../_cdn/bootstrap/css/bootstrap.min.css'>
+	<table class='table' style='background-color: #99ccff;'>
+		<tr>
+			<th>
+				<img style='width: 220px; height: 200px;' src='img/logoAcademia.png'>
+			</th>
+			<th style='width: 100%; background-color: #99ccff;'>
+				<div style='color: white;'>
+					<p>Academia Performance Fit</p>
+					<p>Endereço:Rua Dr. Soares QD. 05, LT. 48</p>
+					<p>Bairro: Colina Azul</p>
+					<p>Municipio: Aparecida de Goiânia GO CEP 00000-000</p>
+				</div>	
+				<div style='margin-top: 20px; font-size: 30px; color: black;'> 
+					<label>Relatório de Produtos</label>
+				</div>			
+			</th>
+		</tr>
+	</table>
+        <table style=' font-size: 10px;' class='table table-striped'>
+		<thead style='background-color: black; font-size: 12px;'>
+			<tr style='color: white;'>
+				<th>ID</th>
+				<th>Produto</th>
+				<th>Categoria</th>
+				<th>Fornecedor</th>
+				<th>Peso</th>
+                                <th>Cor</th>
+                                <th>Tamanho</th>
+                                <th>Número</th>
+                                <th>Contra indicações</th>
+                                <th>Data de entrada</th>
+                                <th>Marca</th>
+                                <th>Fabricante</th>
+                                <th>Data de validade</th>
+                                <th>Qtd. Estoque</th>
+                                <th>Obs.</th>
+			</tr>
+		</thead>
+";
 foreach ($RelatorioProdutos->getResult() as $e):
     extract($e);
 
-    $html .= "<tr>"
-            . "<th>ID</th>"
-            . "<td>{$idprodutos}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Nome do produto</th>"
-            . "<td>{$nome_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Categoria</th>"
-            . "<td>{$descricao}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Fornecedor</th>"
-            . "<td>{$nome_forn}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Peso</th>"
-            . "<td>{$peso_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Cor</th>"
-            . "<td>{$cor_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Tamanho</th>"
-            . "<td>{$tamanho_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Número</th>"
-            . "<td>{$numero_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Contra indicações</th>"
-            . "<td>{$con_indicacao_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Data de entrada</th>"
-            . "<td>{$dt_entr_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Marca</th>"
-            . "<td>{$marca_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Fabricante</th>"
-            . "<td>{$fabricante_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Data de validade</th>"
-            . "<td>{$validade_prod}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Quantidade Estoque</th>"
-            . "<td>{$quant_estoque}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Observações</th>"
-            . "<td>{$obs_prod}</td>"
-            . "</tr>"
-            . "<tr style='background-color: red;'>"
-            . "<th></th>"
-            . "<td></td>"
-            . "</tr>";
+    $html .= "<tbody>
+			<tr>
+				<td>{$idprodutos}</td>
+				<td>{$nome_prod}</td>
+				<td>{$descricao}</td>
+				<td>{$nome_forn}</td>
+                                <td>{$peso_prod}</td>
+                                <td>{$cor_prod}</td>
+                                <td>{$tamanho_prod}</td>
+                                <td>{$numero_prod}</td>
+                                <td>{$con_indicacao_prod}</td>
+                                <td>{$dt_entr_prod}</td>
+                                <td>{$marca_prod}</td>
+                                <td>{$fabricante_prod}</td>
+                                <td>{$validade_prod}</td>
+                                <td>{$quant_estoque}</td>
+                                <td>{$obs_prod}</td>
+			</tr>
+	</tbody>";
 
 endforeach;
 
-$html .= "</table>";
+$html .= "</table>
+        <script type='text/javascript' src='../_cdn/bootstrap/js/bootstrap.min.css'></script>
+";
 
 $dompdf = new Dompdf();
 
 $dompdf->loadHtml($html);
 
-$dompdf->set_paper('a4');
+$dompdf->set_paper('a4', 'landscape');
 
 $dompdf->render();
 
