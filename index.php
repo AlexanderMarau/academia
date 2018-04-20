@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="Views/css/menu.css">
         <link rel="stylesheet" type="text/css" href="Views/css/animate.css">
         <link rel="stylesheet" type="text/css" href="Views/css/style.css">
+        <link rel="stylesheet" type="text/css" href="Views/css/catraca.css">
     </head>
     <body>
         <!--CONTEUDO-->
@@ -32,7 +33,6 @@
         <script src="_cdn/jquery.js"></script>
         <script src="_cdn/jquery.min.js"></script>
         <script src="_cdn/jquery.mask.min.js"></script>
-        <!--<script src="_cdn/bootstrap-4.0/js/bootstrap.min.js"></script>-->
         <script src="_cdn/bootstrap/js/bootstrap.min.js"></script>
         <script src="_cdn/mascara.js"></script>
         <script src="_cdn/console.geral.js"></script>
@@ -49,6 +49,7 @@
         <script src="Controllers/controller.produto.js"></script>
         <script src="Controllers/controller.venda.js"></script>
         <script src="Controllers/controller.historico_mens.js"></script>
+        <script src="Controllers/controller.catraca.js"></script>
         <!--FIM DE SCRIPTS:-->
     </body>
 </html>

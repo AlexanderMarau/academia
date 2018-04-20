@@ -17,6 +17,13 @@
                 </ul>
             </li>
             <li style="margin-top: 10px; width: 100%;">
+                <a class="nav dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-align-justify"></i> Catraca</a>
+                <ul  style="background-color: white;" class="dropdown-menu">
+                    <li><a href="#">Histórico</a></li>
+                    <li><a target="blank" href="view.catraca">Simulador</a></li>
+                </ul>
+            </li>
+            <li style="margin-top: 10px; width: 100%;">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-align-justify"></i> Mensalidades</a>
                 <ul  style="background-color: white;" class="dropdown-menu">
                     <li><a href="view.historico.mens">Histórico do Aluno</a></li>
@@ -34,7 +41,7 @@
             <li style="margin-top: 10px; width: 100%;">
                 <a class="nav navbar-link" href="view.venda"><i class="glyphicon glyphicon-shopping-cart"></i> Vendas</a>
             </li>
-            <li style="width: 100%; margin-top: 300px;">
+            <li style="width: 100%; margin-top: 240px;">
                 <a style="color: red;" href="view.logout"><span class="glyphicon glyphicon-log-in"></span> Sair</a>
             </li>
         </ul>
