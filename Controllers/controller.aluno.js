@@ -1,6 +1,5 @@
 //INICIAR JQUERY:
 $(function () {
-    //Teste
     //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
     $('.pesquisar-aluno').on('keypress', function (e) {
         return e.which !== 13;

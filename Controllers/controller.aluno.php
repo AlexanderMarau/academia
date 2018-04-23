@@ -53,7 +53,7 @@ else:
                 break;
 //        CONDIÇÃO  'create-aluno' ATENDIDA, RESPONSÁVEL POR CADASTRAR NOVOS ALUNOS NO BANCO:
             case 'create-aluno':
-                
+            // DESMEMBRAR O ARRAY, RETIRANDO OS INDÍCES QUE IRÃO PARA OUTRAS TABELAS:
                 $EnderecoAluno = array();
                 $EnderecoAluno['idcidade'] = $Post['idcidade'];
                 $EnderecoAluno['idestado'] = $Post['idestado'];
@@ -61,40 +61,67 @@ else:
                 unset($Post['idcidade']);
                 unset($Post['idestado']);
                 unset($Post['complementos_aluno']);
-
-//            CRIAÇÃO DE UMA VARIÁVEL RESPONSÁVEL POR RECEBER  O NOME DA TABELA QUE SERÁ INSERIDA OS DADOS NO BANCO:
-                $Tabela = "alunos_cliente";
-
+                $DadosPlano = new Read;
+                $DadosPlano->FullRead("SELECT valor_plano FROM planos WHERE idplano = :idplano", "idplano={$Post['idplano']}");
+                $PrecoPlano = $DadosPlano->getResult();
+                $HistoricoPgm = array();
+                $HistoricoPgm['idplano'] = $Post['idplano'];
+                $HistoricoPgm['data_mens_pag'] = date('Y-m-d');
+                $HistoricoPgm['valor_pag'] = $PrecoPlano[0]['valor_plano'];
+                $Mensalidade = array();
+                $Mensalidade['idplano'] = $Post['idplano'];
+                $Mensalidade['data_mens_pag'] = $Post['data_mens_pag'];
+                $Mensalidade['status_mens'] = 'Em aberto';
+                unset($Post['idplano']);
+                unset($Post['data_mens_pag']);
 //            INSERIR A CLASSE DA MODEL RESPONSÁVEL PELA INTERAÇÃO COM O BANCO DE DADOS:
                 require '../Models/model.aluno.create.php';
-
-//            INSTÂNCIA DO OBJETO DA CLASSE ALUNO RESPONSÁVEL POR CADASTRAR NOVOS ALUNOS NO BANCO DE DADOS:
+//            INSTÂNCIA DO OBJETO DA CLASSE ALUNO RESPONSÁVEL POR CADASTRAR NOVOS ENDEREÇOS DE ALUNOS NO BANCO DE DADOS:
                 $CadEndAluno = new AlunoCreate;
                 $CadEndAluno->novoEnderecoAluno("endereco_aluno", $EnderecoAluno);
                 $IdEnderecoAluno = $CadEndAluno->getResult(); //A VARIÁVEL '$IdEnderecoAluno' RECEBE O ID DO ENDEREÇO INSERIDO.
-
                 $Post['idendereco_aluno'] = $IdEnderecoAluno;
-
+//            MÉTODO DA CLASSE ALUNO RESPONSÁVEL POR CADASTRAR NOVOS ALUNOS NO BANCO DE DADOS:   
                 $CadastrarAluno = new AlunoCreate;
-
-//            MÉTODO DA CLASSE ALUNO RESPONSÁVEL POR CADASTRAR NOVOS ALUNOS NO BANCO DE DADOS:
-                $CadastrarAluno->novoAluno($Tabela, $Post);
-
+                $CadastrarAluno->novoAluno('alunos_cliente', $Post);
 //            CONDIÇÃO PARA VERIFICAR SE FOI CADASTRADO UM NOVO ALUNO, UTILIZANDO UM MÉTODO DA CLASSE ALUNO:
                 if ($CadastrarAluno->getResult()):
-                    $idNovoAluno = $CadastrarAluno->getResult();
-                    $alunoCadastrado = new Read;
-                    $alunoCadastrado->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.idendereco_aluno, alunos_cliente.nome_aluno, alunos_cliente.status_aluno FROM alunos_cliente WHERE alunos_cliente.idalunos_cliente = :idaluno", "idaluno={$idNovoAluno}");
-                    if($alunoCadastrado->getResult()):
-                        $novoAluno = $alunoCadastrado->getResult();
-                        $jSon['novoaluno'] = $novoAluno[0];
+                    // GERANDO HISTÓRICO DE PAGAMENTO:
+                    $HistoricoPgm['idalunos_cliente'] = $CadastrarAluno->getResult();
+                    $GerarHist = new AlunoCreate;
+                    $GerarHist->novoHistoricoPag('historicos_mensalidades', $HistoricoPgm);
+                    if($GerarHist->getResult()):
+                       // GERANDO MENSALIDADE FUTURA:
+                        $Mensalidade['idalunos_cliente'] = $CadastrarAluno->getResult();
+                        $GerarMensal = new AlunoCreate;
+                        $GerarMensal->novaMensalidade('mensalidades', $Mensalidade);
+                        if($GerarMensal->getResult()):
+                            $idNovoAluno = $CadastrarAluno->getResult();
+                            $alunoCadastrado = new Read;
+                            $alunoCadastrado->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.idendereco_aluno, alunos_cliente.nome_aluno, alunos_cliente.status_aluno FROM alunos_cliente WHERE alunos_cliente.idalunos_cliente = :idaluno", "idaluno={$idNovoAluno}");
+                            if($alunoCadastrado->getResult()):
+                                $novoAluno = $alunoCadastrado->getResult();
+                                $jSon['novoaluno'] = $novoAluno[0];
+                                //CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO ARQUIVO JS:
+                                $jSon['sucesso'] = true;
+                                //GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO:
+                                $jSon['clear'] = true;
+                            else:
+                                $jSon['trigger'] = true;
+                                $jSon['mensagem'] = "Não foi possível obter os dados do novo aluno cadastrado";    
+                            endif;
+                        else:
+                            $jSon['trigger'] = true;
+                            $jSon['mensagem'] = "Não foi possível gerar uma mensalidade";
+                        endif;
+                    else:
+                        $jSon['trigger'] = true;
+                        $jSon['mensagem'] = "Não foi possível gerar um histórico de pagamento";    
                     endif;
-//                CONFIGURANDO UM GATILHO DE SUCESSO AO EXECUTAR O CADASTRO, TAL GATILHO SERÁ INTERPRETADO PELO ARQUIVO JS:
-                    $jSon['sucesso'] = true;
-//                GATILHO QUE SERÁ INTERPRETADO PELO ARQUIVO JS PARA LIMPAR OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO:
-                    $jSon['clear'] = true;
+                else:
+                    $jSon['trigger'] = true;
+                    $jSon['mensagem'] = "Não foi possível cadastrar o aluno";    
                 endif;
-
                 break;
             //FUNÇÃO RESPONSÁVEL POR CONSULTAR NO BANCO DE DADOS AS INFORMAÇÕES DO ALUNO PARA POVOAR A MODAL DE EDIÇÃO.    
             case 'povoar-edit':
@@ -109,8 +136,7 @@ else:
                         $Resultado = $e;
                     endforeach;
                     $jSon = $Resultado;
-                endif;
-                        
+                endif;                        
                 break;
                 
             case 'update-aluno':
@@ -144,17 +170,13 @@ else:
                         $jSon['content']['status_aluno'] = $Post['status_aluno'];
                         $jSon['content']['idendereco_aluno'] = $novoEndereco['idendereco_aluno'];
                     endif;
-                endif;
-                
-                
+                endif;                               
                 break;
-
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:
             default:
                 $jSon['trigger'] = "<div class='alert alert-warning'>Ação não selecionada! *2</div>";
                 break;
         endswitch;
-
     endif;
 endif;
 //USANDO O ECHO OS GATILHOS VOLTA VIA AJAX UTILIZANDO JSON PARA O ARQUIVO JS E LÁ SERÁ INTERPRETADO:

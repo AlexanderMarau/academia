@@ -53,6 +53,51 @@ class AlunoCreate {
     }
 
     /**
+     * <b>novoPlanoAluno:</b> Executa um cadastro simplificado no banco de dados utilizando prepared statements.
+     * Basta informar o nome da tabela e um array atribuitivo com nome da coluna e valor!
+     * 
+     * @param STRING $Tabela = Informe o nome da tabela no banco!
+     * @param ARRAY $Dados = Informe um array atribuitivo. ( Nome Da Coluna => Valor ).
+     */
+    public function novoPlanoAluno($Tabela, array $Dados) {
+        $this->Tabela = (string) $Tabela;
+        $this->Dados = $Dados;
+
+        $this->getSyntax();
+        $this->Execute();
+    }
+
+    /**
+     * <b>novoHistoricoPag:</b> Executa um cadastro simplificado no banco de dados utilizando prepared statements.
+     * Basta informar o nome da tabela e um array atribuitivo com nome da coluna e valor!
+     * 
+     * @param STRING $Tabela = Informe o nome da tabela no banco!
+     * @param ARRAY $Dados = Informe um array atribuitivo. ( Nome Da Coluna => Valor ).
+     */
+    public function novoHistoricoPag($Tabela, array $Dados) {
+        $this->Tabela = (string) $Tabela;
+        $this->Dados = $Dados;
+
+        $this->getSyntax();
+        $this->Execute();
+    }
+
+    /**
+     * <b>novaMensalidade:</b> Executa um cadastro simplificado no banco de dados utilizando prepared statements.
+     * Basta informar o nome da tabela e um array atribuitivo com nome da coluna e valor!
+     * 
+     * @param STRING $Tabela = Informe o nome da tabela no banco!
+     * @param ARRAY $Dados = Informe um array atribuitivo. ( Nome Da Coluna => Valor ).
+     */
+    public function novaMensalidade($Tabela, array $Dados) {
+        $this->Tabela = (string) $Tabela;
+        $this->Dados = $Dados;
+
+        $this->getSyntax();
+        $this->Execute();
+    }
+
+    /**
      * <b>ExeCreateMulti:</b> Executa um cadastro múltiplo no banco de dados utilizando prepared statements.
      * Basta informar o nome da tabela e um array multidimensional com nome da coluna e valores!
      * 
