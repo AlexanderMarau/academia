@@ -15,6 +15,7 @@ else:
     unset($Post['callback']);
 
     switch ($Action):
+        //CASO CALLBACK SEJÁ create-registro EXECUTA-SE A FUNÇÃO DE CADASTRO
         case 'create-registro':
 
             $Tabela = "registros_catraca";
@@ -33,6 +34,7 @@ else:
 
             //CASO O STATUS DA MENSALIDADE ESTEJA EM ABERTO A CATRACA LIBERA O ACESSO E CADASTRA UM NOVO REGISTRO:
             if ($status_mens == 'Em aberto'):
+                
                 $CadastrarRegistro = new Create;
                 $CadastrarRegistro->ExeCreate($Tabela, $Post);
 
@@ -53,6 +55,7 @@ else:
 
                         $jSon['clear'] = true;
                     endif;
+                 
                 endif;
 
             //CASO O STATUS DA MENSALIDADE ESTEJÁ VENCIDA A CATRACA BLOQUEIA O ACESSO:    
@@ -84,10 +87,24 @@ else:
                         $jSon['clear'] = true;
                     endif;
                 endif;
-            else:
-                echo "<script>alert('Não existe status!')</script>";
+            elseif ($status_mens == null):
+                echo "ERRO!";
             endif;
 
+            break;
+
+        //CASO O CALLBACK SEJÁ sair-catraca EXECUTA-SE A FUNÇÃO PARA ATUALIZAR DADOS
+        case 'sair-catraca':
+            $Tabela = "registros_catraca";
+
+            require '../_app/Conn/Update.class.php';
+            
+            $updateCatraca = new Update;
+            $updateCatraca->ExeUpdate($Tabela, $Post, "WHERE idregistros_catraca = :idregistros_catraca", "idregistros_catraca={$Post['idregistros_catraca']}");
+            if($updateCatraca->getResult()):
+                echo "OK";
+            endif;
+            
             break;
     endswitch;
 endif;

@@ -1,3 +1,16 @@
+.btn-entrar{
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    margin-left: 135px;
+}
+
+.btn-sair{
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+}
+
 .success alert-success{
     display: none;
 }
@@ -75,8 +88,4 @@
 
 .btn-pesquisa{
     width: 40px;
-}
-
-.btn-sair{
-    width: 80px;
 }

@@ -1,4 +1,4 @@
-
+<link rel="shortcut icon" href="http://localhost/academia/Views/img/ticket-liberado.png">
 <div class="container">
     <h3 class="catraca-titulo">Sistema de catraca</h3>
     <div class="col-md-12">
@@ -12,7 +12,11 @@
                         <option selected disabled>SELECIONE</option>
                         <?php
                         $readAlunos = new Read;
-                        $readAlunos->ExeRead('alunos_cliente');
+                        //$readAlunos->ExeRead('alunos_cliente');
+                        $readAlunos->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno, mensalidades.idalunos_cliente 
+                            FROM alunos_cliente INNER JOIN  mensalidades 
+                            ON alunos_cliente.idalunos_cliente = mensalidades.idalunos_cliente
+                            WHERE mensalidades.idmensalidade >= 1");
                         foreach ($readAlunos->getResult() as $e):
                             extract($e);
                             echo "<option value='{$idalunos_cliente}'>{$idalunos_cliente} - {$nome_aluno}</option>";
@@ -21,15 +25,21 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6 input-group-sm">
-                    <label>Data</label>
-                    <input type="date" name="data_registro" class="form-control" required>
+                    <?php
+                    date_default_timezone_set('America/Sao_Paulo');
+                    $data_registro = date("Y-m-d");
+                    ?>
+                    <input type="hidden" name="data_registro" value="<?php echo $data_registro; ?>">
                 </div>
                 <div class="form-group col-md-6 input-group-sm">
-                    <label>Hora</label>
-                    <input type="time" name="hr_entrada_catraca" class="form-control" required>
+                    <?php
+                    date_default_timezone_set('America/Sao_Paulo');
+                    $hr_entrada_catraca = date("H:i:s");
+                    ?>
+                    <input type="hidden" name="hr_entrada_catraca" value="<?php echo $hr_entrada_catraca; ?>">
                 </div>
                 <div class="col-md-12 input-group-sm">
-                    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-log-in"></i> Entrar</button>
+                    <button type="submit" class="btn-entrar btn btn-success"><i class="glyphicon glyphicon-log-in"></i></button>
                 </div>
             </form>
         </div>
@@ -50,7 +60,6 @@
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno com parcelas vencidas, favor efetue o pagamento no caixa para liberar o acesso!</b></p>
             </div>
-
             <div class="alert alert-warning warning">
                 <img class="img-alerta" src="http://localhost/academia/Views/img/ticket-alerta.png">
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
@@ -98,12 +107,14 @@
                             "ORDER BY registros_catraca.idregistros_catraca");
                     foreach ($readRegistros->getResult() as $e):
                         extract($e);
+                        date_default_timezone_set('America/Sao_Paulo');
+                        $hr_saida = date("H:i:s");
                         echo "<tr id='{$idregistros_catraca}'>" .
                         "<td>{$nome_aluno}</td>" .
                         "<td>{$hr_entrada_catraca}</td>" .
                         "<td>{$hr_saida_catraca}</td>" .
                         "<td>{$data_registro}</td>" .
-                        "<td><button type='submit' class='btn-sair btn btn-xs btn-danger' idregistros_catraca={$idregistros_catraca}><i class='glyphicon glyphicon-log-out'></i> Sair</button></td>" .
+                        "<td><button class='btn-sair btn btn-xs btn-danger' idregistros_catraca={$idregistros_catraca} hr_saida_catraca={$hr_saida}><i class='glyphicon glyphicon-log-out'></i></button></td>" .
                         "</tr>";
                     endforeach;
                     ?>

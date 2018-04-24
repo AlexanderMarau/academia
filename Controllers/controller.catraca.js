@@ -1,5 +1,11 @@
+//FUNÇÃO PARA ATUALIZAR A PAGINA A CADA 30 SEGUNDOS:
+window.onload = function(){
+    setTimeout('location.reload();', 30000);
+};
+
 //INICIAR JQUERY
 $(function () {
+    
     //FUNÇÃO RESPONSAVEL POR CADASTRAR UM NOVO REGISTRO:
     $(".j-form-create-registro").submit(function () {
         //VARIAVEL FORM QUE RECEBE O PROPRIO FORMULÁRIO USANDO O METODO DO JQUERY 'THIS':
@@ -34,6 +40,26 @@ $(function () {
             }
         });
         return false;
+    });
+    
+    //FUNÇÃO PARA REGISTRAR SAIDA NO SISTEMA DE CATRACA:
+    $("html").on("click", ".btn-sair", function(){
+        var sairButton = $(this);
+        var idregistros_catraca = $(sairButton).attr('idregistros_catraca');
+        var hr_saida_catraca = $(sairButton).attr('hr_saida_catraca');
+        var Dados = {callback: 'sair-catraca', idregistros_catraca: idregistros_catraca, hr_saida_catraca: hr_saida_catraca};
+        $.ajax({
+           url: "http://localhost/academia/Controllers/controller.catraca.php",
+           data: Dados,
+           type: 'POST',
+           dataType: 'json',
+           beforeSend: function(xhr){
+               
+           },
+           success: function (data){
+               
+           }
+        });
     });
 
 });
