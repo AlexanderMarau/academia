@@ -7,22 +7,8 @@
             <form action="" method="POST" class="j-form-create-registro">
                 <input type="hidden" name="callback" value="create-registro">
                 <div class=" col-md-12 input-group-sm">
-                    <label>Selecione o Aluno</label>
-                    <select name="idaluno_clientes" class="form-control">
-                        <option selected disabled>SELECIONE</option>
-                        <?php
-                        $readAlunos = new Read;
-                        //$readAlunos->ExeRead('alunos_cliente');
-                        $readAlunos->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno, mensalidades.idalunos_cliente 
-                            FROM alunos_cliente INNER JOIN  mensalidades 
-                            ON alunos_cliente.idalunos_cliente = mensalidades.idalunos_cliente
-                            WHERE mensalidades.idmensalidade >= 1");
-                        foreach ($readAlunos->getResult() as $e):
-                            extract($e);
-                            echo "<option value='{$idalunos_cliente}'>{$idalunos_cliente} - {$nome_aluno}</option>";
-                        endforeach;
-                        ?>
-                    </select>
+                    <label>Insira a matricula para efetuar Entrada</label>
+                    <input type="number" name="idaluno_clientes" class="form-control" placeholder="Nº da matricula" required>
                 </div>
                 <div class="form-group col-md-6 input-group-sm">
                     <?php
@@ -53,6 +39,18 @@
             </div>
 
         </div>
+        <!--Div para Sair-->
+        <div class="catraca-well col-md-4 well well-sm">
+            <form action="" method="POST" class="">
+                <div class="form-group col-md-12 input-group-sm">
+                    <label>Insira a matricula para efetuar Saida</label>
+                    <input type="number" name="idaluno_clientes" class="form-control" placeholder="Nº da matricula" required>
+                </div>
+                <div class="col-md-12 input-group-sm">
+                    <button type="submit" class="btn-sair btn btn-danger"><i class="glyphicon glyphicon-log-out"></i></button>
+                </div>
+            </form>
+        </div>
         <!--Mensagens de Alerta-->
         <div class="col-md-4 mensagens">
             <div class="alert alert-danger danger">
@@ -73,55 +71,49 @@
         </div>
     </div>
 
-    <div style="margin-top: 50px;" class="col-md-12">
-        <h3>Histórico</h3>
-        <form action="" method="POST" class="">
-            <div class="form-group-sm col-md-3">
-                <input name="" type="text" class="form-control" placeholder="Pesquise pelo Aluno">
-            </div>
-            <div class="form-group-sm col-md-2">
-                <input type="date" name="" class="form-control">
-            </div>
-            <button type="submit" class="btn-pesquisa btn btn-primary btn-sm">
-                <i class="glyphicon glyphicon-search"></i>
-            </button>
-            <hr>
-        </form>
+    <div style="margin-top: 80px;" class="col-md-12">
+        <h3>Registros do dia</h3>
+
         <div class="tabela-resultado">
             <table class="catraca-table table table-striped">
                 <thead class="tabela-titulo">
                     <tr>
+                        <th>Matricula</th>
                         <th>Aluno</th>
                         <th>Hr. de entrada</th>
                         <th>Hr. de saida</th>
                         <th>Data</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
+                    date_default_timezone_set('America/Sao_Paulo');
+                    $data_registro_dia = date("Y:m:d");
+                    
                     $readRegistros = new Read;
-                    $readRegistros->FullRead("SELECT alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
+                    $readRegistros->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
                             "FROM registros_catraca " .
                             "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente ".
-                            "ORDER BY registros_catraca.idregistros_catraca");
+                            "WHERE registros_catraca.data_registro = '{$data_registro_dia}' ".
+                            "ORDER BY registros_catraca.idregistros_catraca "
+                            );
                     foreach ($readRegistros->getResult() as $e):
                         extract($e);
                         date_default_timezone_set('America/Sao_Paulo');
                         $hr_saida = date("H:i:s");
                         echo "<tr id='{$idregistros_catraca}'>" .
+                        "<td>{$idalunos_cliente}</td>".        
                         "<td>{$nome_aluno}</td>" .
                         "<td>{$hr_entrada_catraca}</td>" .
                         "<td>{$hr_saida_catraca}</td>" .
                         "<td>{$data_registro}</td>" .
-                        "<td><button class='btn-sair btn btn-xs btn-danger' idregistros_catraca={$idregistros_catraca} hr_saida_catraca={$hr_saida}><i class='glyphicon glyphicon-log-out'></i></button></td>" .
                         "</tr>";
                     endforeach;
                     ?>
                 </tbody>
             </table>
         </div>
-
+        
     </div>
 </div>
 
