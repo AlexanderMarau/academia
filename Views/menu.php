@@ -19,7 +19,7 @@
             <li style="margin-top: 10px; width: 100%;">
                 <a class="nav dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-align-justify"></i> Catraca</a>
                 <ul  style="background-color: white;" class="dropdown-menu">
-                    <li><a href="#">Histórico</a></li>
+                    <li><a href="view.hist.catraca">Histórico</a></li>
                     <li><a target="blank" href="view.catraca">Simulador</a></li>
                 </ul>
             </li>
