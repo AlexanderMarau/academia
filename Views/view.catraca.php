@@ -1,4 +1,8 @@
-
+<?php
+date_default_timezone_set("America/Sao_Paulo");
+$data_registro = date("Y-m-d");
+$hr_entrada_catraca = date("H:i");
+?>
 <div class="container">
     <h3 class="catraca-titulo">Sistema de catraca</h3>
     <div class="col-md-12">
@@ -22,11 +26,11 @@
                 </div>
                 <div class="form-group col-md-6 input-group-sm">
                     <label>Data</label>
-                    <input type="date" name="data_registro" class="form-control" required>
+                    <input type="date" name="data_registro" class="form-control" value="<?php echo $data_registro; ?>" disabled>
                 </div>
                 <div class="form-group col-md-6 input-group-sm">
                     <label>Hora</label>
-                    <input type="time" name="hr_entrada_catraca" class="form-control" required>
+                    <input type="time" name="hr_entrada_catraca" class="form-control" disabled value="<?php echo $hr_entrada_catraca; ?>">
                 </div>
                 <div class="col-md-12 input-group-sm">
                     <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-log-in"></i> Entrar</button>
@@ -94,7 +98,7 @@
                     $readRegistros = new Read;
                     $readRegistros->FullRead("SELECT alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
                             "FROM registros_catraca " .
-                            "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente ".
+                            "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente " .
                             "ORDER BY registros_catraca.idregistros_catraca");
                     foreach ($readRegistros->getResult() as $e):
                         extract($e);

@@ -16,6 +16,12 @@ else:
 
     switch ($Action):
         case 'create-registro':
+            
+            $dataHora = array();
+            $dataHora['data_registro'] = $Post['data_registro'];
+            $dataHora['hr_entrada_catraca'] = $Post['hr_entrada_catraca'];
+            unset($Post['data_registro']);
+            unset($Post['hr_entrada_catraca']);
 
             $Tabela = "registros_catraca";
 
@@ -33,6 +39,8 @@ else:
 
             //CASO O STATUS DA MENSALIDADE ESTEJA EM ABERTO A CATRACA LIBERA O ACESSO E CADASTRA UM NOVO REGISTRO:
             if ($status_mens == 'Em aberto'):
+                var_dump($dataHora);
+                /*
                 $CadastrarRegistro = new Create;
                 $CadastrarRegistro->ExeCreate($Tabela, $Post);
 
@@ -54,7 +62,7 @@ else:
                         $jSon['clear'] = true;
                     endif;
                 endif;
-
+                */
             //CASO O STATUS DA MENSALIDADE ESTEJÁ VENCIDA A CATRACA BLOQUEIA O ACESSO:    
             elseif ($status_mens == 'Vencido'):
                 $jSon['erro'] = true;
