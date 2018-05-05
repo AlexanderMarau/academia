@@ -35,6 +35,9 @@ $(function () {
                 if(data.alerta){
                     $('.alert-warning').fadeIn();
                 }
+                if(data.info){
+                    $('.alert-info').fadeIn();
+                }
                 if(data.clear){
                     Form.trigger('reset');
                 }

@@ -51,7 +51,7 @@
             </form>
         </div>
         <!--Mensagens de Alerta-->
-        <div class="col-md-4 mensagens">
+        <div class="col-md-4">
             <div class="alert alert-danger danger">
                 <img class="img-bloqueio" src="http://localhost/academia/Views/img/ticket-bloqueado.png">
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
@@ -61,6 +61,11 @@
                 <img class="img-alerta" src="http://localhost/academia/Views/img/ticket-alerta.png">
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno com parcelas pendentes, favor efetue o pagamento para evitar o bloqueio!</b></p>
+            </div>
+            <div class="alert alert-info info">
+                <img class="img-alerta" src="http://localhost/academia/Views/img/ticket-alerta.png">
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                <p><b>Aluno já está dentro da academia, insira outra matricula!</b></p>
             </div>
             <div class='alert alert-success success'>
                 <img class="img-liberado" src="http://localhost/academia/Views/img/ticket-liberado.png">

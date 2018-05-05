@@ -12,28 +12,27 @@
     margin-left: 135px;
 }
 
+.info alert-info{
+    display: block;
+}
+
 .success alert-success{
     display: none;
 }
 
+.danger alert-danger{
+    display: none;
+}
 .img-liberado{
     margin-left: 100px;
     width: 80px;
     height: 80px;
 }
 
-.warning alert-warning{
-    display: none;
-}
-
 .img-alerta{
     margin-left: 100px;
     width: 80px;
     height: 80px;
-}
-
-.danger alert-danger{
-    display: none;
 }
 
 .img-bloqueio{
@@ -75,8 +74,6 @@
 .catraca-table{
     background-color: #cccccc;
 }
-
-
 
 .tabela-resultado{
     overflow: auto;
