@@ -88,7 +88,7 @@
                 "<td>{$idhist_pag}</td>" .
                 "<td>{$nome_aluno}</td>" .
                 "<td>{$nome_plano}</td>" .
-                "<td>{$data_mens_pag}</td>" .
+                "<td>" . Check::DataBrasil($data_mens_pag) . "</td>" .
                 "<td>{$valor_pag}</td>" .
                 "</tr>";
             endforeach;
