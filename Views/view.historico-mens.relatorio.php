@@ -70,5 +70,5 @@ $dompdf->set_paper('a4');
 
 $dompdf->render();
 
-$dompdf->stream('Relatorio de Histórico.pdf', array('Attachment' => false));
+$dompdf->stream('Histórico de Mensalidades.pdf', array('Attachment' => false));
 ?>

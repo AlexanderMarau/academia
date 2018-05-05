@@ -30,7 +30,7 @@ $(function () {
                             "<td>" + value.tipo_plano + "</td>" +
                             "<td>" + value.valor_plano + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idplano='"+ value.idplano +"'><i class='glyphicon glyphicon-edit'></i></button>" +
+                            "<button class='btn btn-success btn-xs open-modal-update' idplano='"+ value.idplano +"'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<button class='btn btn-danger btn-xs open-delete' idplano='"+ value.idplano +"'><i class='glyphicon glyphicon-trash'></i></button>" +
                             "</td>"+
                             "</tr>"
@@ -89,13 +89,13 @@ $(function () {
                             "<td>" + novoPlano.tipo_plano + "</td>" +
                             "<td>" + novoPlano.valor_plano + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idplano='"+ novoPlano.idplano +"'><i class='glyphicon glyphicon-edit'></i></button>" +
+                            "<button class='btn btn-success btn-xs open-modal-update' idplano='"+ novoPlano.idplano +"'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<button class='btn btn-danger btn-xs open-delete' idplano='"+ novoPlano.idplano +"'><i class='glyphicon glyphicon-trash'></i></button>" +
                             "</td>"+
                             "</tr>"
                             );
                     setTimeout(function () {
-                        $("tr[id='" + novoPlano.idexercicios + "']:first").removeClass("animated zoomInDown");
+                        $("tr[id='" + novoPlano.idplano + "']:first").removeClass("animated zoomInDown");
                     }, 1000);
                 }
             }
@@ -105,7 +105,7 @@ $(function () {
         return false;
     });
 
-    //    FUNÇÃO RESPONSÁVEL POR ATUALIZAR OS DADOS DE UMA EXERCICIO NO BANCO DE DADOS:
+    //    FUNÇÃO RESPONSÁVEL POR ATUALIZAR OS DADOS DE UMA PLANO NO BANCO DE DADOS:
     $('.j-form-update-plano').submit(function () {
         var Form = $(this);
         var Data = Form.serialize();
@@ -132,23 +132,23 @@ $(function () {
                 if (data.content) {
                     var planoEditado = data.content;
                     //FUNÇÃO RESPONSÁVEL POR OCULTAR DO DOM O REGISTRO QUE FOI EDITADO COM EFEITO ANIMATE E POIS FADEOUT, POIS O EFEITO DO ANIMTE GERA UM CSS COMO 'display: hidden' E NÃO 'display: none', E DEIXA ESPAÇO NO HTML, POR ISSO O USO DA FUNÇÃO 'fadeOut()' POSTERIORMENTE.
-                    $('html').find("tr[id='" + planoEditado.idexercicios + "']").addClass("animated zoomOutDown").fadeOut(720);
+                    $('html').find("tr[id='" + planoEditado.idplano + "']").addClass("animated zoomOutDown").fadeOut(720);
                     //FUNÇÃO RESPONSÁVEL POR INSERIR NO DOM O NOVO ALUNO CADASTRADO. *IMPORTANTE USAR O PARÂMETRO ':first' PARA QUE O JQUERY COLOQUE O NOVO ALUNO ACIMA DO ANTIGO REGISTRO, CASO NÃO TENHA O PARÂMETRO O MESMO ALUNO EDITADO PODERÁ SER INSERIDO NO DOM MAIS DE UMA VEZ.
-                    $("tr[id='" + planoEditado.idexercicios + "']:first").before(
+                    $("tr[id='" + planoEditado.idplano + "']:first").before(
                             "<tr id='" + planoEditado.idplano + "'>" +
                             "<td>" + planoEditado.idplano + "</td>" +
                             "<td>" + planoEditado.nome_plano + "</td>" +
                             "<td>" + planoEditado.tipo_plano + "</td>" +
                             "<td>" + planoEditado.valor_plano + "</td>" +
                             "<td align='right'>" +
-                            "<button class='btn btn-success btn-xs open-modal-update' idplano='"+ planoEditado.idplano +"'><i class='glyphicon glyphicon-edit'></i></button>" +
+                            "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-plano' idplano='"+ planoEditado.idplano +"'><i class='glyphicon glyphicon-edit'></i></button> " +
                             "<button class='btn btn-danger btn-xs open-delete' idplano='"+ planoEditado.idplano +"'><i class='glyphicon glyphicon-trash'></i></button>" +
                             "</td>"+
                             "</tr>"
                             );
                     //ESSA FUNÇÃO EVITA QUE AO ADICIONAR UM NOVO USUÁRIO DIFERENTE GERE EFEITOS EM ELEMENTOS QUE JÁ FORAM CADASTRADOS ANTES.
                     setTimeout(function () {
-                        $("tr[id='" + planoEditado.idexercicios + "']:first").removeClass("animated zoomInDown");
+                        $("tr[id='" + planoEditado.idplano + "']:first").removeClass("animated zoomInDown");
                     }, 1000);
                 }
             }
@@ -158,13 +158,13 @@ $(function () {
     });
 
 
-    //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA EXERCICIO:
-    $('html').on('click', '.j-open-modal-update-exercicio', function () {
+    //FUNÇÃO PARA PREENCHER A DIV DE ATUALIZAÇÃO DE CADASTRO COM OS DADOS DE CADA PLANO:
+    $('html').on('click', '.j-open-modal-update-plano', function () {
         var button = $(this);
-        var idexercicios = $(button).attr('idexercicios');
-        var dados_edit = {callback: 'povoar-edit', idexercicios: idexercicios};
+        var idplano = $(button).attr('idplano');
+        var dados_edit = {callback: 'povoar-edit', idplano: idplano};
         $.ajax({
-            url: "Controllers/controller.exercicio.php",
+            url: "Controllers/controller.plano.php",
             data: dados_edit,
             type: 'POST',
             dataType: 'json',
@@ -172,10 +172,30 @@ $(function () {
 
             },
             success: function (data) {
-                var Form = $('.j-form-update-exercicio');
+                var Form = $('.j-form-update-plano');
                 $.each(data, function (key, value) {
                     Form.find("input[name='" + key + "'], select[name='" + key + "'], textarea[name='" + key + "']").val(value);
                 });
+            }
+        });
+    });
+    
+    //FUNÇÃO RESPONSÁVEL POR DELETAR REGISTROS DE PLANOS NO BANCO DE DADOS.
+    $('html').on('click', '.j-btn-del-plano', function () {
+        var delButton = $(this);
+        var idplano = $(delButton).attr('idplano');
+        var Dados = {callback: 'delete-plano', idplano: idplano};
+        $.ajax({
+            url: "Controllers/controller.plano.php",
+            data: Dados,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+            },
+            success: function (data) {
+                if (data.delete) {
+                    $('html').find("tr[id='" + data.idplano + "']").addClass("animated zoomOutDown").fadeOut(720);
+                }
             }
         });
     });

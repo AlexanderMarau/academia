@@ -33,8 +33,8 @@
                 <input type="text" name="nome_plano" class="form-control" required>
             </div>
             <div class="form-group col-md-3">
-                <label>* Tipo</label>
-                <input type="text" name="tipo_plano" class="form-control" required>
+                <label>* Tipo em dias</label>
+                <input type="number" name="tipo_plano" class="form-control" required>
             </div>
             <div class="form-group col-md-3">
                 <label>* Valor</label>
@@ -56,8 +56,8 @@
                 <input type="text" name="nome_plano" class="form-control" required>
             </div>
             <div class="form-group col-md-3">
-                <label>* Tipo</label>
-                <input type="text" name="tipo_plano" class="form-control" required>
+                <label>* Tipo em dias</label>
+                <input type="number" name="tipo_plano" class="form-control" required>
             </div>
             <div class="form-group col-md-3">
                 <label>* Valor</label>
@@ -91,8 +91,8 @@
                         <td>{$tipo_plano}</td>
                         <td>{$valor_plano}</td>
                         <td align='right'>
-                            <button class='btn btn-success btn-xs open-modal-update' idplano='{$idplano}'><i class='glyphicon glyphicon-edit'></i></button>
-                            <button class='btn btn-danger btn-xs open-delete' idplano='{$idplano}'><i class='glyphicon glyphicon-trash'></i></button>
+                            <button class='btn btn-success btn-xs open-modal-update j-open-modal-update-plano' idplano='{$idplano}'><i class='glyphicon glyphicon-edit'></i></button> 
+                            <button class='btn btn-danger btn-xs open-delete j-btn-del-plano' idplano='{$idplano}'><i class='glyphicon glyphicon-trash'></i></button>
                         </td>
                     </tr>";
             endforeach;

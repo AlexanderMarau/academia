@@ -87,10 +87,10 @@ else:
                 break;
 
             case 'povoar-edit':
-                $DadosExercicio = new Read;
-                $DadosExercicio->FullRead("SELECT * FROM exercicios WHERE exercicios.idexercicios = :idexercicios", "idexercicios={$Post['idexercicios']}");
-                if ($DadosExercicio->getResult()):
-                    foreach ($DadosExercicio->getResult() as $e):
+                $DadosPlano = new Read;
+                $DadosPlano->FullRead("SELECT * FROM planos WHERE planos.idplano = :idplano", "idplano={$Post['idplano']}");
+                if ($DadosPlano->getResult()):
+                    foreach ($DadosPlano->getResult() as $e):
                         $Resultado = $e;
                     endforeach;
                     $jSon = $Resultado;
@@ -98,22 +98,33 @@ else:
 
                 break;
 
-            case 'update-exercicio':
-                require '../Models/model.exercicio.update.php';
-                $updateExercicio = new AtualizarExercicio;
-                $updateExercicio->atualizarExercicio('exercicios', $Post, "WHERE exercicios.idexercicios = :idexercicios", "idexercicios={$Post['idexercicios']}");
-                if ($updateExercicio->getResult()):
-                    $ReadExercicio = new Read;
-                    $ReadExercicio->FullRead("SELECT * FROM exercicios "
-                            . "WHERE exercicios.idexercicios = :idexercicios", " idexercicios={$Post['idexercicios']}");
-                    $exercicioAtualizado = $ReadExercicio->getResult();
+            case 'update-plano':
+                require '../Models/model.plano.update.php';
+                $updatePlano = new AtualizarPlano;
+                $updatePlano->atualizarPlano('planos', $Post, "WHERE planos.idplano = :idplano", "idplano={$Post['idplano']}");
+                if ($updatePlano->getResult()):
+                    $ReadPlanos = new Read;
+                    $ReadPlanos->FullRead("SELECT * FROM planos "
+                            . "WHERE planos.idplano = :idplano", " idplano={$Post['idplano']}");
+                    $planoAtualizado = $ReadPlanos->getResult();
                     $jSon['sucesso'] = ['true'];
                     $jSon['clear'] = ['true'];
-                    $jSon['content']['idexercicios'] = $Post['idexercicios'];
-                    $jSon['content']['descricao_exe'] = $Post['descricao_exe'];
-                    $jSon['content']['grupo_muscular_exe'] = $exercicioAtualizado[0]['grupo_muscular_exe'];
+                    $jSon['content']['idplano'] = $Post['idplano'];
+                    $jSon['content']['nome_plano'] = $Post['nome_plano'];
+                    $jSon['content']['tipo_plano'] = $planoAtualizado[0]['tipo_plano'];
+                    $jSon['content']['valor_plano'] = $planoAtualizado[0]['valor_plano'];
                 endif;
 
+                break;
+            //CASO A AÇÃO SEJÁ DE DELETAR UM PLANO:
+            case 'delete-plano':
+                require '../Models/model.plano.delete.php';
+                $deletarPlano = new DeletarPlano;
+                $deletarPlano->ExeDelete('planos', "WHERE planos.idplano = :idplano", "idplano={$Post['idplano']}");
+                if ($deletarPlano->getResult()):
+                    $jSon['delete'] = true;
+                    $jSon['idplano'] = $Post['idplano'];
+                endif;
                 break;
 
 //        CASO O CALLBACK NÃO SEJA ATENDIDO O DEFAULT SETA O GATILHO DE ERRO (TRIGGER) RESPONSÁVEL POR RETORNAR O ERRO AO JS:

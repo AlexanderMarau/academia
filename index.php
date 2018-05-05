@@ -49,6 +49,7 @@
         <script src="Controllers/controller.venda.js"></script>
         <script src="Controllers/controller.historico_mens.js"></script>
         <script src="Controllers/controller.catraca.js"></script>
+        <script src="Controllers/controller.plano.js"></script>
         <!--FIM DE SCRIPTS:-->
     </body>
 </html>
