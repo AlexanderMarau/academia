@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <!--Cadastro de Registro-->
         <div class="catraca-well well well-sm col-md-4">
-            <form action="" method="POST" class="j-form-create-registro">
+            <form action="" method="POST" class="form-create j-form-create-registro">
                 <input type="hidden" name="callback" value="create-registro">
                 <div class=" col-md-12 input-group-sm">
                     <label>Insira a matricula para efetuar Entrada</label>
@@ -29,7 +29,7 @@
             <div class="catraca">
                 <img class="img-catraca" src="http://localhost/academia/Views/img/logocatraca.jpg">
             </div>
-            <div class="load">
+            <div class="load-catraca">
                 <img src="http://localhost/academia/Views/img/load.gif">
             </div>
 
@@ -51,23 +51,23 @@
             </form>
         </div>
         <!--Mensagens de Alerta-->
-        <div class="col-md-4">
-            <div class="alert alert-danger danger">
+        <div class="col-md-4 mensagens-retorno">
+            <div class="alert alert-danger">
                 <img class="img-bloqueio" src="http://localhost/academia/Views/img/ticket-bloqueado.png">
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno com parcelas vencidas, favor efetue o pagamento no caixa para liberar o acesso!</b></p>
             </div>
-            <div class="alert alert-warning warning">
+            <div class="alert alert-warning">
                 <img class="img-alerta" src="http://localhost/academia/Views/img/ticket-alerta.png">
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno com parcelas pendentes, favor efetue o pagamento para evitar o bloqueio!</b></p>
             </div>
-            <div class="alert alert-info info">
+            <div class="alert alert-info">
                 <img class="img-alerta" src="http://localhost/academia/Views/img/ticket-alerta.png">
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno já está dentro da academia, insira outra matricula!</b></p>
             </div>
-            <div class='alert alert-success success'>
+            <div class='alert alert-success'>
                 <img class="img-liberado" src="http://localhost/academia/Views/img/ticket-liberado.png">
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno com parcelas em dia, bom treino!</b></p>

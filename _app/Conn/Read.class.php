@@ -76,19 +76,28 @@ class Read {
         return $this->Read->rowCount();
     }
 
-    public function FullRead($Query, $ParseString = null) {
-        $this->Select = (string) $Query;
-        if (!empty($ParseString)):
-            parse_str($ParseString, $this->Places);
+    /**
+     * <b>FullRead</b> = É para caso queira passar uma QUERY manualmente (querys mais avançadas, com inner joins por exemplo).
+     * @param STRING $query Digite a Query Avançada aqui. Se desejar usar binds pode, exemplo: 'WHERE id >= :id AND name == :name'
+     * @param STRING $parseString Se você SETOU um bind na $query, vai precisar preencher aqui o parseString, exemplo: "id=5&name=matheus"
+     */
+    public function FullRead($query, $parseString = null) {
+        
+        $this->Select = (string) $query;
+        
+        if(!empty($parseString)):
+            parse_str($parseString, $this->Places);
         endif;
+        
         $this->Execute();
     }
 
     /**
-     * <b>Full Read:</b> Executa leitura de dados via query que deve ser montada manualmente para possibilitar
-     * seleção de multiplas tabelas em uma única query!
-     * @param STRING $Query = Query Select Syntax
-     * @param STRING $ParseString = link={$link}&link2={$link2}
+     * <b>setPlaces</b> 
+     * Este método vai alterar as condições de consultas no banco de dados, pois é passado uma nova parsestring por parametro
+     * alterando assim o resultado das pesquisas.
+     * OU SEJA, faz a reexecução sem precisar alterar a QUERY novamente.
+     * @param STRING $parseString Exemplo = "visitas=50&saldo=899".
      */
     public function setPlaces($ParseString) {
         parse_str($ParseString, $this->Places);

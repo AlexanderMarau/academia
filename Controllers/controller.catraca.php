@@ -40,18 +40,16 @@ else:
 
 
             //CASO O STATUS DA MENSALIDADE ESTEJA EM ABERTO A CATRACA LIBERA O ACESSO E CADASTRA UM NOVO REGISTRO:
-            if ($status_mens == 'Em aberto'):
+            if ($status_mens == 'Em Aberto'):
 
                 //CONSULTANDO SE EXISTE UM REGISTRO DO ALUNO COM O HORÁRIO DE SAIDA VAZIO.
-                $consultaRegistro = new Read;
-                $consultaRegistro->FullRead("SELECT * FROM registros_catraca WHERE idaluno_clientes = {$idaluno_clientes} AND hr_saida_catraca IS NULL;");
+                $consultaSaida = new Read;
+                $consultaSaida->FullRead("SELECT * FROM registros_catraca WHERE idaluno_clientes = {$idaluno_clientes} AND hr_saida_catraca IS NULL;");
                 //OBTENDO O ID DO REGISTRO ENCONTRADO: 
-                $resultConsulta = $consultaRegistro->getResult();
-                $idregistros_catraca = $resultConsulta[0]['idregistros_catraca'];
-                $hr_entrada_catraca = $resultConsulta[0]['hr_entrada_catraca'];
-                $hr_saida_catraca = $resultConsulta[0]['hr_saida_catraca'];
+                $resultSaida = $consultaSaida->getResult();
 
-                if ($hr_entrada_catraca == NULL && $hr_saida_catraca == NULL):
+                if (!$consultaSaida->getResult()):
+                    var_dump($resultSaida);
                     $CadastrarRegistro = new Create;
                     $CadastrarRegistro->ExeCreate($Tabela, $Post);
 
@@ -66,66 +64,35 @@ else:
 
                         if ($registroCadastrado->getResult()):
                             $novoRegistro = $registroCadastrado->getResult();
+
                             $jSon['novoregistro'] = $novoRegistro[0];
-
                             $jSon['sucesso'] = true;
-
                             $jSon['clear'] = true;
 
-                            echo "Aluno entrou!";
+                            echo "Aluno entrou.";
                         endif;
-
                     endif;
-                elseif ($hr_entrada_catraca != NULL && $hr_saida_catraca == NULL):
-                    echo "ERRO! Aluno já está dentro da academia.";
+
+                else:
+                    var_dump($resultSaida);
+                    $jSon['informacao'] = true;
+                    $jSon['clear'] = true;
+                    
+                    echo "Aluno esta presente";
                 endif;
 
             //CASO O STATUS DA MENSALIDADE ESTEJA PENDENTE A CATRACA LIBERA O ACESSO E CADASTRA UM NOVO REGISTRO, PORÉM ALERTA AO ALUNO:
             elseif ($status_mens == 'Pendente'):
-                //CONSULTANDO SE EXISTE UM REGISTRO DO ALUNO COM O HORÁRIO DE SAIDA VAZIO.
-                $consultaRegistro = new Read;
-                $consultaRegistro->FullRead("SELECT * FROM registros_catraca WHERE idaluno_clientes = {$idaluno_clientes} AND hr_saida_catraca IS NULL;");
-                //OBTENDO O ID DO REGISTRO ENCONTRADO: 
-                $resultConsulta = $consultaRegistro->getResult();
-                $idregistros_catraca = $resultConsulta[0]['idregistros_catraca'];
-                $hr_entrada_catraca = $resultConsulta[0]['hr_entrada_catraca'];
-                $hr_saida_catraca = $resultConsulta[0]['hr_saida_catraca'];
+                $jSon['alerta'] = true;
 
-                if ($hr_entrada_catraca == NULL && $hr_saida_catraca == NULL):
-                    $CadastrarRegistro = new Create;
-                    $CadastrarRegistro->ExeCreate($Tabela, $Post);
-
-                    if ($CadastrarRegistro->getResult()):
-                        $idNovoRegistro = $CadastrarRegistro->getResult();
-
-                        $registroCadastrado = new Read;
-                        $registroCadastrado->FullRead("SELECT alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
-                                "FROM registros_catraca " .
-                                "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente " .
-                                "WHERE registros_catraca.idregistros_catraca = :idregistros_catraca", "idregistros_catraca={$idNovoRegistro}");
-
-                        if ($registroCadastrado->getResult()):
-                            $novoRegistro = $registroCadastrado->getResult();
-                            $jSon['novoregistro'] = $novoRegistro[0];
-
-                            $jSon['alerta'] = true;
-
-                            $jSon['clear'] = true;
-
-                            echo "Aluno entrou!";
-                        endif;
-
-                    endif;
-                elseif ($hr_entrada_catraca != NULL && $hr_saida_catraca == NULL):
-                    echo "ERRO! Aluno já está dentro da academia.";
-                endif;
+                $jSon['clear'] = true;
 
             //CASO O STATUS DA MENSALIDADE ESTEJÁ VENCIDA A CATRACA BLOQUEIA O ACESSO:    
             elseif ($status_mens == 'Vencido'):
                 $jSon['erro'] = true;
 
                 $jSon['clear'] = true;
-                
+
             //CASO NÃO POSSUA STATUS DE MENSALIDADE    
             elseif ($status_mens == null):
                 echo "ERRO não possui Mensalidade!";
@@ -157,6 +124,10 @@ else:
                 $Tabela = "registros_catraca";
                 $sairCatraca = new Update;
                 $sairCatraca->ExeUpdate($Tabela, $Post, "WHERE idregistros_catraca = :idregistros_catraca", "idregistros_catraca={$idregistros_catraca}");
+
+                $jSon['saiu'] = true;
+                $jSon['clear'] = true;
+
                 echo "Aluno saiu!";
             else:
                 echo "ERRO aluno não está dentro da academia.";

@@ -18,7 +18,7 @@ $(function () {
 
         //INICIAÇÃO DO AJAX - PARA ENVIAR E RECEBER DADOS:
         $.ajax({
-            url: "http://localhost/academia/Controllers/controller.catraca.php",
+            url: "Controllers/controller.catraca.php",
             data: Data,
             type: 'POST',
             dataType: 'json',
@@ -26,19 +26,22 @@ $(function () {
 
             },
             success: function (data) {
-                if(data.sucesso){
+                if (data.sucesso) {
                     $('.alert-success').fadeIn();
                 }
-                if(data.erro){
-                    $('.alert-danger').fadeIn();
-                }
-                if(data.alerta){
-                    $('.alert-warning').fadeIn();
-                }
-                if(data.info){
+                if (data.informacao) {
                     $('.alert-info').fadeIn();
                 }
-                if(data.clear){
+                if (data.erro) {
+                    $('.alert-danger').fadeIn();
+                }
+                if (data.alerta) {
+                    $('.alert-warning').fadeIn();
+                }
+                if (data.saiu) {
+                    alert("Aluno saiu!");
+                }
+                if (data.clear) {
                     Form.trigger('reset');
                 }
             }

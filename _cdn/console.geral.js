@@ -43,13 +43,4 @@ $(function (){
        $('.modal-update').fadeOut(0);
     });
     
-    //Confirmação de Pagamento
-    $(".confirmar").click(function(){
-        confirm("Deseja efetuar o pagamento?");
-    });
-    
-    //Confirmação de Estorno
-    $(".estornar").click(function(){
-        confirm("Deseja efetuar o estorno?");
-    });
 });

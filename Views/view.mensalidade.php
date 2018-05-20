@@ -73,20 +73,20 @@ $ReadPlanos->ExeRead("planos");
             $ReadMensalidadePaga->FullRead("SELECT mensalidades.idmensalidade, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.data_mens_pag, mensalidades.status_mens "
                     . "FROM mensalidades "
                     . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
-                    . "ORDER BY alunos_cliente.idalunos_cliente");
+                    . "ORDER BY mensalidades.data_mens_pag");
             foreach ($ReadMensalidadePaga->getResult() as $e):
                 extract($e);
                 echo
                 "<tr id='{$idmensalidade}'>" .
                 "<td>{$idalunos_cliente}</td>" .
                 "<td>{$nome_aluno}</td>" .
-                "<td>{$data_mens_pag}</td>" .
+                "<td>" . Check::DataBrasil($data_mens_pag). "</td>" .
                 "<td>{$status_mens}</td>" .
                 "<td>ALTERAR SELECT</td>" .
                 "<td align='right'>" .
-                "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade={$idmensalidade}><i class='glyphicon glyphicon-edit'></i></button></a> " .
-                "<button class='btn btn-danger btn-xs estornar'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
-                "<button class='btn btn-primary btn-xs confirmar'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
+                "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
+                "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
+                "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
                 "</td>" .
                 "</tr>";
             endforeach;

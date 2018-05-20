@@ -45,70 +45,58 @@ else:
         unset($Post['callback']);
 
         switch ($Action):
-            case 'create-mensalidade':
+            case 'pagar-mensalidade':
+                $ConsultaMensalidade = new Read;
+                $ConsultaMensalidade->ExeRead('mensalidades', "WHERE idmensalidade = :idmensalidade", "idmensalidade={$Post['idmensalidade']}");
+                $DadosMensalidade = $ConsultaMensalidade->getResult();
+                $ConsultaPlano = new Read;
+                $ConsultaPlano->FullRead("SELECT tipo_plano, valor_plano FROM planos WHERE idplano = {$DadosMensalidade[0]['idplano']}");
+                $DadosPlano = $ConsultaPlano->getResult();
+                $NovoHistorico = array();
+                $NovoHistorico['idalunos_cliente'] = $DadosMensalidade[0]['idalunos_cliente'];
+                $NovoHistorico['idplano'] = $DadosMensalidade[0]['idplano'];
+                $NovoHistorico['data_mens_pag'] = date('Y-m-d');
+                $NovoHistorico['valor_pag'] = $DadosPlano[0]['valor_plano'];
+                $somaData = null;
+                switch ($DadosPlano[0]['tipo_plano']) {
+                    case '7':
+                        $somaData = '+7 days';
+                        break;
 
-                $Tabela = 'mensalidades';
-
-                require '../Models/model.mensalidade.create.php';
-
-                $CadMensalidade = new Mensalidade;
-                $CadMensalidade->novoMensalidade($Tabela, $Post);
-
-                if ($CadMensalidade->getResult()):
-                    $idNovaMens = $CadMensalidade->getResult();
-                    $mensCadastrada = new Read;
-                    $mensCadastrada->FullRead("SELECT mensalidades.idmensalidades, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades "
-                            . "FROM mensalidades "
-                            . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
-                            . "WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$idNovaMens}");
-
-                    if ($mensCadastrada->getResult()):
-                        $novaMens = $mensCadastrada->getResult();
-                        $jSon['novamens'] = $novaMens[0];
-
-                        $jSon['sucesso'] = true;
-
-                        $jSon['clear'] = true;
-                    endif;
+                    case '30':
+                        $somaData = '+1 month';
+                        break;
+                    
+                    case '60':
+                        $somaData = '+2 month';
+                        break;   
+                    
+                    case '90':
+                        $somaData = '+3 month';
+                        break;    
+                    
+                    default:
+                        $jSon['trigger'] = "Error nenhuma tipo de plano foi escolhido";
+                        break;
+                } 
+                $DataNovaMensalidade = date('Y-m-d', strtotime($somaData, strtotime($DadosMensalidade[0]['data_mens_pag'])));
+                $GerarHistorico = new Create;
+                $GerarHistorico->ExeCreate('historicos_mensalidades', $NovoHistorico);
+                if($GerarHistorico->getResult()):
+                    $NovosDadosMensalidade = array();
+                    $NovosDadosMensalidade['data_mens_pag'] =  $DataNovaMensalidade;
+                    $NovosDadosMensalidade['status_mens'] = 'Em Aberto';
+                    $NovaMensalidade = new Update;
+                    $NovaMensalidade->ExeUpdate('mensalidades', $NovosDadosMensalidade, "WHERE idmensalidade = :idmensalidade", "idmensalidade={$DadosMensalidade[0]['idmensalidade']}");
+                    if($NovaMensalidade->getResult()):
+                        $jSon['sucesso'] = "Mensalidade Paga com Sucesso.";
+                        $jSon['registros'] = $NovaMensalidade->getRowCount();
+                    endif;    
+                else: 
+                    $jSon['trigger'] = "Não foi possível gerar o histórico de pagamento";
                 endif;
-
-                break;
-
-            case 'povoar-edit':
-                $DadosMensalidade = new Read;
-                $DadosMensalidade->FullRead("SELECT * FROM mensalidades WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$Post['idmensalidades']}");
-                if ($DadosMensalidade->getResult()):
-                    foreach ($DadosMensalidade->getResult() as $e):
-                        $Resultado = $e;
-                    endforeach;
-                    $jSon = $Resultado;
-                endif;
-
-                break;
-
-            case 'update-mensalidade':
-                require '../Models/model.mensalidade.update.php';
-                $updateMensalidade = new AtualizarMensalidade;
-                $updateMensalidade->atualizarMensalidade('mensalidades', $Post, "WHERE mensalidades.idmensalidades = :idmensalidades", "idmensalidades={$Post['idmensalidades']}");
-                if ($updateMensalidade->getResult()):
-
-                    $readMensalidade = new Read;
-                    $readMensalidade->FullRead("SELECT mensalidades.idmensalidades, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.valor_mensalidades, mensalidades.data_mens_pag, mensalidades.status_mensalidades "
-                            . "FROM mensalidades "
-                            . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
-                            . "WHERE mensalidades.idmensalidades = :idmensalidades", " idmensalidades={$Post['idmensalidades']}");
-
-                    $DadosMensalidadesEditada = $readMensalidade->getResult();
-
-                    $jSon['sucesso'] = ['true'];
-                    $jSon['clear'] = ['true'];
-                    $jSon['content']['idmensalidades'] = $Post['idmensalidades'];
-                    $jSon['content']['nome_aluno'] = $DadosMensalidadesEditada[0]['nome_aluno'];
-                    $jSon['content']['valor_mensalidades'] = $DadosMensalidadesEditada[0]['valor_mensalidades'];
-                    $jSon['content']['data_mens_pag'] = $DadosMensalidadesEditada[0]['data_mens_pag'];
-                    $jSon['content']['status_mensalidades'] = $DadosMensalidadesEditada[0]['status_mensalidades'];
-                endif;
-
+                // Nessa linha dar um update na mensalidade para a próxima data de acordo com a quantidades de dia do plano
+                
                 break;
 
             default :

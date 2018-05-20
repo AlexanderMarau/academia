@@ -122,7 +122,18 @@ class Check {
     }
 
     /**
-     * <b>Tranforma Data:</b> Transforma uma data no formato DD/MM/YY em uma data no formato YYYY-MM-DD!
+     * <b>Data Brasil:</b> Transforma uma data no formato YYYY/MM/DD em uma data no formato DD-MM-YYYY!
+     * @return STRING = $Data = Data no formato DD-MM-YYYY!
+     */
+    public static function DataBrasil($Data) {
+        self::$Data = explode('-', $Data);
+        self::$Format = self::$Data[2] . '/' . self::$Data[1] . '/' . self::$Data[0];
+        return self::$Format;
+
+    }
+
+    /**
+     * <b>Tranforma Data:</b> Transforma uma data no formato DD/MM/YYYY em uma data no formato YYYY-MM-DD!
      * @param STRING $Name = Data em (d/m/Y)
      * @return STRING = $Data = Data no formato YYYY-MM-DD!
      */
