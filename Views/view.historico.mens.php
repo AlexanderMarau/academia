@@ -80,7 +80,8 @@
             $ReadHist->FullRead("SELECT historicos_mensalidades.idhist_pag, alunos_cliente.nome_aluno, planos.nome_plano, historicos_mensalidades.data_mens_pag, historicos_mensalidades.valor_pag " .
                     "FROM historicos_mensalidades " .
                     "INNER JOIN alunos_cliente ON historicos_mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente " .
-                    "INNER JOIN planos ON historicos_mensalidades.idplano = planos.idplano");
+                    "INNER JOIN planos ON historicos_mensalidades.idplano = planos.idplano
+                    ORDER BY historicos_mensalidades.data_mens_pag DESC");
 
             foreach ($ReadHist->getResult() as $historico):
                 extract($historico);
