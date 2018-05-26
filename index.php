@@ -33,7 +33,7 @@
 
         <!--FIM FORMULÁRIO DE LOGIN-->
         <!--INÍCIO DE SCRIPTS:-->
-        <script src="_cdn/painel.js"></script>
+        <script src="Controllers/controller.painel.js"></script>
         <script src="_cdn/jquery.js"></script>
         <script src="_cdn/jquery.min.js"></script>
         <script src="_cdn/jquery.mask.min.js"></script>                
