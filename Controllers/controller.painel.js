@@ -13,7 +13,7 @@ var AlunosAI = new Chart(ctx, {
         datasets: [{
                 data: [ativos, inativos],
                 borderColor: 'White',
-                backgroundColor: 'orange'
+                backgroundColor: '#ff9966'
             }]
     },
     options: {
@@ -28,22 +28,30 @@ var AlunosAI = new Chart(ctx, {
     }
 });
 
-//Função do gráfico de Mensalidades
+//Função do gráfico de Mensalidades:
 var ctx = document.getElementsByClassName("receita-mensalidades");
+//Recebendo valor de cada mês:
+var janM = (document.getElementById("janM").value);
+var fevM = (document.getElementById("fevM").value);
+var marM = (document.getElementById("marM").value);
+var abrM = (document.getElementById("abrM").value);
+var maiM = (document.getElementById("maiM").value);
+var junM = (document.getElementById("junM").value);
+var julM = (document.getElementById("julM").value);
+var agtM = (document.getElementById("agtM").value);
+var setM = (document.getElementById("setM").value);
+var outM = (document.getElementById("outM").value);
+var novM = (document.getElementById("novM").value);
+var dezM = (document.getElementById("dezM").value);
 
-var jan = (document.getElementById("jan").value);
-var fev = (document.getElementById("fev").value);
-var mar = (document.getElementById("mar").value);
-var abr = (document.getElementById("abr").value);
-var mai = (document.getElementById("mai").value);
-var jun = (document.getElementById("jun").value);
+//Criando o gráfico:
 var myBarChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Agt", "Set", "Out", "Nov", "Dez"],
         datasets: [{
                 label: 'Mensalidades',
-                data: [jan, fev, mar, abr, mai, jun],
+                data: [janM, fevM, marM, abrM, maiM, junM, julM, agtM, setM, outM, novM, dezM],
                 borderColor: 'black',
                 backgroundColor: '#ff0066'
             }]
@@ -60,45 +68,31 @@ var myBarChart = new Chart(ctx, {
     }
 });
 
-var ctx = document.getElementsByClassName("ranking-vendas");
+//Grafico de Quantidade de Vendas no ano:
+var ctx = document.getElementsByClassName("qtd-vendas");
+//recevendo valor de cada mês:
+var janeiroV = (document.getElementById("janV").value);
+var fevereiroV = (document.getElementById("fevV").value);
+var marcoV = (document.getElementById("marV").value);
+var abrilV = (document.getElementById("abrV").value);
+var maioV = (document.getElementById("maiV").value);
+var junhoV = (document.getElementById("junV").value);
+var julhoV = (document.getElementById("julV").value);
+var agostoV = (document.getElementById("agtV").value);
+var setembroV = (document.getElementById("setV").value);
+var outubroV = (document.getElementById("outV").value);
+var novembroV = (document.getElementById("novV").value);
+var dezembroV = (document.getElementById("dezV").value);
 
+//Criando o gráfico:
 var myBarChart = new Chart(ctx, {
     type: 'bar',
-    data: {
-        labels: ["João da Silva", "Diego Humberto", "Renato da Costa", "Matheus Alves", "Max Miller", "Geovana Marquues", "Pablo Escobar"],
-        datasets: [{
-                label: 'Vendas por usuário',
-                data: [1000, 670, 850, 900, 780, 740, 823],
-                borderColor: 'white',
-                backgroundColor: 'blue'
-            }]
-    },
-    options: {
-        title: {
-            display: true,
-            fontSize: 20,
-            text: "Ranking de Vendas"
-        },
-        labels: {
-            fontStyle: "bold"
-        }
-    }
-});
-
-var ctx = document.getElementsByClassName("qtd-vendas");
-
-var janV = (document.getElementById("janV").value);
-var fevV = (document.getElementById("fevV").value);
-var marV = (document.getElementById("marV").value);
-
-var myBarChart = new Chart(ctx, {
-    type: 'radar',
     data: {
         labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Agt", "Set", "Out", "Nov", "Dez"],
         datasets: [
             {
                 label: 'Nº de Vendas',
-                data: [janV, fevV, marV, 90, 70, 74, 23],
+                data: [janeiroV, fevereiroV, marcoV, abrilV, maioV, junhoV, julhoV, agostoV, setembroV, outubroV, novembroV, dezembroV ],
                 borderColor: '#0099cc',
                 backgroundColor: '#00ffff'
             }            
@@ -116,17 +110,31 @@ var myBarChart = new Chart(ctx, {
     }
 });
 
+//Gráfico de Receitas de Venda no ano:
 var ctx = document.getElementsByClassName("total-vendas");
-
+//Recebendo o valor das variavéis:
+var janeiroRV = (document.getElementById("janRV").value);
+var fevereiroRV = (document.getElementById("fevRV").value);
+var marcoRV = (document.getElementById("marRV").value);
+var abrilRV = (document.getElementById("abrRV").value);
+var maioRV = (document.getElementById("maiRV").value);
+var junhoRV = (document.getElementById("junRV").value);
+var julhoRV = (document.getElementById("julRV").value);
+var agostoRV = (document.getElementById("agtRV").value);
+var setembroRV = (document.getElementById("setRV").value);
+var outubroRV = (document.getElementById("outRV").value);
+var novembroRV = (document.getElementById("novRV").value);
+var dezembroRV = (document.getElementById("dezRV").value);
+//Criando o gráfico:
 var myBarChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
         labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Agt", "Set", "Out", "Nov", "Dez"],
         datasets: [{
                 label: 'Vendas',
-                data: [1000, 670, 850, 900, 780, 740, 823, 0, 0],
+                data: [janeiroRV, fevereiroRV, marcoRV, abrilRV, maioRV, junhoRV, julhoRV, agostoRV, setembroRV, outubroRV, novembroRV, dezembroRV],
                 borderColor: '#009933',
-                backgroundColor: '#66ff66'
+                backgroundColor: '#eb99ff'
             }]
     },
     options: {
