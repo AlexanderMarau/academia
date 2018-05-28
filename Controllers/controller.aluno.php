@@ -71,7 +71,7 @@ else:
                 $Mensalidade = array();
                 $Mensalidade['idplano'] = $Post['idplano'];
                 $Mensalidade['data_mens_pag'] = $Post['data_mens_pag'];
-                $Mensalidade['status_mens'] = 'Em aberto';
+                $Mensalidade['status_mens'] = 'Em Aberto';
                 unset($Post['idplano']);
                 unset($Post['data_mens_pag']);
 //            INSERIR A CLASSE DA MODEL RESPONSÁVEL PELA INTERAÇÃO COM O BANCO DE DADOS:

@@ -84,12 +84,16 @@ $(function () {
             success: function (data) {
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
-                    $('.modal-create').fadeOut();
                 }
                 if (data.clear) {
                     Form.trigger('reset');
                 }
                 $('.modal-create').fadeOut(0);
+                $('.close-modal-create').fadeOut(0);
+                $('.open-modal-create').fadeIn(0);
+                $('.relatorio-geral').fadeIn(0);
+                $('.pesquisar').fadeIn(0);
+                $('.modal-table').fadeIn(0);
                 if (data.novoaluno) {
                     var novoAluno = data.novoaluno;
                     $('.j-result-alunos').prepend("<tr id='" + novoAluno.idalunos_cliente + "' class='animated zoomInDown'>" +
