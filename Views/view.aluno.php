@@ -119,7 +119,7 @@ $ReadPlanos->ExeRead("planos");
                 </div>
                 <div class="form-group col-md-3">
                     <label>Plano de Mensalidade</label>
-                    <select name="idplano" class="form-control">
+                    <select name="idplano" class="form-control" required>
                         <?php
                         foreach ($ReadPlanos->getResult() as $i):
                             extract($i);
@@ -130,7 +130,7 @@ $ReadPlanos->ExeRead("planos");
                 </div>
                 <div class="form-group col-md-3">
                     <label>Data de Vencimento</label>
-                    <input type="date" name="data_mens_pag" class="form-control">
+                    <input type="date" name="data_mens_pag" class="form-control" required>
                 </div>
                 <div class="form-group col-md-12">
                     <label>Obs.</label>
