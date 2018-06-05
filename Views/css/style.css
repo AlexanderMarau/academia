@@ -65,6 +65,36 @@
     display: none;
 }
 
+.alert-saiu{
+    display: none;
+    background-color: #ffbf80;
+    border-color: #ff9933;
+}
+
+.alert-saiu p{
+    color: #804000;
+}
+
+.alert-fora{
+    display: none;
+    background-color: #ffbf80;
+    border-color: #ff9933;
+}
+
+.alert-fora p{
+    color: #804000;
+}
+
+.alert-inesistente{
+    display: none;
+    background-color: #ffbf80;
+    border-color: #ff9933;
+}
+
+.alert-inesistente p{
+    color: #804000;
+}
+
 .obrigatorios{
     color: red;
 }

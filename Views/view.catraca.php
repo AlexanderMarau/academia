@@ -72,6 +72,21 @@
                 <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno com parcelas em dia, bom treino!</b></p>
             </div>
+            <div class="alert alert-saiu">
+                <img class="img-liberado" src="http://localhost/academia/Views/img/icon-sair.png">
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                <p><b>Aluno saiu da academia!</b></p>
+            </div>
+            <div class="alert alert-fora">
+                <img class="img-liberado" src="http://localhost/academia/Views/img/proibido.png">
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                <p><b>Aluno não está na academia!</b></p>
+            </div>
+            <div class="alert alert-inesistente">
+                <img class="img-liberado" src="http://localhost/academia/Views/img/proibido.png">
+                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
+                <p><b>Aluno não existe!</b></p>
+            </div>
         </div>
     </div>
 
@@ -98,8 +113,7 @@
                     $readRegistros->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
                             "FROM registros_catraca " .
                             "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente ".
-                            "WHERE registros_catraca.data_registro = '{$data_registro_dia}' ".
-                            "ORDER BY registros_catraca.hr_entrada_catraca "
+                            "WHERE registros_catraca.data_registro = '{$data_registro_dia}' "
                             );
                     foreach ($readRegistros->getResult() as $e):
                         extract($e);

@@ -29,18 +29,33 @@ $(function () {
                 if (data.sucesso) {
                     $('.alert-success').fadeIn();
                 }
+                setTimeout(function () {
+                        $('.alert-success').fadeOut();
+                    }, 3000);
                 if (data.informacao) {
                     $('.alert-info').fadeIn();
                 }
+                setTimeout(function () {
+                        $('.alert-info').fadeOut();
+                    }, 3000);
                 if (data.erro) {
                     $('.alert-danger').fadeIn();
                 }
+                setTimeout(function () {
+                        $('.alert-danger').fadeOut();
+                    }, 3000);
                 if (data.alerta) {
                     $('.alert-warning').fadeIn();
                 }
-                if (data.saiu) {
-                    alert("Aluno saiu!");
+                setTimeout(function () {
+                        $('.alert-warning').fadeOut();
+                    }, 3000);
+                if (data.insesistente) {
+                    $('.alert-inesistente').fadeIn();
                 }
+                setTimeout(function () {
+                        $('.alert-inesistente').fadeOut();
+                    }, 3000);
                 if (data.clear) {
                     Form.trigger('reset');
                 }
@@ -64,12 +79,60 @@ $(function () {
                 
             },
             success: function (data){
+                if (data.saiu) {
+                    $('.alert-saiu').fadeIn();
+                }
+                setTimeout(function () {
+                        $('.alert-saiu').fadeOut();
+                    }, 3000);
+                if (data.fora) {
+                    $('.alert-fora').fadeIn();
+                }
+                setTimeout(function () {
+                        $('.alert-fora').fadeOut();
+                    }, 3000);
                 if(data.clear){
                     Form.trigger('reset');
                 }
             }
         });
         return false;
+    });
+    
+    //A FUNÇÃO ABAIXO EVITA QUE AO TECLAR ENTER O INPUT DE PESQUISA FAÇA UMA NOVA REQUISIÇÃO HTTP
+    $('.pesquisar-histC').on('keypress', function (e) {
+        return e.which !== 13;
+    });
+    
+    $(".pesquisar-histC").keyup(function () {
+        var termo = $(".pesquisar-histC").val();
+        if (termo === '') {
+            termo = '0';
+        }
+        $.ajax({
+            url: "Controllers/controller.catraca.php",
+            data: termo,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+
+            },
+            success: function (data) {
+                $('.j-result-historicoC').html('');
+                $(data).each(function (index, value) {
+                    $('.j-result-historicoC').append(
+                            "<tr id='" + value.idregistros_catraca + "'>" +
+                            "<td>" + value.idregistros_catraca + "</td>" +
+                            "<td>" + value.idalunos_cliente + "</td>" +
+                            "<td>" + value.nome_aluno + "</td>" +
+                            "<td>" + value.hr_entrada_catraca + "</td>" +
+                            "<td>" + value.hr_saida_catraca + "</td>" +
+                            "<td>" + value.data_registro + "</td>" +
+                            "</tr>"
+                            );
+                });
+            }
+        });
     });
         
 });

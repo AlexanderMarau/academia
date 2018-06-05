@@ -8,7 +8,7 @@
     <div class="col-md-12" align='right'>
         <form action="" method="POST">
             <div class="form-group col-md-4">
-                <input type="text" placeholder="Pesquisar" class="form-control pesquisar pesquisar-hist">
+                <input type="text" placeholder="Pesquisar" class="form-control pesquisar pesquisar-histC">
             </div>
         </form>
         <a href="http://localhost/academia/Views/view.hist.catraca.relatorio.php" target="_blank" class="relatorio-geral"><button class="btn btn-warning"><i class="glyphicon glyphicon-print"></i> Relátorio Geral</button></a>
@@ -29,7 +29,7 @@
                 <th>Data do Registro</th>
             </tr>
         </thead>
-        <tbody class="j-result-historico">
+        <tbody class="j-result-historicoC">
             <?php
                 $ReadHist = new Read;
                 $ReadHist->FullRead("SELECT registros_catraca.idregistros_catraca, registros_catraca.idaluno_clientes, alunos_cliente.nome_aluno, "
