@@ -7,6 +7,36 @@ $jSon = array();
 
 $getPost = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
+if (count($getPost) == 1):
+    $getQuery = array_keys($getPost);
+
+    $queryPesquisa = (is_int($getQuery[0]) ? $getQuery[0] : strip_tags(str_replace('_', ' ', $getQuery[0])));
+
+    $buscarHistC = new Read;
+
+    if ($queryPesquisa >= 1):
+        $buscarHistC->FullRead("SELECT registros_catraca.idregistros_catraca, registros_catraca.idaluno_clientes, alunos_cliente.nome_aluno, "
+                . "registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro "
+                . "FROM registros_catraca "
+                . "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente "
+                . "WHERE registros_catraca.idregistros_catraca = {$queryPesquisa}");
+        $jSon = $buscarHistC->getResult();
+    elseif ($queryPesquisa === 0):
+        $buscarHistC->FullRead("SELECT registros_catraca.idregistros_catraca, registros_catraca.idaluno_clientes, alunos_cliente.nome_aluno, "
+                . "registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro "
+                . "FROM registros_catraca "
+                . "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente");
+        $jSon = $buscarHistC->getResult();
+    elseif (is_string($queryPesquisa)):
+        $buscarHistC->FullRead("SELECT registros_catraca.idregistros_catraca, registros_catraca.idaluno_clientes, alunos_cliente.nome_aluno, "
+                . "registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro "
+                . "FROM registros_catraca "
+                . "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente "
+                . "WHERE alunos_cliente.nome_aluno LIKE '%{$queryPesquisa}%'");
+        $jSon = $buscarHistC->getResult();
+    endif;
+endif;
+
 if (empty($getPost['callback'])):
     $jSon['trigger'] = "<div>Erro!</div>";
 else:
@@ -47,45 +77,52 @@ else:
                 $consultaSaida->FullRead("SELECT * FROM registros_catraca WHERE idaluno_clientes = {$idaluno_clientes} AND hr_saida_catraca IS NULL;");
                 //OBTENDO O ID DO REGISTRO ENCONTRADO: 
                 $resultSaida = $consultaSaida->getResult();
-
+                
+                //CASO A HR DE SAIDA ESTEJA VAZIA CADASTRA UM NOVO REGISTRO:
                 if (!$consultaSaida->getResult()):
-                    var_dump($resultSaida);
+                    //var_dump($resultSaida);
                     $CadastrarRegistro = new Create;
                     $CadastrarRegistro->ExeCreate($Tabela, $Post);
+                    $CadastrarRegistro->getResult();
 
-                    if ($CadastrarRegistro->getResult()):
-                        $idNovoRegistro = $CadastrarRegistro->getResult();
-
-                        $registroCadastrado = new Read;
-                        $registroCadastrado->FullRead("SELECT alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
-                                "FROM registros_catraca " .
-                                "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente " .
-                                "WHERE registros_catraca.idregistros_catraca = :idregistros_catraca", "idregistros_catraca={$idNovoRegistro}");
-
-                        if ($registroCadastrado->getResult()):
-                            $novoRegistro = $registroCadastrado->getResult();
-
-                            $jSon['novoregistro'] = $novoRegistro[0];
-                            $jSon['sucesso'] = true;
-                            $jSon['clear'] = true;
-
-                            echo "Aluno entrou.";
-                        endif;
-                    endif;
-
+                    $jSon['sucesso'] = true;
+                    $jSon['clear'] = true;
+                
+                //CASO A HR DE SAIDA NÃO ESTEJA VAZIA É INFORMADO UMA MENSAGEM:
                 else:
-                    var_dump($resultSaida);
+                    //var_dump($resultSaida);
                     $jSon['informacao'] = true;
                     $jSon['clear'] = true;
-                    
-                    echo "Aluno esta presente";
+
+                //echo "Aluno esta presente";
                 endif;
 
             //CASO O STATUS DA MENSALIDADE ESTEJA PENDENTE A CATRACA LIBERA O ACESSO E CADASTRA UM NOVO REGISTRO, PORÉM ALERTA AO ALUNO:
             elseif ($status_mens == 'Pendente'):
-                $jSon['alerta'] = true;
+                //CONSULTANDO SE EXISTE UM REGISTRO DO ALUNO COM O HORÁRIO DE SAIDA VAZIO.
+                $consultaSaida = new Read;
+                $consultaSaida->FullRead("SELECT * FROM registros_catraca WHERE idaluno_clientes = {$idaluno_clientes} AND hr_saida_catraca IS NULL;");
+                //OBTENDO O ID DO REGISTRO ENCONTRADO: 
+                $resultSaida = $consultaSaida->getResult();
+                
+                //CASO A HR DE SAIDA ESTEJA VAZIA CADASTRA UM NOVO REGISTRO:
+                if (!$consultaSaida->getResult()):
+                    //var_dump($resultSaida);
+                    $CadastrarRegistro = new Create;
+                    $CadastrarRegistro->ExeCreate($Tabela, $Post);
+                    $CadastrarRegistro->getResult();
 
-                $jSon['clear'] = true;
+                    $jSon['alerta'] = true;
+                    $jSon['clear'] = true;
+                
+                //CASO A HR DE SAIDA NÃO ESTEJA VAZIA É INFORMADO UMA MENSAGEM:
+                else:
+                    //var_dump($resultSaida);
+                    $jSon['informacao'] = true;
+                    $jSon['clear'] = true;
+
+                //echo "Aluno esta presente";
+                endif;
 
             //CASO O STATUS DA MENSALIDADE ESTEJÁ VENCIDA A CATRACA BLOQUEIA O ACESSO:    
             elseif ($status_mens == 'Vencido'):
@@ -94,8 +131,11 @@ else:
                 $jSon['clear'] = true;
 
             //CASO NÃO POSSUA STATUS DE MENSALIDADE    
-            elseif ($status_mens == null):
-                echo "ERRO não possui Mensalidade!";
+            elseif (empty($status_mens)):
+                $jSon['insesistente'] = true;
+            
+                $jSon['clear'] = true;
+                //echo "ERRO não possui Mensalidade!";
             endif;
 
             break;
@@ -128,9 +168,9 @@ else:
                 $jSon['saiu'] = true;
                 $jSon['clear'] = true;
 
-                echo "Aluno saiu!";
             else:
-                echo "ERRO aluno não está dentro da academia.";
+                $jSon['fora'] = true;
+                $jSon['clear'] = true;
             endif;
 
 
