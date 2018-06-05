@@ -77,17 +77,31 @@ else:
                 $consultaSaida->FullRead("SELECT * FROM registros_catraca WHERE idaluno_clientes = {$idaluno_clientes} AND hr_saida_catraca IS NULL;");
                 //OBTENDO O ID DO REGISTRO ENCONTRADO: 
                 $resultSaida = $consultaSaida->getResult();
-                
+
                 //CASO A HR DE SAIDA ESTEJA VAZIA CADASTRA UM NOVO REGISTRO:
                 if (!$consultaSaida->getResult()):
                     //var_dump($resultSaida);
                     $CadastrarRegistro = new Create;
                     $CadastrarRegistro->ExeCreate($Tabela, $Post);
                     $CadastrarRegistro->getResult();
+                    
+                    $idregistros_catraca = $CadastrarRegistro->getResult();
+                    $registroNovo = new Read;
+                    $registroNovo->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, "
+                            . "registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
+                            "FROM registros_catraca " .
+                            "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente ".
+                            "WHERE registros_catraca.idregistros_catraca = :idregistros_catraca", "idregistros_catraca={$idregistros_catraca}");
 
-                    $jSon['sucesso'] = true;
-                    $jSon['clear'] = true;
-                
+                    if ($registroNovo->getResult()):
+                        $registro = $registroNovo->getResult();
+
+                        $jSon['novoregistroC'] = $registro[0];
+                        $jSon['sucesso'] = true;
+                        $jSon['clear'] = true;
+                    endif;
+
+
                 //CASO A HR DE SAIDA NÃO ESTEJA VAZIA É INFORMADO UMA MENSAGEM:
                 else:
                     //var_dump($resultSaida);
@@ -104,7 +118,7 @@ else:
                 $consultaSaida->FullRead("SELECT * FROM registros_catraca WHERE idaluno_clientes = {$idaluno_clientes} AND hr_saida_catraca IS NULL;");
                 //OBTENDO O ID DO REGISTRO ENCONTRADO: 
                 $resultSaida = $consultaSaida->getResult();
-                
+
                 //CASO A HR DE SAIDA ESTEJA VAZIA CADASTRA UM NOVO REGISTRO:
                 if (!$consultaSaida->getResult()):
                     //var_dump($resultSaida);
@@ -114,7 +128,7 @@ else:
 
                     $jSon['alerta'] = true;
                     $jSon['clear'] = true;
-                
+
                 //CASO A HR DE SAIDA NÃO ESTEJA VAZIA É INFORMADO UMA MENSAGEM:
                 else:
                     //var_dump($resultSaida);
@@ -133,9 +147,9 @@ else:
             //CASO NÃO POSSUA STATUS DE MENSALIDADE    
             elseif (empty($status_mens)):
                 $jSon['insesistente'] = true;
-            
+
                 $jSon['clear'] = true;
-                //echo "ERRO não possui Mensalidade!";
+            //echo "ERRO não possui Mensalidade!";
             endif;
 
             break;
