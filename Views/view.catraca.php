@@ -104,7 +104,7 @@
                         <th>Data</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="j-result-catraca">
                     <?php
                     date_default_timezone_set('America/Sao_Paulo');
                     $data_registro_dia = date("Y:m:d");

@@ -59,6 +59,20 @@ $(function () {
                 if (data.clear) {
                     Form.trigger('reset');
                 }
+                if(data.novoregistroC){
+                    var novoRegistroC = data.novoregistroC;
+                    $('.j-result-catraca').prepend(
+                            "<tr id='"+ novoRegistroC.idregistros_catraca + "' class='animated zoomInDown'>"+
+                            "<td>"+ novoRegistroC.idalunos_cliente +"</td>"+
+                            "<td>"+ novoRegistroC.nome_aluno +"</td>"+
+                            "<td>"+ novoRegistroC.hr_entrada_catraca +"</td>"+
+                            "<td></td>"+
+                            "<td>"+ novoRegistroC.data_registro +"</td>"
+                            );
+                    setTimeOut(function(){
+                       $("tr[id='"+ novoRegistroC.idregistros_catraca + "']:first").removeClass("animated zoomInDown"); 
+                    }, 1000);
+                }
             }
         });
         return false;
