@@ -89,17 +89,17 @@ $ReadPlanos->ExeRead("planos");
                 $dtPagoTratada = ($dtPago ? Check::DataBrasil($dtPago[0]['data_mens_pag']) : "Nenhum");
                 // INSERINDO CADA LINHA DA TABELA:
                 echo "<tr id='{$idmensalidade}'>" .
-                "<td>{$idalunos_cliente}</td>" .
-                "<td>{$nome_aluno}</td>" .
-                "<td>" . Check::DataBrasil($data_mens_pag). "</td>" .
-                "<td>{$status_mens}</td>" .
-                "<td>{$dtPagoTratada}</td>" .
-                "<td align='right'>" .
-                "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
-                "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
-                "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
-                "</td>" .
-                "</tr>";
+                        "<td>{$idalunos_cliente}</td>" .
+                        "<td>{$nome_aluno}</td>" .
+                        "<td>" . Check::DataBrasil($data_mens_pag). "</td>" .
+                        "<td>{$status_mens}</td>" .
+                        "<td id='ultimo_pag{$idmensalidade}'>{$dtPagoTratada}</td>" .
+                        "<td align='right'>" .
+                        "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
+                        "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
+                        "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
+                        "</td>" .
+                    "</tr>";
             endforeach;
             ?>
         </tbody>

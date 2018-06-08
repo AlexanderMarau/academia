@@ -2,6 +2,8 @@ $(function () {
 
     // ROTINA PARA GERAR PAGAMENTO:
     $('.gerar-pagamento').click(function(){
+        var ulpag = $("#ultimo_pag1").text();
+        console.log(ulpag);
         var gerar = confirm("Deseja mesmo gerar o pagamento?");
         if(gerar){
             var idmensalidade = $(this).attr('j-id-mensalidade');
@@ -12,7 +14,7 @@ $(function () {
                 type: 'POST',
                 dataType: 'json',
                 beforeSend: function(xhr) {
-
+                    
                 },
                 success: function (data) {
                     if(data.sucesso){
