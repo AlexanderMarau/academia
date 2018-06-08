@@ -108,6 +108,20 @@ $(function () {
                 if(data.clear){
                     Form.trigger('reset');
                 }
+                if(data.atualizaSaida){
+                   var atualizaSaida = data.atualizaSaida;
+                    $('.j-result-catraca').prepend(
+                            "<tr id='"+ atualizaSaida.idregistros_catraca + "' class='animated zoomInDown'>"+
+                            "<td>"+ atualizaSaida.idalunos_cliente +"</td>"+
+                            "<td>"+ atualizaSaida.nome_aluno +"</td>"+
+                            "<td>"+ atualizaSaida.hr_entrada_catraca +"</td>"+
+                            "<td>"+ atualizaSaida.hr_saida_catraca +"</td>"+
+                            "<td>"+ atualizaSaida.data_registro +"</td>"
+                            );
+                    setTimeOut(function(){
+                       $("tr[id='"+ atualizaSaida.idregistros_catraca + "']:first").removeClass("animated zoomInDown"); 
+                    }, 1000);
+                }
             }
         });
         return false;

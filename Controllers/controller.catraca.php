@@ -67,7 +67,9 @@ else:
             $ResultStatus = $ConsultaStatus->getResult();
             $status_mens = $ResultStatus[0]['status_mens'];
 
-
+            if(!$ConsultaStatus->getResult()):
+                $jSon['inesistente'] = true;
+            endif;
 
             //CASO O STATUS DA MENSALIDADE ESTEJA EM ABERTO A CATRACA LIBERA O ACESSO E CADASTRA UM NOVO REGISTRO:
             if ($status_mens == 'Em Aberto'):
@@ -84,13 +86,13 @@ else:
                     $CadastrarRegistro = new Create;
                     $CadastrarRegistro->ExeCreate($Tabela, $Post);
                     $CadastrarRegistro->getResult();
-                    
+
                     $idregistros_catraca = $CadastrarRegistro->getResult();
                     $registroNovo = new Read;
                     $registroNovo->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, "
                             . "registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
                             "FROM registros_catraca " .
-                            "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente ".
+                            "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente " .
                             "WHERE registros_catraca.idregistros_catraca = :idregistros_catraca", "idregistros_catraca={$idregistros_catraca}");
 
                     if ($registroNovo->getResult()):
@@ -121,13 +123,25 @@ else:
 
                 //CASO A HR DE SAIDA ESTEJA VAZIA CADASTRA UM NOVO REGISTRO:
                 if (!$consultaSaida->getResult()):
-                    //var_dump($resultSaida);
                     $CadastrarRegistro = new Create;
                     $CadastrarRegistro->ExeCreate($Tabela, $Post);
                     $CadastrarRegistro->getResult();
 
-                    $jSon['alerta'] = true;
-                    $jSon['clear'] = true;
+                    $idregistros_catraca = $CadastrarRegistro->getResult();
+                    $registroNovo = new Read;
+                    $registroNovo->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, "
+                            . "registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
+                            "FROM registros_catraca " .
+                            "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente " .
+                            "WHERE registros_catraca.idregistros_catraca = :idregistros_catraca", "idregistros_catraca={$idregistros_catraca}");
+
+                    if ($registroNovo->getResult()):
+                        $registro = $registroNovo->getResult();
+
+                        $jSon['novoregistroC'] = $registro[0];
+                        $jSon['alerta'] = true;
+                        $jSon['clear'] = true;
+                    endif;
 
                 //CASO A HR DE SAIDA NÃO ESTEJA VAZIA É INFORMADO UMA MENSAGEM:
                 else:
@@ -179,8 +193,18 @@ else:
                 $sairCatraca = new Update;
                 $sairCatraca->ExeUpdate($Tabela, $Post, "WHERE idregistros_catraca = :idregistros_catraca", "idregistros_catraca={$idregistros_catraca}");
 
+                $sairCatraca->getResult();
+                $readSaida = new Read;
+                $readSaida->FullRead("SELECT alunos_cliente.idalunos_cliente, alunos_cliente.nome_aluno, registros_catraca.idregistros_catraca, "
+                        . "registros_catraca.hr_entrada_catraca, registros_catraca.hr_saida_catraca, registros_catraca.data_registro " .
+                        "FROM registros_catraca " .
+                        "INNER JOIN alunos_cliente ON registros_catraca.idaluno_clientes = alunos_cliente.idalunos_cliente " .
+                        "WHERE registros_catraca.idregistros_catraca = :idregistros_catraca", "idregistros_catraca={$idregistros_catraca}");
+                $DadosSaida = $readSaida->getResult();
+
                 $jSon['saiu'] = true;
                 $jSon['clear'] = true;
+                $jSon['atualizaSaida'] = $DadosSaida[0];
 
             else:
                 $jSon['fora'] = true;

@@ -54,37 +54,30 @@
         <div class="col-md-4 mensagens-retorno">
             <div class="alert alert-danger">
                 <img class="img-bloqueio" src="http://localhost/academia/Views/img/ticket-bloqueado.png">
-                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno com parcelas vencidas, favor efetue o pagamento no caixa para liberar o acesso!</b></p>
             </div>
             <div class="alert alert-warning">
                 <img class="img-alerta" src="http://localhost/academia/Views/img/ticket-alerta.png">
-                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno com parcelas pendentes, favor efetue o pagamento para evitar o bloqueio!</b></p>
             </div>
             <div class="alert alert-info">
                 <img class="img-alerta" src="http://localhost/academia/Views/img/ticket-alerta.png">
-                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno já está dentro da academia, insira outra matricula!</b></p>
             </div>
             <div class='alert alert-success'>
                 <img class="img-liberado" src="http://localhost/academia/Views/img/ticket-liberado.png">
-                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno com parcelas em dia, bom treino!</b></p>
             </div>
             <div class="alert alert-saiu">
                 <img class="img-liberado" src="http://localhost/academia/Views/img/icon-sair.png">
-                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno saiu da academia!</b></p>
             </div>
             <div class="alert alert-fora">
                 <img class="img-liberado" src="http://localhost/academia/Views/img/proibido.png">
-                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno não está na academia!</b></p>
             </div>
             <div class="alert alert-inesistente">
                 <img class="img-liberado" src="http://localhost/academia/Views/img/proibido.png">
-                <a href="#" class="close" data-dismiss="alert" arua-label="close">x</a>
                 <p><b>Aluno não existe!</b></p>
             </div>
         </div>

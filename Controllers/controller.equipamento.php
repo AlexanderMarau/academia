@@ -104,9 +104,9 @@ else:
             case 'update-equipamento':
 
                 require '../Models/model.equipamento.update.php';
-                
+
                 $updateEquipamento = new AtualizarEquipamento;
-               $updateEquipamento->atualizarEquipamento('equipamentos', $Post, "WHERE equipamentos.idequipamentos = :idequipamentos", "idequipamentos={$Post['idequipamentos']}");
+                $updateEquipamento->atualizarEquipamento('equipamentos', $Post, "WHERE equipamentos.idequipamentos = :idequipamentos", "idequipamentos={$Post['idequipamentos']}");
                 if ($updateEquipamento->getResult()):
                     $readEquipamento = new Read;
                     $readEquipamento->FullRead("SELECT equipamentos.idequipamentos, equipamentos.nome_equip, equipamentos.marca_equip, fornecedores.nome_forn "
@@ -114,12 +114,12 @@ else:
                             . "INNER JOIN fornecedores ON equipamentos.idfornecedores = fornecedores.idfornecedores "
                             . "WHERE equipamentos.idequipamentos = :idequipamentos", " idequipamentos={$Post['idequipamentos']}");
                     $DadosEquipamentoEditado = $readEquipamento->getResult();
-                        $jSon['sucesso'] = ['true'];
-                        $jSon['clear'] = ['true'];
-                        $jSon['content']['idequipamentos'] = $Post['idequipamentos'];
-                        $jSon['content']['nome_equip'] = $Post['nome_equip'];
-                        $jSon['content']['marca_equip'] = $DadosEquipamentoEditado[0]['marca_equip'];
-                        $jSon['content']['nome_forn'] = $DadosEquipamentoEditado[0]['nome_forn'];
+                    $jSon['sucesso'] = ['true'];
+                    $jSon['clear'] = ['true'];
+                    $jSon['content']['idequipamentos'] = $Post['idequipamentos'];
+                    $jSon['content']['nome_equip'] = $Post['nome_equip'];
+                    $jSon['content']['marca_equip'] = $DadosEquipamentoEditado[0]['marca_equip'];
+                    $jSon['content']['nome_forn'] = $DadosEquipamentoEditado[0]['nome_forn'];
                 endif;
 
                 break;
