@@ -26,6 +26,7 @@
                 <th>Plano</th>
                 <th>Data de Pagamento</th>
                 <th>Valor Pago</th>
+                <th></th>
             </tr>
         </thead>
         <tbody class="j-result-historico">
@@ -45,6 +46,9 @@
                 "<td>{$nome_plano}</td>" .
                 "<td>" . Check::DataBrasil($data_mens_pag) . "</td>" .
                 "<td>{$valor_pag}</td>" .
+                "<td>".
+                    "<a href='http://localhost/academia/Views/view.mensalidade.comprovante.php?idhist_pag={$idhist_pag}' target='_blank'><button class='btn btn-warning btn-xs open-imprimir'><i class='glyphicon glyphicon-print'></i></button></a>".
+                "</td>".
                 "</tr>";
             endforeach;
             ?>
