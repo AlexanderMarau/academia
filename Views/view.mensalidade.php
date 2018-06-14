@@ -39,9 +39,9 @@ $ReadPlanos->ExeRead("planos");
                 <label>Plano de Mensalidade</label>
                 <select name="idplano" class="form-control">
                     <?php
-                    foreach ($ReadPlanos->getResult() as $i):
+                    foreach ($ReadPlanos->getResult() as $i) :
                         extract($i);
-                        echo "<option value='{$idplano}'>{$nome_plano}</option>";
+                    echo "<option value='{$idplano}'>{$nome_plano}</option>";
                     endforeach;
                     ?>
                 </select>
@@ -66,40 +66,67 @@ $ReadPlanos->ExeRead("planos");
                 <th>Último Pagamento</th>
             </tr>
         </thead>
-        <tbody class="j-result-menssalidades">
+        <tbody class="j-result-mensalidades">
             <?php
             $ReadMensalidadePaga = new Read;
             $ReadMensalidadePaga->FullRead("SELECT mensalidades.idmensalidade, alunos_cliente.idalunos_cliente ,alunos_cliente.nome_aluno, mensalidades.data_mens_pag, mensalidades.status_mens "
-                    . "FROM mensalidades "
-                    . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
-                    . "ORDER BY mensalidades.data_mens_pag");
-            // var_dump($ReadMensalidadePaga->getResult());
-            // die();        
-            foreach ($ReadMensalidadePaga->getResult() as $e):
+                . "FROM mensalidades "
+                . "INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente "
+                . "ORDER BY mensalidades.data_mens_pag");
+            foreach ($ReadMensalidadePaga->getResult() as $e) :
                 extract($e);
                 // BUSCANDO DATA DO ÚLTIMO PAGAMENTO:
-                $histPag = new Read;
-                $histPag->FullRead("SELECT historicos_mensalidades.data_mens_pag " 
-                ."FROM historicos_mensalidades "
-                ."INNER JOIN alunos_cliente ON alunos_cliente.idalunos_cliente = historicos_mensalidades.idalunos_cliente "
-                ."WHERE alunos_cliente.idalunos_cliente = {$idalunos_cliente} "
-                ."ORDER BY historicos_mensalidades.data_mens_pag DESC "
-                ."LIMIT 1");
-                $dtPago = $histPag->getResult();
-                $dtPagoTratada = ($dtPago ? Check::DataBrasil($dtPago[0]['data_mens_pag']) : "Nenhum");
+            $histPag = new Read;
+            $histPag->FullRead("SELECT historicos_mensalidades.data_mens_pag "
+                . "FROM historicos_mensalidades "
+                . "INNER JOIN alunos_cliente ON alunos_cliente.idalunos_cliente = historicos_mensalidades.idalunos_cliente "
+                . "WHERE alunos_cliente.idalunos_cliente = {$idalunos_cliente} "
+                . "ORDER BY historicos_mensalidades.data_mens_pag DESC "
+                . "LIMIT 1");
+            $dtPago = $histPag->getResult();
+            $dtPagoTratada = ($dtPago ? Check::DataBrasil($dtPago[0]['data_mens_pag']) : "Nenhum");
                 // INSERINDO CADA LINHA DA TABELA:
+            if ($status_mens == 'Em Aberto') :
                 echo "<tr id='{$idmensalidade}'>" .
-                        "<td>{$idalunos_cliente}</td>" .
-                        "<td>{$nome_aluno}</td>" .
-                        "<td>" . Check::DataBrasil($data_mens_pag). "</td>" .
-                        "<td>{$status_mens}</td>" .
-                        "<td id='ultimo_pag{$idmensalidade}'>{$dtPagoTratada}</td>" .
-                        "<td align='right'>" .
-                        "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
-                        "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
-                        "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
-                        "</td>" .
-                    "</tr>";
+                "<td>{$idalunos_cliente}</td>" .
+                "<td>{$nome_aluno}</td>" .
+                "<td id='proximo_pag{$idmensalidade}'>" . Check::DataBrasil($data_mens_pag) . "</td>" .
+                "<td  id='status{$idmensalidade}' class='blue'>{$status_mens}</td>" .
+                "<td id='ultimo_pag{$idmensalidade}'>{$dtPagoTratada}</td>" .
+                "<td align='right'>" .
+                "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
+                "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
+                "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
+                "</td>" .
+                "</tr>";
+            elseif ($status_mens == 'Vencido') :
+                echo "<tr id='{$idmensalidade}'>" .
+                "<td>{$idalunos_cliente}</td>" .
+                "<td>{$nome_aluno}</td>" .
+                "<td id='proximo_pag{$idmensalidade}'>" . Check::DataBrasil($data_mens_pag) . "</td>" .
+                "<td  id='status{$idmensalidade}' class='red'>{$status_mens}</td>" .
+                "<td id='ultimo_pag{$idmensalidade}'>{$dtPagoTratada}</td>" .
+                "<td align='right'>" .
+                "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
+                "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
+                "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
+                "</td>" .
+                "</tr>";
+            else :
+                echo "<tr id='{$idmensalidade}'>" .
+                "<td>{$idalunos_cliente}</td>" .
+                "<td>{$nome_aluno}</td>" .
+                "<td id='proximo_pag{$idmensalidade}'>" . Check::DataBrasil($data_mens_pag) . "</td>" .
+                "<td  id='status{$idmensalidade}' class='orange'>{$status_mens}</td>" .
+                "<td id='ultimo_pag{$idmensalidade}'>{$dtPagoTratada}</td>" .
+                "<td align='right'>" .
+                "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
+                "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
+                "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
+                "</td>" .
+                "</tr>";
+            endif;
+
             endforeach;
             ?>
         </tbody>

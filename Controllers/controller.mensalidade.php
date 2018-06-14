@@ -46,17 +46,20 @@ else:
 
         switch ($Action):
             case 'pagar-mensalidade':
+                $dataHoje = date('Y-m-d');
                 $ConsultaMensalidade = new Read;
                 $ConsultaMensalidade->ExeRead('mensalidades', "WHERE idmensalidade = :idmensalidade", "idmensalidade={$Post['idmensalidade']}");
                 $DadosMensalidade = $ConsultaMensalidade->getResult();
                 $ConsultaPlano = new Read;
                 $ConsultaPlano->FullRead("SELECT tipo_plano, valor_plano FROM planos WHERE idplano = {$DadosMensalidade[0]['idplano']}");
                 $DadosPlano = $ConsultaPlano->getResult();
+                // Criando Array para cadastrar o histórico do pagamento:
                 $NovoHistorico = array();
                 $NovoHistorico['idalunos_cliente'] = $DadosMensalidade[0]['idalunos_cliente'];
                 $NovoHistorico['idplano'] = $DadosMensalidade[0]['idplano'];
-                $NovoHistorico['data_mens_pag'] = date('Y-m-d');
+                $NovoHistorico['data_mens_pag'] = $dataHoje;
                 $NovoHistorico['valor_pag'] = $DadosPlano[0]['valor_plano'];
+                // Definindo a quantidade de tempo até a cobrança da próxima mensalidade:
                 $somaData = null;
                 switch ($DadosPlano[0]['tipo_plano']) {
                     case '7':
@@ -78,10 +81,19 @@ else:
                     default:
                         $jSon['trigger'] = "Error nenhuma tipo de plano foi escolhido";
                         break;
-                } 
-                $DataNovaMensalidade = date('Y-m-d', strtotime($somaData, strtotime($DadosMensalidade[0]['data_mens_pag'])));
+                }
+                //Essa variável $DataNovaMensalidade é importante pois ela vai ser a data da próxima cobrança. 
+                if(strtotime($dataHoje) > strtotime($DadosMensalidade[0]['data_mens_pag'])):
+                    //Caso a mensalidade esteja vencida, será gerada a nova mensalidade baseada na data de HOJE (data do pagamento) + a quantidade de dias do plano cadastrado no banco.
+                    $DataNovaMensalidade = date('Y-m-d', strtotime($somaData, strtotime($dataHoje)));
+                else:
+                    //Caso a mensalidade não esteja vencida, será gerada uma a nova mensalidade baseada na data de cobrança da mensalidade cadastrada no banco.
+                    $DataNovaMensalidade = date('Y-m-d', strtotime($somaData, strtotime($DadosMensalidade[0]['data_mens_pag'])));
+                endif;
+                // Model Responsável por gerar novo Histórico:
                 $GerarHistorico = new Create;
                 $GerarHistorico->ExeCreate('historicos_mensalidades', $NovoHistorico);
+                // Atualizando os dados da próxima mensalidade:
                 if($GerarHistorico->getResult()):
                     $NovosDadosMensalidade = array();
                     $NovosDadosMensalidade['data_mens_pag'] =  $DataNovaMensalidade;
@@ -89,8 +101,10 @@ else:
                     $NovaMensalidade = new Update;
                     $NovaMensalidade->ExeUpdate('mensalidades', $NovosDadosMensalidade, "WHERE idmensalidade = :idmensalidade", "idmensalidade={$DadosMensalidade[0]['idmensalidade']}");
                     if($NovaMensalidade->getResult()):
-                        $jSon['sucesso'] = "Mensalidade Paga com Sucesso.";
-                        $jSon['registros'] = $NovaMensalidade->getRowCount();
+                        $jSon['sucesso'] = true;
+                        $jSon['idHistorico'] = $GerarHistorico->getResult();
+                        $jSon['novaDataMensalidade'] = Check::DataBrasil($NovosDadosMensalidade['data_mens_pag']);
+                        $jSon['ultimoPagamento'] = Check::DataBrasil($dataHoje);
                     endif;    
                 else: 
                     $jSon['trigger'] = "Não foi possível gerar o histórico de pagamento";
@@ -107,4 +121,3 @@ else:
 endif;
 //USANDO O ECHO OS GATILHOS VOLTA VIA AJAX UTILIZANDO JSON PARA O ARQUIVO JS E LÁ SERÁ INTERPRETADO:
 echo json_encode($jSon);
-
