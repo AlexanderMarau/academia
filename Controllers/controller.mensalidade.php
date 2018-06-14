@@ -12,7 +12,7 @@ $getPost = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 if (count($getPost) == 1):
 
     $getQuery = array_keys($getPost);
-
+    
     $queryPesquisa = (is_int($getQuery[0]) ? $getQuery[0] : strip_tags(str_replace('_', ' ', $getQuery[0])));
 
     $buscarMensalidade = new Read;
@@ -111,6 +111,48 @@ else:
                 endif;
                 // Nessa linha dar um update na mensalidade para a próxima data de acordo com a quantidades de dia do plano
                 
+                break;
+            
+            case 'verificar-status':
+                //Confere e altera o status da mensalidade baseado na data de vencimento da mensalidade.
+                $hoje = date('Y-m-d');
+                $diferenca = date('Y-m-d', strtotime("+5 days", strtotime($hoje)));
+                $atrasadas = new Read();
+                $atrasadas->FullRead("SELECT idmensalidade FROM mensalidades WHERE data_mens_pag < '{$hoje}'");
+                if($atrasadas->getResult()):
+                    $atualizarAtrasadas = new Update;
+                    $novoStatus = array();
+                    $novoStatus['status_mens'] = 'Vencido';
+                    foreach ($atrasadas->getResult() as $e):
+                        extract($e);
+                        $atualizarAtrasadas->ExeUpdate("mensalidades", $novoStatus, "WHERE idmensalidade = :id", "id={$idmensalidade}");                    
+                    endforeach;
+                    $jSon['vencidasUpdate'] = true;    
+                endif;   
+                $atencao = new Read();
+                $atencao->FullRead("SELECT idmensalidade FROM mensalidades WHERE data_mens_pag >= '{$hoje}' AND data_mens_pag <= '{$diferenca}'");
+                if($atencao->getResult()):
+                    $atualizarAtencao = new Update;
+                    $novoStatus = array();
+                    $novoStatus['status_mens'] = 'Atencao';
+                    foreach ($atencao->getResult() as $e):
+                        extract($e);
+                        $atualizarAtencao->ExeUpdate("mensalidades", $novoStatus, "WHERE idmensalidade = :id", "id={$idmensalidade}");                    
+                    endforeach;
+                    $jSon['atencaoUpdate'] = true;    
+                endif;
+                $emAbertas = new Read();
+                $emAbertas->FullRead("SELECT idmensalidade FROM mensalidades WHERE data_mens_pag > '{$diferenca}'");
+                if($emAbertas->getResult()):
+                    $atualizarEmAbertas = new Update;
+                    $novoStatus = array();
+                    $novoStatus['status_mens'] = 'Em Aberto';
+                    foreach ($emAbertas->getResult() as $e):
+                        extract($e);
+                        $atualizarEmAbertas->ExeUpdate("mensalidades", $novoStatus, "WHERE idmensalidade = :id", "id={$idmensalidade}");                    
+                    endforeach;
+                    $jSon['emAbertasUpdate'] = true;
+                endif;
                 break;
 
             default :

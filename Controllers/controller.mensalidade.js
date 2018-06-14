@@ -39,14 +39,24 @@ $(function () {
     });
 
     // Rotina para verificar e atualizar status das mensalidades:
-    function statusMensalidade () {
-        
+    function statusMensalidade() {
+
+        let dados = {callback: "verificar-status", status: true};    
+        $.ajax({
+            url: "Controllers/controller.mensalidade.php",
+            data: dados,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
     }
-
     statusMensalidade();
-
     // Algoritmo para chamar a cada hora a rotina que atualiza o status das mensalidade: statusMensalidade()
-    setInterval(()=>{
+    setInterval(() => {
 
         statusMensalidade();
 
