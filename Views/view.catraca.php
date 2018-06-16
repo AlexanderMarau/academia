@@ -74,7 +74,7 @@
             </div>
             <div class="alert alert-fora">
                 <img class="img-liberado" src="http://localhost/academia/Views/img/proibido.png">
-                <p><b>Aluno não está na academia!</b></p>
+                <p><b>Aluno não existe ou não está na academia!</b></p>
             </div>
             <div class="alert alert-inesistente">
                 <img class="img-liberado" src="http://localhost/academia/Views/img/proibido.png">
@@ -117,7 +117,7 @@
                         "<td>{$nome_aluno}</td>" .
                         "<td>{$hr_entrada_catraca}</td>" .
                         "<td>{$hr_saida_catraca}</td>" .
-                        "<td>{$data_registro}</td>" .
+                        "<td>".Check::DataBrasil($data_registro)."</td>" .
                         "</tr>";
                     endforeach;
                     ?>

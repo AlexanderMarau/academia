@@ -6,7 +6,8 @@ $RelatorioHist = new Read;
 $RelatorioHist->FullRead("SELECT historicos_mensalidades.idhist_pag, alunos_cliente.nome_aluno, planos.nome_plano, historicos_mensalidades.data_mens_pag, historicos_mensalidades.valor_pag " .
         "FROM historicos_mensalidades " .
         "INNER JOIN alunos_cliente ON historicos_mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente " .
-        "INNER JOIN planos ON historicos_mensalidades.idplano = planos.idplano");
+        "INNER JOIN planos ON historicos_mensalidades.idplano = planos.idplano ".
+        "ORDER BY historicos_mensalidades.idhist_pag");
 
 require 'Relatorios/autoload.inc.php';
 
@@ -51,7 +52,7 @@ foreach ($RelatorioHist->getResult() as $e):
                         <td>{$idhist_pag}</td>
                         <td>{$nome_aluno}</td>
                         <td>{$nome_plano}</td>
-                        <td>{$data_mens_pag}</td>
+                        <td>".Check::DataBrasil($data_mens_pag)."</td>
                         <td>{$valor_pag}</td>
                     </tr>
 	</tbody>

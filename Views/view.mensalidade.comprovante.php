@@ -68,7 +68,7 @@ foreach ($ReadHist->getResult() as $e):
                     <td>{$cpf_aluno}</td>
                     <td>{$nome_aluno}</td>
                     <td>{$nome_plano}</td>
-                    <td>R$ {$data_mens_pag}</td>
+                    <td>". Check::DataBrasil($data_mens_pag)."</td>
                     <td>R$ {$valor_pag}</td>
                 </tr>";
 endforeach;

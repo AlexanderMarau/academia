@@ -54,7 +54,7 @@ foreach ($HistCatraca->getResult() as $e):
                         <td>{$nome_aluno}</td>
                         <td>{$hr_entrada_catraca}</td>
                         <td>{$hr_saida_catraca}</td>
-                        <td>{$data_registro}</td>
+                        <td>". Check::DataBrasil($data_registro) ."</td>
                     </tr>
 	</tbody>
 ";
