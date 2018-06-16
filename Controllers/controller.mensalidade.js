@@ -38,10 +38,51 @@ $(function () {
         }
     });
 
+    // ROTINA PARA ESTORNAR PAGAMENTO:
+    $('.estornar-pagamento').on("click", function () {
+
+        let idmensalidade = $(this).attr('idmensalidade');
+        let idalunos_cliente = $(this).attr('idalunos_cliente');
+        let dados = {callback: "estornar-mensalidade", idmensalidade: idmensalidade, idalunos_cliente: idalunos_cliente}
+        $.ajax({
+            url: "Controllers/controller.mensalidade.php",
+            data: dados,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+            },
+            success: function (data) {
+                if(data.error){
+                    alert(data.error);
+                }
+                if(data.a_sucesso){
+                    alert(data.a_sucesso);
+                    $('html').find("td[id='ultimo_pag" + idmensalidade + "']").text(data.a_dt_paga);
+                    $('html').find("td[id='proximo_pag" + idmensalidade + "']").text(data.a_dt_vencimento);
+                }
+                if(data.a_Vencido){
+                    $('html').find("td[id='status" + idmensalidade + "']").text('Vencido').removeClass('blue orange').addClass('red');
+                }
+                if(data.a_EmAberto){
+                    $('html').find("td[id='status" + idmensalidade + "']").text('Em Aberto').removeClass('red orange').addClass('blue');
+                }
+                if(data.sucesso){
+                    alert(data.sucesso);
+                    $('html').find("td[id='proximo_pag" + idmensalidade + "']").text('nenhuma');
+                    $('html').find("td[id='status" + idmensalidade + "']").text('Vencido').removeClass('blue orange').addClass('red');
+                }
+                if(data.primeiro){
+                    $('html').find("td[id='ultimo_pag" + idmensalidade + "']").text('');
+                }
+            }
+        });
+        
+    });
+
     // Rotina para verificar e atualizar status das mensalidades:
     function statusMensalidade() {
 
-        let dados = {callback: "verificar-status", status: true};    
+        let dados = { callback: "verificar-status", status: true };
         $.ajax({
             url: "Controllers/controller.mensalidade.php",
             data: dados,

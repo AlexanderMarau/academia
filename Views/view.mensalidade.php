@@ -91,11 +91,11 @@ $ReadPlanos->ExeRead("planos");
                     "<td>{$idalunos_cliente}</td>" .
                     "<td>{$nome_aluno}</td>" .
                     "<td id='proximo_pag{$idmensalidade}'>" . Check::DataBrasil($data_mens_pag) . "</td>" .
-                    "<td  id='status{$idmensalidade}' class='blue'>{$status_mens}</td>" .
+                    "<td id='status{$idmensalidade}' class='blue'>{$status_mens}</td>" .
                     "<td id='ultimo_pag{$idmensalidade}'>{$dtPagoTratada}</td>" .
                     "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
-                    "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
+                    "<button class='btn btn-danger btn-xs estornar-pagamento' idmensalidade='{$idmensalidade}' idalunos_cliente='{$idalunos_cliente}'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
                     "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
                     "</td>" .
                     "</tr>";
@@ -104,11 +104,11 @@ $ReadPlanos->ExeRead("planos");
                     "<td>{$idalunos_cliente}</td>" .
                     "<td>{$nome_aluno}</td>" .
                     "<td id='proximo_pag{$idmensalidade}'>" . Check::DataBrasil($data_mens_pag) . "</td>" .
-                    "<td  id='status{$idmensalidade}' class='red'>{$status_mens}</td>" .
+                    "<td id='status{$idmensalidade}' class='red'>{$status_mens}</td>" .
                     "<td id='ultimo_pag{$idmensalidade}'>{$dtPagoTratada}</td>" .
                     "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
-                    "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
+                    "<button class='btn btn-danger btn-xs estornar-pagamento' idmensalidade='{$idmensalidade}' idalunos_cliente='{$idalunos_cliente}'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
                     "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
                     "</td>" .
                     "</tr>";
@@ -117,11 +117,11 @@ $ReadPlanos->ExeRead("planos");
                     "<td>{$idalunos_cliente}</td>" .
                     "<td>{$nome_aluno}</td>" .
                     "<td id='proximo_pag{$idmensalidade}'>" . Check::DataBrasil($data_mens_pag) . "</td>" .
-                    "<td  id='status{$idmensalidade}' class='orange'>{$status_mens}</td>" .
+                    "<td id='status{$idmensalidade}' class='orange'>{$status_mens}</td>" .
                     "<td id='ultimo_pag{$idmensalidade}'>{$dtPagoTratada}</td>" .
                     "<td align='right'>" .
                     "<button class='btn btn-success btn-xs open-modal-update j-open-modal-update-mensalidade' idmensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-edit'></i></button></a> " .
-                    "<button class='btn btn-danger btn-xs estornar-pagamento'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
+                    "<button class='btn btn-danger btn-xs estornar-pagamento' idmensalidade='{$idmensalidade}' idalunos_cliente='{$idalunos_cliente}'><i class='glyphicon glyphicon glyphicon-retweet'></i> Estorno</button></a> " .
                     "<button class='btn btn-primary btn-xs gerar-pagamento' j-id-mensalidade='{$idmensalidade}'><i class='glyphicon glyphicon-shopping-cart'></i> Gerar Pagamento</button></a>" .
                     "</td>" .
                     "</tr>";

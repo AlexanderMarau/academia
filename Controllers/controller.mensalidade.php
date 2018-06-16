@@ -112,6 +112,143 @@ else:
                 // Nessa linha dar um update na mensalidade para a próxima data de acordo com a quantidades de dia do plano
                 
                 break;
+
+            case 'estornar-mensalidade':
+                //Verifica as condições da mensalidade selecionada para estornar:
+                $mensalidadeHistorico = new Read;
+                $mensalidadeHistorico->FullRead("SELECT idhist_pag, data_mens_pag, idplano FROM historicos_mensalidades WHERE idalunos_cliente = :idaluno ORDER BY idhist_pag DESC", "idaluno={$getPost['idalunos_cliente']}");
+                if($mensalidadeHistorico->getResult()):
+                    $cadaHistorico = $mensalidadeHistorico->getResult();
+                    $hoje = date('Y-m-d');
+                    $diferenca = strtotime($hoje) - strtotime($cadaHistorico[0]['data_mens_pag']);
+                    $dias = floor($diferenca / (60 * 60 * 24));
+                    // Condição abaixo para verificar se o aluno tem várias mensalidades pagas, ou pagou apenas uma:
+                    if(count($cadaHistorico) > 1):
+                        //Condição abaixo verifica se a diferença de dias da data atual com o último pagamento é superior a 7 dias, caso seja superior a 7 dias não é possível realizar o estorno.
+                        if($dias > 7):
+
+                            $jSon['error'] = "Erro: Não é possível realizar o estorno, pois a quantidade de dias desde o último pagamento é superior ao permitido";
+                        
+                        else:
+
+                            $apagarUltimoHistorico = new Delete;
+                            $apagarUltimoHistorico->ExeDelete("historicos_mensalidades", "WHERE idhist_pag = :idhist", "idhist={$cadaHistorico[0]['idhist_pag']}");
+                            
+                            if($apagarUltimoHistorico->getResult()):
+
+                                // Consultando o plano do penúltimo pagamento, ou seja o anterior ao excluído:
+                                $ConsultaPlano = new Read;
+                                $ConsultaPlano->FullRead("SELECT tipo_plano FROM planos WHERE idplano = {$cadaHistorico[1]['idplano']}");
+                                $DadosPlano = $ConsultaPlano->getResult();
+                                // Definindo a quantidade de tempo até a cobrança da próxima mensalidade:
+                                $somaData = null;
+                                switch ($DadosPlano[0]['tipo_plano']) {
+                                    case '7':
+                                        $somaData = '+7 days';
+                                        break;
+
+                                    case '30':
+                                        $somaData = '+1 month';
+                                        break;
+                                    
+                                    case '60':
+                                        $somaData = '+2 month';
+                                        break;   
+                                    
+                                    case '90':
+                                        $somaData = '+3 month';
+                                        break;    
+                                    
+                                    default:
+                                        $jSon['error'] = "Error: Nenhuma tipo de plano foi escolhido";
+                                        break;
+                                }
+
+                                //array com os dados da nova mensalidade:
+                                $mensalidade = array();
+                                $mensalidade['data_mens_pag'] = date('Y-m-d', strtotime($somaData, strtotime($cadaHistorico[1]['data_mens_pag'])));
+                                
+                                //Condição para saber se a nova cobrança (referente ao penúltimo histórico, ou seja o histórico anterior ao excluído + a quantidade de dias do plano) está em vencido ou não.
+                                if(strtotime($hoje) > strtotime($mensalidade['data_mens_pag'])):
+                                    //Caso a mensalidade esteja vencida, esta data será mesmo assim inserida na mensalidade do aluno, com o status: 'Vencido'.
+                                    $mensalidade['status_mens'] = 'Vencido';
+                                    $jSon['a_Vencido'] = true;
+                                else:
+                                    //Caso a mensalidade não esteja vencida, será gerada uma a nova mensalidade baseada na data de cobrança do histórico anterior ao último histórico (deletado conforme o estorno).
+                                    $mensalidade['status_mens'] = 'Em Aberto';
+                                    $jSon['a_EmAberto'] = true;
+                                endif;
+
+
+                                $atualizarMensalidade = new Update;
+                                $atualizarMensalidade->ExeUpdate("mensalidades", $mensalidade, "WHERE idmensalidade = :idmensalidade", "idmensalidade={$getPost['idmensalidade']}");
+                                
+                                if($atualizarMensalidade->getRowCount()): 
+                                    
+                                    $jSon['a_sucesso'] = "Estorno Realizado com Sucesso";
+                                    $jSon['a_dt_paga'] = Check::DataBrasil($cadaHistorico[1]['data_mens_pag']);
+                                    $jSon['a_dt_vencimento'] = Check::DataBrasil($mensalidade['data_mens_pag']);
+                                
+                                else:
+
+                                    $jSon['error'] = "Erro: Foi possível apagar o histórico, mas algo aconteceu que não foi possível atualizar a mensalidade selecionada."; 
+                                
+                                endif;
+                                
+                            else:
+
+                                $jSon['error'] = "Ops, algo aconteceu que não foi possível excluir o último histórico.";
+                            
+                            endif;   
+
+                        endif;
+                    else:
+                        //Condição abaixo verifica se a diferença de dias da data atual com o último pagamento é superior a 7 dias, caso seja superior a 7 dias não é possível realizar o estorno.
+                        if($dias > 7):
+
+                            $jSon['error'] = "Erro: Não é possível realizar o estorno, pois a quantidade de dias desde o último pagamento é superior ao permitido";
+                        
+                        else:
+
+                            $apagarUltimoHistorico = new Delete;
+                            $apagarUltimoHistorico->ExeDelete("historicos_mensalidades", "WHERE idhist_pag = :idhist", "idhist={$cadaHistorico[0]['idhist_pag']}");
+                            
+                            if($apagarUltimoHistorico->getResult()):
+
+                                $mensalidade = array();
+                                $mensalidade['data_mens_pag'] = '0000-00-00';
+                                $mensalidade['status_mens'] = 'Vencido';
+                                $atualizarMensalidade = new Update;
+                                $atualizarMensalidade->ExeUpdate("mensalidades", $mensalidade, "WHERE idmensalidade = :idmensalidade", "idmensalidade={$getPost['idmensalidade']}");
+                                
+                                if($atualizarMensalidade->getRowCount()): 
+                                    
+                                    $jSon['sucesso'] = "Estorno Realizado com Sucesso";
+                                    $jSon['primeiro'] = true;
+                                
+                                else:
+
+                                    $jSon['error'] = "Erro: Foi possível apagar o histórico, mas algo aconteceu que não foi possível atualizar a mensalidade selecionada."; 
+                                
+                                endif;
+                                
+                            else:
+
+                                $jSon['error'] = "Ops, algo aconteceu que não foi possível excluir o último histórico.";
+                            
+                            endif;    
+                            
+                        endif;
+
+                    endif; 
+                            
+                else:
+
+                    $jSon['error'] = "Erro: A matrícula do aluno selecionado não possui qualquer histórico";
+                
+                endif; 
+
+                break;
             
             case 'verificar-status':
                 //Confere e altera o status da mensalidade baseado na data de vencimento da mensalidade.

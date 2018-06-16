@@ -1,9 +1,8 @@
 <?php
 
 /**
- * <b>Delete.class:</b>
- * Classe responsável por deletar genéricamente no banco de dados!
- * 
+ * <b>Delete.class</b>
+ * Classe Responsável por realizar exclusões genéricas no banco de dados.
  */
 class Delete {
 
@@ -23,6 +22,14 @@ class Delete {
         $this->Conn = Conn::getConn();
     }
 
+    /**
+    * <b>ExeDelete:</b> É o método facilitador da classe. Ele executa uma exclusão simplificada no banco de dados.
+    * 
+    * @param STRING $tabela Digite aqui o nome de uma tabela no Banco para Excluir registros.
+    * @param STRING $termos Digite aqui os termos ou condições para que seja feita a exclusão na tabela. Ex: "WHERE id = :id". 
+    * @param STRING $parseString Digite aqui a parseString da condição SETADA anteriormente. Ex: "id=5";
+    * 
+    */
     public function ExeDelete($Tabela, $Termos, $ParseString) {
         $this->Tabela = (string) $Tabela;
         $this->Termos = (string) $Termos;
@@ -32,14 +39,24 @@ class Delete {
         $this->Execute();
     }
 
+    /**
+     * <b>getResult</b> : Método responsável por retornar o resultado da execução da Query.
+     */
     public function getResult() {
         return $this->Result;
     }
 
+    /**
+     * <b>getRowCount</b> : Método responsável por retornar quantos resultados a execução da QUERY obteve.
+     */
     public function getRowCount() {
         return $this->Delete->rowCount();
     }
 
+    /**
+     * <b>setPlaces</b> 
+     * 
+     */
     public function setPlaces($ParseString) {
         parse_str($ParseString, $this->Places);
         $this->getSyntax();
