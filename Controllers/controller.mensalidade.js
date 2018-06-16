@@ -1,5 +1,55 @@
 $(function () {
 
+    //ROTINA PARA EDITAR MENSALIDADE:
+
+    //Evento quando o botão editar mensalidade é clicado:
+    $('html').on('click', '.j-open-modal-update-mensalidade', function(){
+        let idmensalidade = $(this).attr('idmensalidade');
+        let form = $(".j-form-update-mensalidade");
+        form.find("input[name='idmensalidade']").val(idmensalidade);
+        let dados = {callback: "consultar-dados-mensalidade", idmensalidade: idmensalidade};
+        $.ajax({
+            url: "Controllers/controller.mensalidade.php",
+            data: dados,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+            },
+            success: function (data) {
+                if(data.dados_mensalidade){
+                    let dados = data.dados_mensalidade;
+                    form.find("select[name='idplano']").val(dados.idplano);
+                    form.find("input[name='data_mens_pag']").val(dados.data_mens_pag);
+                }
+            }
+        });
+    });
+
+    //Evento ao formulário de edição de mensalidade ser submetido:
+    $(".j-form-update-mensalidade").submit(function(){
+        let form = $(this);
+        let dados = form.serialize();
+        $.ajax({
+            url: "Controllers/controller.mensalidade.php",
+            data: dados,
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+            },
+            success: function (data) {
+                if(data.sucesso){
+                    alert(data.sucesso);
+                    $('html').find("td[id='proximo_pag" + data.idmensalidade + "']").text(data.dt_vencimento);
+                }
+                if(data.error){
+                    alert(data.error);
+                }
+            }
+        });
+        return false //Evita que o formulário faça uma nova requisição http.
+    });
+
+
     // ROTINA PARA GERAR PAGAMENTO:
     $('.gerar-pagamento').click(function () {
         var idmensalidade = $(this).attr('j-id-mensalidade');
@@ -39,7 +89,7 @@ $(function () {
     });
 
     // ROTINA PARA ESTORNAR PAGAMENTO:
-    $('.estornar-pagamento').on("click", function () {
+    $('html').on("click", '.estornar-pagamento', function () {
 
         let idmensalidade = $(this).attr('idmensalidade');
         let idalunos_cliente = $(this).attr('idalunos_cliente');

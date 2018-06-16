@@ -37,12 +37,13 @@ $ReadPlanos->ExeRead("planos");
             <input type="hidden" name="idmensalidade" value="">
             <div class="form-group col-md-3">
                 <label>Plano de Mensalidade</label>
-                <select name="idplano" class="form-control">
+                <select name="idplano" class="form-control" required>
+                    <option value="" selected disabled>Selecione um plano</option>
                     <?php
-                    foreach ($ReadPlanos->getResult() as $i) :
-                        extract($i);
-                    echo "<option value='{$idplano}'>{$nome_plano}</option>";
-                    endforeach;
+                        foreach ($ReadPlanos->getResult() as $i) :
+                            extract($i);
+                        echo "<option value='{$idplano}'>{$nome_plano}</option>";
+                        endforeach;
                     ?>
                 </select>
             </div>

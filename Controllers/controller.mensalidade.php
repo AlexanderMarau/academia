@@ -45,6 +45,35 @@ else:
         unset($Post['callback']);
 
         switch ($Action):
+            case 'consultar-dados-mensalidade':
+                $consultaMensalidade = new Read;
+                $consultaMensalidade->ExeRead("mensalidades", "WHERE idmensalidade = :id", "id={$getPost['idmensalidade']}");
+                if($consultaMensalidade->getResult()):
+                    $dadosMensalidade = $consultaMensalidade->getResult();
+                    $jSon['dados_mensalidade'] = $dadosMensalidade[0];                    
+                else:
+                    $jSon['error'] = "Mensalidade Inválida";
+                endif; 
+
+                break;
+
+            case 'update-mensalidade':
+                unset($getPost['callback']);
+                $idmensalidade = $getPost['idmensalidade'];
+                unset($getPost['idmensalidade']);
+                $updateMensalidade = new Update;
+                $updateMensalidade->ExeUpdate("mensalidades", $getPost, "WHERE idmensalidade = :id", "id={$idmensalidade}");
+                if($updateMensalidade->getRowCount()):
+                    $totalRegistros = $updateMensalidade->getRowCount();    
+                    $jSon['sucesso'] = "{$totalRegistros} Mensalidade atualizada com sucesso!";
+                    $jSon['dt_vencimento'] = Check::DataBrasil($getPost['data_mens_pag']);
+                    $jSon['idmensalidade'] = $idmensalidade;
+                else:
+                    $jSon['error'] = 'Ops! parece que as atualizações que você fez já são as mesmas que estão no banco de dados.';
+                endif; 
+
+                break;
+
             case 'pagar-mensalidade':
                 $dataHoje = date('Y-m-d');
                 $ConsultaMensalidade = new Read;
