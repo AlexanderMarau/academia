@@ -2,84 +2,75 @@
 
 require '../_app/Config.inc.php';
 
-$RelatorioMensalidades = new Read;
-$RelatorioMensalidades->FullRead("SELECT mensalidades.idmensalidades, alunos_cliente.nome_aluno, mensalidades.data_mens_pag, "
-        . "mensalidades.data_mens_pag, mensalidades.valor_mensalidades, mensalidades.status_mensalidades, mensalidades.obs_mensalidades "
-        . "FROM mensalidades "
-        . "INNER JOIN alunos_cliente "
-        . "ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente");
+$Mensalidades = new Read;
+$Mensalidades->FullRead("SELECT mensalidades.idmensalidade, alunos_cliente.nome_aluno, planos.nome_plano,
+        mensalidades.data_mens_pag, mensalidades.status_mens
+        FROM mensalidades 
+        INNER JOIN alunos_cliente ON mensalidades.idalunos_cliente = alunos_cliente.idalunos_cliente
+        INNER JOIN planos ON mensalidades.idplano = planos.idplano
+        ORDER BY mensalidades.idmensalidade");
 
 require 'Relatorios/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
-$html = "        <head>    
-                <meta charset='UTF-8'>
-                <title>Relátorio de Mensalidades</title>
-                <style>
-                 table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;
-}          </style>
-            </head>
-
-            <h1>Performance Academia</h1>
-
-            <h2>Relátorio de todas Mensalidades</h2>
-            
-<table  style='width:100%'>";
-
-foreach ($RelatorioMensalidades->getResult() as $e):
+$html = "<link rel='stylesheet' type='text/css' href='../_cdn/bootstrap/css/bootstrap.min.css'>
+        <title>Histórico da Mensalidades</title>
+	<table class='table' style='background-color: #99ccff;'>
+		<tr>
+			<th>
+				<img style='width: 220px; height: 200px;' src='img/logoAcademia.png'>
+			</th>
+			<th style='width: 100%; background-color: #99ccff;'>
+				<div style='color: white;'>
+					<p>Academia Performance Fit</p>
+					<p>Endereço:Rua Dr. Soares QD. 05, LT. 48</p>
+					<p>Bairro: Colina Azul</p>
+					<p>Municipio: Aparecida de Goiânia GO CEP 00000-000</p>
+				</div>	
+				<div style='margin-top: 20px; font-size: 30px; color: black;'> 
+					<label>Mensalidades</label>
+				</div>			
+			</th>
+		</tr>
+	</table>
+        <table style='background-color: #99ccff; font-size: 10px;' class='table table-striped'>
+		<thead style='background-color: black; font-size: 14px;'>
+			<tr style='color: white;'>
+				<th>ID do Registro</th>
+				<th>Aluno</th>
+                                <th>Plano</th>
+				<th>Data de Pagamento</th>
+				<th>Status</th>				
+			</tr>
+		</thead>
+";
+foreach ($Mensalidades->getResult() as $e):
     extract($e);
 
-    $html .= "<tr>"
-            . "<th>ID</th>"
-            . "<td>{$idmensalidades}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Matricula do Aluno</th>"
-            . "<td>{$nome_aluno}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Data de Pagamento</th>"
-            . "<td>{$data_mens_pag}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Valor</th>"
-            . "<td>{$valor_mensalidades}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Status</th>"
-            . "<td>{$status_mensalidades}</td>"
-            . "</tr>"
-            . "<tr>"
-            . "<th>Observação</th>"
-            . "<td>{$obs_mensalidades}</td>"
-            . "</tr>"
-            . "<tr style='background-color: red;'>"
-            . "<th></th>"
-            . "<td></td>"
-            . "</tr>";
+    $html .= "<tbody>
+                    <tr>
+                        <td>{$idmensalidade}</td>
+                        <td>{$nome_aluno}</td>
+                        <td>{$nome_plano}</td>
+                        <td>". Check::DataBrasil($data_mens_pag)."</td>
+                        <td>{$status_mens}</td>
+                    </tr>
+	</tbody>
+";
 endforeach;
 
-
-$html .= "</table>";
+$html .= "</table>
+        <script type='text/javascript' src='../_cdn/bootstrap/js/bootstrap.min.css'></script>
+";
 
 $dompdf = new Dompdf();
 
 $dompdf->loadHtml($html);
 
-$dompdf->set_paper('a4');
+$dompdf->set_paper('a4', 'landscape');
 
 $dompdf->render();
 
-$dompdf->stream("
-relatorioMensalidades.pdf
-", array(
-    "Attachment" => false)
-);
+$dompdf->stream('Mensalidades.pdf', array('Attachment' => false));
 ?>

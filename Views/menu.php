@@ -10,7 +10,7 @@
                     <li><a href="view.aluno">Alunos</a></li>
                     <li><a href="view.anamneses">Anamneses</a></li>
                     <li><a href="view.equipamento">Equipamentos</a></li>
-                    <li><a href="view.fornecedor">Forncedores</a></li>
+                    <li><a href="view.fornecedor">Fornecedores</a></li>
                     <li><a href="view.funcionario">Funcionários</a></li>
                     <li><a href="view.produto">Produtos</a></li>
                     <li><a href="view.usuario">Usuários</a></li>

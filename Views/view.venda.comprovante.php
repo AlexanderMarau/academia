@@ -41,7 +41,7 @@ foreach ($ComprovanteVenda->getResult() as $e):
                     </td>
                     <td class='table-nota' width='30%'>
                         <p>Número do documento: <b>{$idvendas}</b></p>
-                        <p>Data de Emissão: <b>{$data_venda}</b></p>
+                        <p>Data de Emissão: <b>". Check::DataBrasil($data_venda)."</b></p>
                         <p>Data de Vencimento: </p>
                     </td>
                 </tr>

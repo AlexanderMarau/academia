@@ -50,7 +50,7 @@ $(function () {
                 setTimeout(function () {
                         $('.alert-warning').fadeOut();
                     }, 3000);
-                if (data.insesistente) {
+                if (data.inesistente) {
                     $('.alert-inesistente').fadeIn();
                 }
                 setTimeout(function () {
